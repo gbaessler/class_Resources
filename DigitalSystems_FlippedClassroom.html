@@ -1,0 +1,2163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Solutions — IoT & ML Flipped Classroom</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0A0E1A;
+  --surface: #111827;
+  --surface2: #1a2235;
+  --border: #1e2d45;
+  --text: #E8EDF5;
+  --muted: #6B7A99;
+  --accent: #00D4FF;
+  --accent2: #7C3AED;
+  --accent3: #10B981;
+  --accent4: #F59E0B;
+  --accent5: #EF4444;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Outfit', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ===== GRID BACKGROUND ===== */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== HEADER ===== */
+header {
+  position: relative;
+  z-index: 10;
+  padding: 0 40px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(10,14,26,0.95);
+  backdrop-filter: blur(20px);
+  position: sticky;
+  top: 0;
+}
+
+.header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-mark {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: white;
+}
+
+.logo-text {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.logo-text span { color: var(--accent); }
+
+nav { display: flex; gap: 6px; }
+
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+nav a:hover { color: var(--text); background: var(--surface2); }
+
+.progress-bar-container {
+  width: 140px;
+  height: 6px;
+  background: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 3px;
+  width: 0%;
+  transition: width 0.3s;
+}
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  z-index: 1;
+  padding: 80px 40px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,212,255,0.08);
+  border: 1px solid rgba(0,212,255,0.2);
+  color: var(--accent);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.hero h1 {
+  font-size: clamp(38px, 6vw, 72px);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -2px;
+  margin-bottom: 20px;
+}
+
+.hero h1 .line1 { display: block; color: var(--text); }
+.hero h1 .line2 {
+  display: block;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-desc {
+  font-size: 18px;
+  color: var(--muted);
+  max-width: 600px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  font-weight: 400;
+}
+
+.hero-meta {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.meta-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.meta-pill .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* ===== HOW TO USE ===== */
+.how-to-use {
+  position: relative;
+  z-index: 1;
+  padding: 0 40px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+  max-width: 120px;
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.step-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.step-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+}
+
+.step-card:nth-child(1)::before { background: var(--accent); }
+.step-card:nth-child(2)::before { background: var(--accent2); }
+.step-card:nth-child(3)::before { background: var(--accent3); }
+.step-card:nth-child(4)::before { background: var(--accent4); }
+
+.step-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0.4;
+  margin-bottom: 10px;
+  letter-spacing: 0.1em;
+}
+
+.step-icon { font-size: 28px; margin-bottom: 10px; }
+.step-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.step-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+/* ===== CASE STUDY CARDS ===== */
+.case-studies-section {
+  position: relative;
+  z-index: 1;
+  padding: 20px 40px 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 7px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--sans);
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--mono);
+}
+
+.filter-btn:hover, .filter-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+.cases-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.case-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.case-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,212,255,0.1);
+}
+
+.case-card-header {
+  padding: 24px 24px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.case-category {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  display: inline-block;
+}
+
+.cat-agri { background: rgba(16,185,129,0.12); color: var(--accent3); border: 1px solid rgba(16,185,129,0.2); }
+.cat-city { background: rgba(0,212,255,0.1); color: var(--accent); border: 1px solid rgba(0,212,255,0.2); }
+.cat-health { background: rgba(239,68,68,0.1); color: var(--accent5); border: 1px solid rgba(239,68,68,0.2); }
+.cat-wildlife { background: rgba(245,158,11,0.1); color: var(--accent4); border: 1px solid rgba(245,158,11,0.2); }
+.cat-industry { background: rgba(124,58,237,0.1); color: var(--accent2); border: 1px solid rgba(124,58,237,0.2); }
+
+.case-emoji { font-size: 40px; margin-bottom: 12px; display: block; }
+.case-title { font-size: 18px; font-weight: 800; line-height: 1.2; margin-bottom: 6px; }
+.case-subtitle { font-size: 13px; color: var(--muted); line-height: 1.4; }
+
+.case-card-body { padding: 20px 24px; }
+
+.case-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 10px;
+  background: var(--surface2);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  font-family: var(--mono);
+}
+
+.case-stats {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-val {
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+  display: block;
+}
+
+.stat-label {
+  font-size: 10px;
+  color: var(--muted);
+  font-family: var(--mono);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.open-btn {
+  width: 100%;
+  background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(124,58,237,0.1));
+  border: 1px solid rgba(0,212,255,0.25);
+  color: var(--accent);
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--sans);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.open-btn:hover {
+  background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(124,58,237,0.2));
+  border-color: var(--accent);
+}
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.modal-overlay.open { display: flex; }
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  overflow: hidden;
+  animation: modalIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-header {
+  padding: 32px 36px 24px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.modal-close:hover { color: var(--text); border-color: var(--muted); }
+
+.modal-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  padding: 0 36px;
+  background: var(--surface);
+}
+
+.modal-tab {
+  padding: 14px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--mono);
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  white-space: nowrap;
+  background: none;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+
+.modal-tab:hover { color: var(--text); }
+.modal-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+.modal-body { padding: 32px 36px; }
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ===== CONTENT BLOCKS ===== */
+.content-section { margin-bottom: 28px; }
+
+.content-section h3 {
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--mono);
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.content-section h3::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.info-block {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.info-block-label {
+  font-size: 10px;
+  font-family: var(--mono);
+  font-weight: 700;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.info-block ul {
+  list-style: none;
+  padding: 0;
+}
+
+.info-block li {
+  font-size: 13px;
+  color: var(--text);
+  padding: 3px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.info-block li::before {
+  content: '→';
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* IPO TABLE */
+.ipo-table {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr 1fr;
+  gap: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.ipo-col-header {
+  padding: 10px 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.ipo-col-header.input { background: rgba(0,212,255,0.12); color: var(--accent); }
+.ipo-col-header.process { background: rgba(16,185,129,0.12); color: var(--accent3); }
+.ipo-col-header.output { background: rgba(245,158,11,0.12); color: var(--accent4); }
+
+.ipo-col-body {
+  padding: 14px 16px;
+  background: var(--surface2);
+  border-top: 1px solid var(--border);
+}
+
+.ipo-col-body:not(:last-child) { border-right: 1px solid var(--border); }
+
+.ipo-col-body ul { list-style: none; }
+.ipo-col-body li {
+  font-size: 12px;
+  padding: 3px 0;
+  color: var(--text);
+  display: flex;
+  gap: 8px;
+}
+
+.ipo-col-body li::before { content: '·'; color: var(--muted); font-size: 16px; line-height: 1.2; flex-shrink: 0; }
+
+/* PSEUDOCODE */
+.code-window {
+  background: #080d14;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.code-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #0d1421;
+  border-bottom: 1px solid var(--border);
+}
+
+.dot-r { width: 10px; height: 10px; border-radius: 50%; background: #FF5F57; }
+.dot-y { width: 10px; height: 10px; border-radius: 50%; background: #FFBD2E; }
+.dot-g { width: 10px; height: 10px; border-radius: 50%; background: #28C840; }
+
+.code-filename {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  margin-left: 6px;
+}
+
+.code-body {
+  padding: 16px 20px;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.8;
+  overflow-x: auto;
+}
+
+.kw { color: #79C0FF; }
+.fn { color: #D2A8FF; }
+.str { color: #A5D6FF; }
+.cm { color: #6B7A99; font-style: italic; }
+.val { color: #FFA657; }
+.op { color: #FF7B72; }
+.ln { color: #333d52; min-width: 28px; display: inline-block; text-align: right; margin-right: 16px; user-select: none; }
+
+/* FLOWCHART */
+.flowchart-embed {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+/* EXAM QUESTIONS */
+.exam-q {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 14px;
+  position: relative;
+}
+
+.exam-q-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.q-num {
+  background: linear-gradient(135deg, var(--accent2), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.q-marks {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent4);
+  background: rgba(245,158,11,0.1);
+  border: 1px solid rgba(245,158,11,0.2);
+  padding: 3px 9px;
+  border-radius: 10px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.q-text {
+  font-size: 14px;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.q-topic {
+  font-size: 10px;
+  font-family: var(--mono);
+  color: var(--muted);
+  margin-bottom: 6px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.answer-reveal {
+  display: none;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.answer-reveal.show { display: block; }
+
+.answer-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent3);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.answer-text {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+  background: rgba(16,185,129,0.06);
+  border: 1px solid rgba(16,185,129,0.15);
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+.reveal-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: var(--mono);
+  margin-top: 10px;
+}
+
+.reveal-btn:hover { border-color: var(--accent3); color: var(--accent3); }
+
+/* DFD DIAGRAM */
+.dfd-container { overflow-x: auto; display: flex; justify-content: center; }
+
+/* VIDEO RESOURCES */
+.video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.video-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.video-thumb {
+  background: linear-gradient(135deg, rgba(0,212,255,0.1), rgba(124,58,237,0.15));
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-bottom: 1px solid var(--border);
+}
+
+.play-btn {
+  width: 44px;
+  height: 44px;
+  background: rgba(0,212,255,0.2);
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: var(--accent);
+}
+
+.video-duration {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  background: rgba(0,0,0,0.4);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.video-info { padding: 12px; }
+.video-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.video-source { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+
+/* MIND MAP + DFD TABS VISUAL */
+.vocab-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.vocab-card {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  transition: all 0.2s;
+  cursor: help;
+}
+
+.vocab-card:hover { border-color: var(--accent); }
+
+.vocab-term {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.vocab-def {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* CONSTRAINT ANALYSIS */
+.constraint-list { display: flex; flex-direction: column; gap: 10px; }
+
+.constraint-item {
+  display: grid;
+  grid-template-columns: 140px 1fr 1fr;
+  gap: 12px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 13px;
+  align-items: start;
+}
+
+.constraint-type {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent4);
+}
+
+.constraint-problem { color: var(--text); }
+.constraint-solution { color: var(--accent3); }
+
+/* COMPARISON TABLE */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.compare-table th {
+  background: var(--surface2);
+  padding: 10px 14px;
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.compare-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  color: var(--text);
+}
+
+.compare-table tr:hover td { background: rgba(0,212,255,0.03); }
+
+/* PROGRESS TRACKER */
+.progress-section {
+  position: relative;
+  z-index: 1;
+  padding: 0 40px 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.progress-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+
+.progress-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  user-select: none;
+}
+
+.progress-item:hover { border-color: var(--accent); }
+.progress-item.done { border-color: var(--accent3); background: rgba(16,185,129,0.06); }
+
+.progress-item-emoji { font-size: 24px; margin-bottom: 6px; }
+.progress-item-label { font-size: 11px; color: var(--muted); font-weight: 500; }
+.progress-item-check {
+  margin-top: 8px;
+  font-size: 11px;
+  font-family: var(--mono);
+  color: var(--accent3);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.progress-item.done .progress-item-check { opacity: 1; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .cases-grid { grid-template-columns: 1fr 1fr; }
+  .steps-grid { grid-template-columns: 1fr 1fr; }
+  .progress-grid { grid-template-columns: repeat(3, 1fr); }
+  .info-grid { grid-template-columns: 1fr; }
+  .vocab-grid { grid-template-columns: 1fr 1fr; }
+  .hero { padding: 40px 20px 30px; }
+  .case-studies-section, .how-to-use, .progress-section { padding-left: 20px; padding-right: 20px; }
+}
+
+@media (max-width: 600px) {
+  .cases-grid { grid-template-columns: 1fr; }
+  .modal-body { padding: 20px; }
+  .modal-header { padding: 20px; }
+  .modal-tabs { padding: 0 20px; overflow-x: auto; }
+  .constraint-item { grid-template-columns: 1fr; }
+  .ipo-table { grid-template-columns: 1fr; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* Checkmark glow */
+.done-glow { box-shadow: 0 0 20px rgba(16,185,129,0.2); }
+
+.badge-new {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  background: var(--accent5);
+  color: white;
+  padding: 1px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-mark">DS</div>
+      <div class="logo-text">Digital Solutions <span>Year 11</span></div>
+    </div>
+    <nav>
+      <a href="#howto">How To Use</a>
+      <a href="#cases">Case Studies</a>
+      <a href="#progress">My Progress</a>
+    </nav>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span style="font-family:var(--mono);font-size:11px;color:var(--muted);">COMPLETION</span>
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="mainProgress"></div>
+      </div>
+      <span style="font-family:var(--mono);font-size:11px;color:var(--accent);" id="progressPct">0%</span>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Flipped Classroom Resource</div>
+  <h1>
+    <span class="line1">IoT & Machine Learning</span>
+    <span class="line2">Case Study Lab</span>
+  </h1>
+  <p class="hero-desc">Complete each case study <em>before</em> class. Build your IPO charts, practise pseudocode, and master DFDs so you're ready for the exam.</p>
+  <div class="hero-meta">
+    <div class="meta-pill"><span class="dot" style="background:var(--accent)"></span> Unit 1 · Topics 1 & 3</div>
+    <div class="meta-pill"><span class="dot" style="background:var(--accent2)"></span> 6 Case Studies</div>
+    <div class="meta-pill"><span class="dot" style="background:var(--accent3)"></span> 30+ Exam Questions</div>
+    <div class="meta-pill"><span class="dot" style="background:var(--accent4)"></span> Self-paced · ~45 min each</div>
+  </div>
+</section>
+
+<!-- HOW TO USE -->
+<section class="how-to-use" id="howto">
+  <div class="section-label">How to use this resource</div>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">STEP 01</div>
+      <div class="step-icon">🎬</div>
+      <div class="step-title">Watch Before Class</div>
+      <div class="step-desc">Each case study links to short explainer videos. Watch them at home — pause, rewind, take notes.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">STEP 02</div>
+      <div class="step-icon">🔍</div>
+      <div class="step-title">Analyse the System</div>
+      <div class="step-desc">Read the system overview. Identify hardware, software, stakeholders, constraints and success criteria.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">STEP 03</div>
+      <div class="step-icon">✏️</div>
+      <div class="step-title">Build Your Artefacts</div>
+      <div class="step-desc">Complete the IPO chart, write pseudocode, and sketch your flowchart and DFD in your workbook.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">STEP 04</div>
+      <div class="step-icon">📝</div>
+      <div class="step-title">Answer Exam Questions</div>
+      <div class="step-desc">Attempt the practice questions first, then reveal the model answers. Bring questions to class.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section class="case-studies-section" id="cases">
+  <div class="section-label">Case Studies</div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterCases('all', this)">All</button>
+    <button class="filter-btn" onclick="filterCases('agri', this)">🌾 Agriculture</button>
+    <button class="filter-btn" onclick="filterCases('city', this)">🏙️ Smart Cities</button>
+    <button class="filter-btn" onclick="filterCases('health', this)">🏥 Health</button>
+    <button class="filter-btn" onclick="filterCases('wildlife', this)">🐾 Wildlife</button>
+    <button class="filter-btn" onclick="filterCases('industry', this)">🏭 Industry</button>
+  </div>
+
+  <div class="cases-grid" id="casesGrid">
+
+    <!-- CASE 1: Smart Irrigation -->
+    <div class="case-card" data-cat="agri" id="card-0">
+      <div class="case-card-header">
+        <span class="case-category cat-agri">Agriculture</span>
+        <span class="case-emoji">🌾</span>
+        <div class="case-title">Smart Irrigation System</div>
+        <div class="case-subtitle">CropX / Hortau — ML-driven soil moisture monitoring & automated watering</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-tags">
+          <span class="tag">IoT Sensors</span>
+          <span class="tag">Edge ML</span>
+          <span class="tag">Actuators</span>
+          <span class="tag">Weather API</span>
+        </div>
+        <div class="case-stats">
+          <div class="stat"><span class="stat-val">4</span><span class="stat-label">Sensors</span></div>
+          <div class="stat"><span class="stat-val">30%</span><span class="stat-label">Water saved</span></div>
+          <div class="stat"><span class="stat-val">Topic 1+3</span><span class="stat-label">Coverage</span></div>
+        </div>
+        <button class="open-btn" onclick="openCase(0)">▶ Open Learning Module</button>
+      </div>
+    </div>
+
+    <!-- CASE 2: Bushfire Detection -->
+    <div class="case-card" data-cat="agri" id="card-1">
+      <div class="case-card-header">
+        <span class="case-category cat-agri">Environment</span>
+        <span class="case-emoji">🔥</span>
+        <div class="case-title">Bushfire Early Detection</div>
+        <div class="case-subtitle">Dryad Networks — Forest IoT sensor mesh with edge ML fire classification</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-tags">
+          <span class="tag">Acoustic</span>
+          <span class="tag">Gas Sensors</span>
+          <span class="tag">Edge AI</span>
+          <span class="tag">Satellite</span>
+        </div>
+        <div class="case-stats">
+          <div class="stat"><span class="stat-val">5</span><span class="stat-label">Sensor types</span></div>
+          <div class="stat"><span class="stat-val">5 min</span><span class="stat-label">Detection lag</span></div>
+          <div class="stat"><span class="stat-val">Topic 1+3</span><span class="stat-label">Coverage</span></div>
+        </div>
+        <button class="open-btn" onclick="openCase(1)">▶ Open Learning Module</button>
+      </div>
+    </div>
+
+    <!-- CASE 3: Traffic Signals -->
+    <div class="case-card" data-cat="city" id="card-2">
+      <div class="case-card-header">
+        <span class="case-category cat-city">Smart Cities</span>
+        <span class="case-emoji">🚦</span>
+        <div class="case-title">Adaptive Traffic Control</div>
+        <div class="case-subtitle">Surtrac — Real-time ML signal timing that adapts to live traffic flow</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-tags">
+          <span class="tag">Cameras</span>
+          <span class="tag">Loop Detectors</span>
+          <span class="tag">Real-time ML</span>
+          <span class="tag">V2I</span>
+        </div>
+        <div class="case-stats">
+          <div class="stat"><span class="stat-val">40%</span><span class="stat-label">Wait reduced</span></div>
+          <div class="stat"><span class="stat-val">25%</span><span class="stat-label">Less emissions</span></div>
+          <div class="stat"><span class="stat-val">Topic 1+3</span><span class="stat-label">Coverage</span></div>
+        </div>
+        <button class="open-btn" onclick="openCase(2)">▶ Open Learning Module</button>
+      </div>
+    </div>
+
+    <!-- CASE 4: Falls Detection -->
+    <div class="case-card" data-cat="health" id="card-3">
+      <div class="case-card-header">
+        <span class="case-category cat-health">Health</span>
+        <span class="case-emoji">⌚</span>
+        <div class="case-title">Elderly Falls Detection</div>
+        <div class="case-subtitle">Wearable accelerometer + gyroscope with on-device ML alert system</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-tags">
+          <span class="tag">Wearable</span>
+          <span class="tag">On-Device ML</span>
+          <span class="tag">BLE</span>
+          <span class="tag">Alert System</span>
+        </div>
+        <div class="case-stats">
+          <div class="stat"><span class="stat-val">98%</span><span class="stat-label">Recall</span></div>
+          <div class="stat"><span class="stat-val">&lt;2s</span><span class="stat-label">Response</span></div>
+          <div class="stat"><span class="stat-val">Topic 1+3</span><span class="stat-label">Coverage</span></div>
+        </div>
+        <button class="open-btn" onclick="openCase(3)">▶ Open Learning Module</button>
+      </div>
+    </div>
+
+    <!-- CASE 5: Acoustic Poaching Detection -->
+    <div class="case-card" data-cat="wildlife" id="card-4">
+      <div class="case-card-header">
+        <span class="case-category cat-wildlife">Wildlife</span>
+        <span class="case-emoji">🎧</span>
+        <div class="case-title">Acoustic Anti-Poaching</div>
+        <div class="case-subtitle">Rainforest Connection — Solar-powered acoustic AI detecting gunshots & chainsaws</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-tags">
+          <span class="tag">Acoustic IoT</span>
+          <span class="tag">Solar</span>
+          <span class="tag">Edge ML</span>
+          <span class="tag">Satellite</span>
+        </div>
+        <div class="case-stats">
+          <div class="stat"><span class="stat-val">25 km²</span><span class="stat-label">Coverage</span></div>
+          <div class="stat"><span class="stat-val">90s</span><span class="stat-label">Alert time</span></div>
+          <div class="stat"><span class="stat-val">Topic 1+3</span><span class="stat-label">Coverage</span></div>
+        </div>
+        <button class="open-btn" onclick="openCase(4)">▶ Open Learning Module</button>
+      </div>
+    </div>
+
+    <!-- CASE 6: Predictive Maintenance -->
+    <div class="case-card" data-cat="industry" id="card-5">
+      <div class="case-card-header">
+        <span class="case-category cat-industry">Industry</span>
+        <span class="case-emoji">⚙️</span>
+        <div class="case-title">Predictive Maintenance</div>
+        <div class="case-subtitle">Mining / Manufacturing — Vibration & thermal IoT sensors predicting machine failure</div>
+      </div>
+      <div class="case-card-body">
+        <div class="case-tags">
+          <span class="tag">Vibration</span>
+          <span class="tag">Thermal</span>
+          <span class="tag">Anomaly ML</span>
+          <span class="tag">SCADA</span>
+        </div>
+        <div class="case-stats">
+          <div class="stat"><span class="stat-val">72hr</span><span class="stat-label">Failure forecast</span></div>
+          <div class="stat"><span class="stat-val">$2M+</span><span class="stat-label">Downtime saved</span></div>
+          <div class="stat"><span class="stat-val">Topic 1+3</span><span class="stat-label">Coverage</span></div>
+        </div>
+        <button class="open-btn" onclick="openCase(5)">▶ Open Learning Module</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROGRESS TRACKER -->
+<section class="progress-section" id="progress">
+  <div class="section-label">My Progress</div>
+  <div class="progress-grid" id="progressGrid">
+    <div class="progress-item" onclick="toggleDone(0)">
+      <div class="progress-item-emoji">🌾</div>
+      <div class="progress-item-label">Smart Irrigation</div>
+      <div class="progress-item-check">✓ Done</div>
+    </div>
+    <div class="progress-item" onclick="toggleDone(1)">
+      <div class="progress-item-emoji">🔥</div>
+      <div class="progress-item-label">Bushfire Detection</div>
+      <div class="progress-item-check">✓ Done</div>
+    </div>
+    <div class="progress-item" onclick="toggleDone(2)">
+      <div class="progress-item-emoji">🚦</div>
+      <div class="progress-item-label">Traffic Control</div>
+      <div class="progress-item-check">✓ Done</div>
+    </div>
+    <div class="progress-item" onclick="toggleDone(3)">
+      <div class="progress-item-emoji">⌚</div>
+      <div class="progress-item-label">Falls Detection</div>
+      <div class="progress-item-check">✓ Done</div>
+    </div>
+    <div class="progress-item" onclick="toggleDone(4)">
+      <div class="progress-item-emoji">🎧</div>
+      <div class="progress-item-label">Anti-Poaching</div>
+      <div class="progress-item-check">✓ Done</div>
+    </div>
+    <div class="progress-item" onclick="toggleDone(5)">
+      <div class="progress-item-emoji">⚙️</div>
+      <div class="progress-item-label">Predictive Maint.</div>
+      <div class="progress-item-check">✓ Done</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MODAL ===== -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOnOverlay(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header" id="modalHeader">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-tabs" id="modalTabs">
+      <button class="modal-tab active" onclick="switchTab('overview', this)">Overview</button>
+      <button class="modal-tab" onclick="switchTab('vocab', this)">Key Vocab</button>
+      <button class="modal-tab" onclick="switchTab('ipo', this)">IPO Chart</button>
+      <button class="modal-tab" onclick="switchTab('algo', this)">Algorithm</button>
+      <button class="modal-tab" onclick="switchTab('dfd', this)">DFD</button>
+      <button class="modal-tab" onclick="switchTab('exam', this)">Exam Prep</button>
+      <button class="modal-tab" onclick="switchTab('videos', this)">🎬 Videos</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+// ===== CASE STUDY DATA =====
+const cases = [
+
+  // 0: SMART IRRIGATION
+  {
+    title: "Smart Irrigation System",
+    emoji: "🌾",
+    cat: "Agriculture · CropX / Hortau",
+    catClass: "cat-agri",
+    color: "#10B981",
+    overview: {
+      problem: "Farmers in Australia and globally waste enormous amounts of water through fixed-schedule irrigation that ignores actual soil moisture, weather forecasts, and crop needs. Over-watering damages crops and wastes resources; under-watering reduces yield.",
+      solution: "IoT soil moisture sensors buried at multiple depths across paddocks transmit real-time readings to a cloud platform. A ML model analyses sensor data alongside weather API forecasts to predict optimal irrigation timing and duration, automatically triggering solenoid valve actuators.",
+      hardware: ["Soil moisture sensors (capacitive, at multiple depths)", "Temperature & salinity sensors", "Weather station (wind, rain, humidity)", "Edge compute gateway (in-paddock)", "Solenoid valve actuators (water control)", "Solar panel + battery power", "Cellular / LoRaWAN radio transmitter"],
+      software: ["Cloud-based ML prediction model", "Weather API data integration", "Irrigation scheduling algorithm", "Mobile/web farmer dashboard", "Alert notification system", "Data logging & analytics platform"],
+      stakeholders: ["Farmers (reduced water use, improved yield)", "Water authorities (conservation compliance)", "Agronomists (precision advice)", "Environment (reduced runoff & waste)", "Food distributors (consistent supply)", "Government (water policy / drought response)"],
+      constraints: ["Remote paddocks — limited mobile connectivity", "Power supply limited to solar + battery", "Soil sensor drift over time requires calibration", "Weather forecast errors propagate to irrigation errors", "Different soil types require different ML models", "Initial cost barrier for small farmers"]
+    },
+    vocab: [
+      { term: "Capacitive sensor", def: "Measures soil moisture by detecting electrical charge between two electrodes. More accurate than resistive sensors and doesn't corrode." },
+      { term: "LoRaWAN", def: "Long Range Wide Area Network — low-power radio protocol for sending small sensor packets over kilometres with minimal battery use." },
+      { term: "Edge computing", def: "Processing data locally at the sensor/device rather than sending raw data to the cloud. Faster, uses less bandwidth." },
+      { term: "Solenoid valve", def: "Electronically-controlled water valve — receives a digital ON/OFF signal from the system to start or stop irrigation." },
+      { term: "Feature engineering", def: "The process of selecting and transforming sensor readings into inputs that the ML model can use to make predictions." },
+      { term: "Regression model", def: "An ML model that predicts a continuous value (e.g. how many minutes to irrigate) rather than a yes/no classification." },
+      { term: "Evapotranspiration", def: "Water lost from soil and plants to the atmosphere — a key variable the ML model uses to predict irrigation need." },
+      { term: "API (Weather)", def: "Application Programming Interface — allows the system to pull live and forecast weather data from external services like BOM." },
+      { term: "Data drift", def: "When the statistical properties of sensor data change over time (e.g. sensor degradation), causing ML model accuracy to decrease." }
+    ],
+    ipo: {
+      inputs: ["Soil moisture readings (% volumetric at 3 depths)", "Soil temperature sensor data", "Weather station readings (humidity, wind speed, rainfall)", "Weather API forecast (next 72 hrs)", "Crop type and growth stage configuration", "Historical irrigation records"],
+      process: ["1. Collect & normalise all sensor readings", "2. Merge with weather forecast data", "3. Calculate evapotranspiration estimate", "4. Run ML regression model → predicted soil moisture deficit", "5. Decision: moisture deficit > threshold?", "6. If YES → calculate optimal irrigation duration", "7. Send actuation signal to solenoid valve", "8. Monitor valve status + flow sensor", "9. Log irrigation event with timestamp", "10. Update model with actual outcomes"],
+      outputs: ["Solenoid valve open/close command", "Irrigation duration recommendation (minutes)", "Farmer dashboard alert / notification", "Water usage log entry", "Updated soil moisture prediction for next 24 hrs", "Monthly water savings report"]
+    },
+    pseudocode: `<span class="cm">// Smart Irrigation System — Decision Algorithm</span>
+<span class="kw">BEGIN</span> IrrigationSystem
+
+  <span class="kw">DECLARE</span> moisture_threshold <span class="op">=</span> <span class="val">0.30</span>  <span class="cm">// 30% VWC = irrigation needed</span>
+  <span class="kw">DECLARE</span> forecast_hours   <span class="op">=</span> <span class="val">24</span>
+  <span class="kw">DECLARE</span> valve_open       <span class="op">=</span> <span class="val">FALSE</span>
+
+  <span class="kw">REPEAT</span>
+    <span class="cm">// Step 1: Collect inputs</span>
+    soil_moisture   <span class="op">&lt;-</span> <span class="fn">READ_SENSOR</span>(<span class="str">"soil_moisture"</span>)
+    temperature     <span class="op">&lt;-</span> <span class="fn">READ_SENSOR</span>(<span class="str">"temperature"</span>)
+    forecast_rain   <span class="op">&lt;-</span> <span class="fn">GET_WEATHER_API</span>(forecast_hours)
+
+    <span class="cm">// Step 2: ML prediction</span>
+    et_rate         <span class="op">&lt;-</span> <span class="fn">CALC_EVAPOTRANSPIRATION</span>(temperature)
+    predicted_deficit <span class="op">&lt;-</span> ML_MODEL.<span class="fn">PREDICT</span>(soil_moisture, et_rate, forecast_rain)
+
+    <span class="cm">// Step 3: Decision</span>
+    <span class="kw">IF</span> predicted_deficit <span class="op">&gt;</span> moisture_threshold <span class="op">AND</span> forecast_rain <span class="op">&lt;</span> <span class="val">5</span> <span class="kw">THEN</span>
+      duration <span class="op">&lt;-</span> <span class="fn">CALC_DURATION</span>(predicted_deficit)
+      <span class="kw">CALL</span> <span class="fn">OpenValve</span>(duration)
+      <span class="kw">OUTPUT</span> <span class="str">"Irrigation started: "</span> <span class="op">+</span> duration <span class="op">+</span> <span class="str">" minutes"</span>
+      valve_open <span class="op">&lt;-</span> <span class="val">TRUE</span>
+      <span class="kw">CALL</span> <span class="fn">LogEvent</span>(<span class="str">"IRRIGATE"</span>, duration, current_time)
+    <span class="kw">ELSE</span>
+      <span class="kw">OUTPUT</span> <span class="str">"No irrigation required"</span>
+      valve_open <span class="op">&lt;-</span> <span class="val">FALSE</span>
+    <span class="kw">END IF</span>
+
+    <span class="kw">CALL</span> <span class="fn">WAIT</span>(<span class="val">3600</span>)  <span class="cm">// Check every hour</span>
+
+  <span class="kw">UNTIL</span> system_shutdown <span class="op">=</span> <span class="val">TRUE</span>
+
+<span class="kw">END</span> IrrigationSystem`,
+    dfd: {
+      entities: ["Farmer", "Weather Service (BOM API)", "Water Authority", "Soil Sensors"],
+      processes: ["1.0 Collect Sensor Data", "2.0 Fetch Weather Forecast", "3.0 Run ML Prediction", "4.0 Irrigation Decision", "5.0 Activate/Log Irrigation"],
+      stores: ["D1 Sensor Data Log", "D2 Irrigation History", "D3 ML Model"]
+    },
+    examQuestions: [
+      { topic: "Topic 1 — Scope", marks: 3, q: "Describe the problem the Smart Irrigation system was designed to solve. In your answer, identify the specific inefficiency, who is affected, and why conventional irrigation scheduling is inadequate.", a: "The problem is inefficient water use in agricultural irrigation. Fixed-schedule irrigation systems water crops at set times regardless of actual soil moisture, weather forecasts, or plant needs. This wastes water (up to 50% over-irrigation is documented), increases costs for farmers, damages crops through over- or under-watering, and contributes to water scarcity — especially critical in drought-prone regions of Australia. Conventional systems lack the context-specific, real-time data needed to adapt to changing environmental conditions." },
+      { topic: "Topic 1 — Stakeholders", marks: 2, q: "Identify TWO stakeholders who have conflicting needs in the Smart Irrigation system. Explain the nature of the conflict.", a: "Farmers (need affordable, simple system with high reliability) vs. Water Authorities (need the system to enforce conservation limits and provide usage data for compliance). The farmer wants maximum flexibility to irrigate when they judge appropriate; the water authority needs the system to restrict irrigation during drought conditions or water-restriction periods. This creates a design tension between user control and regulatory oversight." },
+      { topic: "Topic 1 — Constraints", marks: 3, q: "Identify THREE constraints on the environment that influenced the design of the Smart Irrigation system. For each, explain the specific design response.", a: "(1) Remote paddock connectivity — LoRaWAN low-power radio chosen over cellular to cover large areas with minimal infrastructure. (2) Power supply — solar panels + battery designed to keep sensors operating without grid connection in remote areas. (3) Sensor calibration drift — system designed with periodic recalibration alerts and the ML model incorporates drift correction to maintain accuracy over time." },
+      { topic: "Topic 3 — IPO", marks: 2, q: "Explain why the Smart Irrigation system's IPO chart would require both a 'weather forecast' input AND a 'soil moisture sensor' input, rather than just one of these.", a: "Soil moisture sensors tell the system the current state of the soil, but cannot predict future conditions. Weather forecast data tells the system if rain is coming (making irrigation unnecessary). Without both, the system might irrigate just before rainfall (wasting water) or fail to anticipate a heatwave that will rapidly increase soil moisture deficit. The ML model needs both current state (sensors) and future context (forecast) to make accurate predictions." },
+      { topic: "Topic 3 — Algorithm", marks: 3, q: "Trace through the irrigation pseudocode algorithm with these test values: soil_moisture = 0.22, temperature = 36, forecast_rain = 2mm. Show the value of key variables and the final output.", a: "Step 1: soil_moisture = 0.22, temperature = 36, forecast_rain = 2. Step 2: et_rate = CALC_EVAPOTRANSPIRATION(36) → high (e.g. 0.18). predicted_deficit = ML_MODEL.PREDICT(0.22, 0.18, 2) → e.g. 0.42 (above threshold of 0.30). Step 3: IF 0.42 > 0.30 AND 2 < 5 → TRUE AND TRUE → TRUE. duration = CALC_DURATION(0.42) → calculated. OUTPUT: 'Irrigation started: X minutes'. valve_open ← TRUE. LogEvent called." }
+    ],
+    videos: [
+      { title: "How Smart Irrigation Works", source: "YouTube — CropX Official", duration: "4:32", url: "https://www.youtube.com/results?search_query=smart+irrigation+IoT+machine+learning" },
+      { title: "IoT in Agriculture Explained", source: "YouTube — TED-Ed / IBM", duration: "6:15", url: "https://www.youtube.com/results?search_query=IoT+agriculture+sensors+explained" },
+      { title: "LoRaWAN for Beginners", source: "YouTube — Andreas Spiess", duration: "8:40", url: "https://www.youtube.com/results?search_query=LoRaWAN+explained+beginners" },
+      { title: "Machine Learning in Farming", source: "YouTube — Google Cloud", duration: "5:20", url: "https://www.youtube.com/results?search_query=machine+learning+precision+agriculture" }
+    ]
+  },
+
+  // 1: BUSHFIRE DETECTION
+  {
+    title: "Bushfire Early Detection",
+    emoji: "🔥",
+    cat: "Environment · Dryad Networks",
+    catClass: "cat-agri",
+    color: "#EF4444",
+    overview: {
+      problem: "Australia loses millions of hectares to bushfire annually. Traditional fire detection relies on aerial patrols or watchtowers — too slow, too expensive, and ineffective in remote areas. By the time a fire is reported, it may have grown to uncontrollable size.",
+      solution: "Solar-powered IoT sensor nodes mounted in forest canopies form a mesh network. Each node monitors temperature, humidity, CO₂, VOC (smoke chemicals), and acoustic signatures. Edge ML on each node classifies readings and flags fire events within minutes, alerting rangers via satellite uplink.",
+      hardware: ["Temperature + humidity sensors", "CO₂ and VOC gas sensors", "Acoustic microphone (fire/chainsaw detection)", "Smoke particle optical sensor", "Edge microprocessor (ML inference)", "Solar panel + LiPo battery", "LoRa mesh radio + satellite modem"],
+      software: ["Edge ML classification model (fire vs. non-fire)", "Acoustic signature recognition", "Mesh network routing protocol", "Satellite alert dispatch system", "Ranger dashboard / mobile alert", "Historical trend analysis platform"],
+      stakeholders: ["Rural Fire Services (immediate alerts)", "Park Rangers / NPWS (response coordination)", "Local communities (evacuation warning)", "Wildlife conservationists (habitat protection)", "State/Federal Government (response funding)", "Insurance companies (risk data)", "Neighbouring property owners"],
+      constraints: ["Remote locations — no grid power or mobile coverage", "Weather interference (thunder misclassified as explosions)", "High false positive risk — insects, steam, other gases", "Dense forest canopy limits sensor placement and solar charging", "Harsh physical conditions (heat, rain, wildlife damage)", "Latency via satellite link may be 30–120 seconds"]
+    },
+    vocab: [
+      { term: "VOC sensor", def: "Volatile Organic Compound sensor — detects chemical compounds released by burning vegetation, giving early fire indication before visible smoke." },
+      { term: "Edge ML", def: "Running a machine learning model directly on a small device (not the cloud) to make real-time decisions without needing internet connectivity." },
+      { term: "Mesh network", def: "A network where each node communicates with neighbouring nodes, allowing data to 'hop' across large areas without centralised infrastructure." },
+      { term: "False positive", def: "When the system incorrectly classifies a non-fire event as a fire. In safety systems, false positives erode user trust and waste response resources." },
+      { term: "Precision vs Recall", def: "Precision = % of alerts that are genuine fires. Recall = % of actual fires that trigger an alert. Fire detection prioritises high recall (miss no fires), accepting some false alarms." },
+      { term: "Acoustic classification", def: "Using ML to identify sounds (gunshots, chainsaws, fire crackling) from audio sensor data." },
+      { term: "Satellite uplink", def: "Transmitting data from a remote sensor node via satellite to a base station — used when terrestrial network coverage is unavailable." }
+    ],
+    ipo: {
+      inputs: ["Temperature readings (°C)", "Relative humidity (%)", "CO₂ concentration (ppm)", "VOC levels (specific fire-related compounds)", "Smoke particle density (optical)", "Acoustic microphone audio stream", "GPS location of sensor node", "Time and weather context"],
+      process: ["1. Sample all sensors at regular intervals (e.g. every 30 sec)", "2. Pre-process readings — normalise, apply noise filter", "3. Run edge ML classifier on sensor fusion", "4. Evaluate classification confidence score", "5. Cross-reference acoustic signature match", "6. Decision: confidence > fire threshold AND at least 2 sensor types confirm?", "7. If YES → transmit alert via LoRa mesh to gateway → satellite uplink", "8. Log event; mesh nodes request secondary confirmation from neighbours"],
+      outputs: ["Fire alert to ranger dashboard (GPS location, confidence score)", "SMS/app push notification to emergency services", "Event log entry (time, node ID, sensor readings)", "Secondary confirmation request to neighbouring nodes", "No alert if below threshold"]
+    },
+    pseudocode: `<span class="cm">// Bushfire Detection — Edge Node Algorithm</span>
+<span class="kw">BEGIN</span> FireDetectionNode
+
+  <span class="kw">DECLARE</span> fire_threshold <span class="op">=</span> <span class="val">0.80</span>
+  <span class="kw">DECLARE</span> min_sensors_confirm <span class="op">=</span> <span class="val">2</span>
+  <span class="kw">DECLARE</span> alert_sent <span class="op">=</span> <span class="val">FALSE</span>
+
+  <span class="kw">REPEAT</span>
+    <span class="cm">// Collect multi-sensor readings</span>
+    temp     <span class="op">&lt;-</span> <span class="fn">READ_SENSOR</span>(<span class="str">"temperature"</span>)
+    humidity <span class="op">&lt;-</span> <span class="fn">READ_SENSOR</span>(<span class="str">"humidity"</span>)
+    co2      <span class="op">&lt;-</span> <span class="fn">READ_SENSOR</span>(<span class="str">"CO2"</span>)
+    voc      <span class="op">&lt;-</span> <span class="fn">READ_SENSOR</span>(<span class="str">"VOC"</span>)
+    audio    <span class="op">&lt;-</span> <span class="fn">CAPTURE_AUDIO</span>(<span class="val">5</span>)  <span class="cm">// 5 second sample</span>
+
+    <span class="cm">// Run edge ML models</span>
+    sensor_score  <span class="op">&lt;-</span> ML_MODEL.<span class="fn">CLASSIFY</span>(temp, humidity, co2, voc)
+    acoustic_match <span class="op">&lt;-</span> ACOUSTIC_MODEL.<span class="fn">MATCH</span>(audio, <span class="str">"fire"</span>)
+    confirmations <span class="op">&lt;-</span> <span class="fn">COUNT_CONFIRMATIONS</span>(sensor_score, acoustic_match)
+
+    <span class="kw">IF</span> sensor_score <span class="op">&gt;=</span> fire_threshold <span class="op">AND</span> confirmations <span class="op">&gt;=</span> min_sensors_confirm <span class="kw">THEN</span>
+      <span class="kw">IF</span> alert_sent <span class="op">=</span> <span class="val">FALSE</span> <span class="kw">THEN</span>
+        <span class="kw">CALL</span> <span class="fn">TransmitAlert</span>(node_id, gps_location, sensor_score)
+        alert_sent <span class="op">&lt;-</span> <span class="val">TRUE</span>
+        <span class="kw">OUTPUT</span> <span class="str">"FIRE ALERT: transmitted to ranger dashboard"</span>
+      <span class="kw">END IF</span>
+    <span class="kw">ELSE</span>
+      alert_sent <span class="op">&lt;-</span> <span class="val">FALSE</span>  <span class="cm">// Reset if readings normalise</span>
+    <span class="kw">END IF</span>
+
+    <span class="kw">CALL</span> <span class="fn">WAIT</span>(<span class="val">30</span>)  <span class="cm">// 30-second cycle</span>
+
+  <span class="kw">UNTIL</span> <span class="val">FALSE</span>  <span class="cm">// Continuous operation</span>
+
+<span class="kw">END</span> FireDetectionNode`,
+    dfd: {
+      entities: ["Forest Sensors", "Rangers / RFS", "Satellite Network", "Weather Service"],
+      processes: ["1.0 Capture Sensor Data", "2.0 Run Edge ML Classifier", "3.0 Acoustic Analysis", "4.0 Multi-Sensor Fusion Decision", "5.0 Transmit Alert"],
+      stores: ["D1 Event Log", "D2 Sensor Baseline Data", "D3 ML Model Store"]
+    },
+    examQuestions: [
+      { topic: "Topic 1 — Problem Scope", marks: 3, q: "Explain why conventional fire detection methods (aerial patrols, watchtower observers) fail to meet the requirements of early bushfire detection. Reference the specific requirements that the IoT system addresses.", a: "Conventional methods rely on human observation, which introduces significant latency — a fire must be visible before it can be reported. This may take 20–60 minutes after ignition. Aerial patrols are too infrequent to catch fires at ignition, and watchtowers cannot cover remote terrain 24/7. The IoT system addresses this by: (1) continuous 24/7 monitoring, (2) sub-5-minute detection using chemical signatures (VOC/CO₂) before visible smoke, (3) GPS-precise location data, and (4) automated alert dispatch without human observation delay." },
+      { topic: "Topic 1 — Missing Info", marks: 2, q: "Identify ONE piece of information that is MISSING from a bushfire detection system but would significantly improve its accuracy. Justify your answer.", a: "Wind direction and speed data is critically missing. Fire spread rate and direction is heavily dependent on wind. Without wind sensor data, the system cannot predict where a detected fire will spread, limiting the usefulness of early detection for evacuation planning. It would also help distinguish false positives (e.g. smoke being carried from a legal controlled burn) from genuine wildfire threats." },
+      { topic: "Topic 3 — Algorithm/Flowchart", marks: 4, q: "Draw or describe a program flowchart for the Bushfire Detection edge node algorithm. Include: START/END, at least two input steps, one multi-sensor decision diamond, two output branches, and a monitoring loop.", a: "START → INPUT: Read temp, humidity, CO₂, VOC → INPUT: Capture 5s audio → PROCESS: Run ML classifier → PROCESS: Count sensor confirmations → DECISION: score ≥ 0.80 AND confirmations ≥ 2? → YES → DECISION: alert_sent = FALSE? → YES → OUTPUT: Transmit fire alert → alert_sent ← TRUE → loop back. NO (already sent) → loop back. NO (score below threshold) → alert_sent ← FALSE → WAIT 30 sec → loop back to top." },
+      { topic: "Topic 1 — Success Criteria", marks: 2, q: "Define TWO success criteria for the Bushfire Early Detection system that balance the competing needs of high sensitivity (catching all fires) against the cost of false alarms.", a: "(1) Recall ≥ 0.95 — system must detect at least 95% of genuine fire events (missing a fire is catastrophic). (2) False positive rate ≤ 5% — fewer than 5 false alerts per 100 alerts dispatched, to maintain ranger trust and avoid alarm fatigue. These criteria acknowledge that recall is the priority (safety) but false positives impose real operational costs." }
+    ],
+    videos: [
+      { title: "Rainforest Connection — AI Listening to Forests", source: "TED Talk — Topher White", duration: "13:40", url: "https://www.youtube.com/results?search_query=rainforest+connection+TED+Topher+White" },
+      { title: "Dryad Networks Fire Detection Demo", source: "YouTube — Dryad Networks", duration: "5:20", url: "https://www.youtube.com/results?search_query=Dryad+Networks+wildfire+IoT" },
+      { title: "How Gas Sensors Detect Fire", source: "YouTube — Sensors Explained", duration: "6:10", url: "https://www.youtube.com/results?search_query=CO2+VOC+sensor+fire+detection+explained" },
+      { title: "Edge AI on Microcontrollers", source: "YouTube — TinyML Foundation", duration: "7:50", url: "https://www.youtube.com/results?search_query=edge+AI+microcontroller+explained" }
+    ]
+  },
+
+  // 2: ADAPTIVE TRAFFIC
+  {
+    title: "Adaptive Traffic Signal Control",
+    emoji: "🚦",
+    cat: "Smart Cities · Surtrac / SCATS",
+    catClass: "cat-city",
+    color: "#00D4FF",
+    overview: {
+      problem: "Fixed-cycle traffic lights operate on pre-set timing regardless of actual traffic volume. During peak hours, this creates long queues and unnecessary red lights when cross-traffic is absent. Emergency vehicles are delayed, emissions increase, and commute times are unpredictable.",
+      solution: "Camera and inductive loop sensors at each intersection feed real-time vehicle counts and queue lengths to an ML-based signal timing system. The model predicts queue clearance times and dynamically adjusts green light duration, phase order, and timing offsets to maximise traffic flow — and can grant emergency vehicle priority.",
+      hardware: ["IP cameras (vehicle detection)", "Inductive loop sensors (embedded in road)", "Radar / LiDAR vehicle detectors", "Traffic signal controller unit", "V2I transponder (vehicle-to-infrastructure)", "Edge server at each intersection", "Fibre / 4G backhaul network"],
+      software: ["Computer vision ML (vehicle counting, classification)", "Queue length prediction model", "Multi-intersection optimisation algorithm", "Emergency vehicle preemption module", "Traffic management dashboard", "Historical data analytics"],
+      stakeholders: ["Motorists (reduced wait time, predictability)", "Cyclists & pedestrians (safety, wait times)", "Emergency services (ambulance, fire — priority access)", "Local council (congestion metrics)", "Public transport operators (bus schedule reliability)", "Businesses (delivery & access efficiency)", "Environment (reduced idling emissions)"],
+      constraints: ["Night-time / glare / rain degrades camera vision", "Intersection geometry varies — no universal solution", "Legacy signal hardware incompatible with modern ML systems", "Cyber-security risk — traffic infrastructure is critical", "Transition period: mixed legacy/smart intersections", "High installation and maintenance cost per intersection"]
+    },
+    vocab: [
+      { term: "Inductive loop", def: "A coil of wire embedded in the road surface that detects metal vehicles passing over it by measuring changes in electrical inductance." },
+      { term: "Phase", def: "In traffic signals, a phase is one period when a set of movements gets a green light. A typical 4-way intersection has 4 phases." },
+      { term: "Cycle time", def: "The total time for one complete rotation of all signal phases. Adaptive systems vary this dynamically rather than using a fixed cycle." },
+      { term: "Queue length prediction", def: "Using ML to estimate how long vehicle queues will be at future time steps, allowing the system to allocate green time before gridlock forms." },
+      { term: "V2I (Vehicle-to-Infrastructure)", def: "Communication between vehicles and roadside infrastructure (e.g. traffic lights), enabling priority signals for emergency vehicles or connected cars." },
+      { term: "Throughput", def: "The number of vehicles passing through an intersection per unit time — the primary optimisation goal of adaptive signal control." },
+      { term: "Preemption", def: "Overriding normal signal operation to immediately grant green light to an emergency vehicle, regardless of current phase." }
+    ],
+    ipo: {
+      inputs: ["Camera video feed (live vehicle detection)", "Inductive loop sensor counts", "Current signal phase and time elapsed", "Queue length estimates per approach", "Emergency vehicle transponder signal", "Historical traffic patterns (time of day)", "Weather and visibility conditions"],
+      process: ["1. Detect and count vehicles per approach using computer vision", "2. Estimate real-time queue length per lane", "3. Run ML model to predict queue at next phase change", "4. Optimise green duration for current phase", "5. Decision: emergency vehicle detected?", "6. If YES → preempt current phase → grant priority green", "7. Calculate optimal phase sequence for next cycle", "8. Send updated timing to signal controller", "9. Log cycle data for historical analysis"],
+      outputs: ["Signal controller phase timing update", "Emergency vehicle priority green signal", "Intersection throughput metric", "Average vehicle wait time (per intersection)", "Traffic management dashboard display", "Event log with timestamp and cycle data"]
+    },
+    pseudocode: `<span class="cm">// Adaptive Traffic Signal Control — Core Algorithm</span>
+<span class="kw">BEGIN</span> TrafficController
+
+  <span class="kw">DECLARE</span> min_green <span class="op">=</span> <span class="val">8</span>    <span class="cm">// Minimum green time (seconds)</span>
+  <span class="kw">DECLARE</span> max_green <span class="op">=</span> <span class="val">60</span>   <span class="cm">// Maximum green time (seconds)</span>
+  <span class="kw">DECLARE</span> emergency <span class="op">=</span> <span class="val">FALSE</span>
+
+  <span class="kw">REPEAT</span>
+    <span class="cm">// Read sensors</span>
+    vehicle_counts   <span class="op">&lt;-</span> <span class="fn">GET_DETECTOR_COUNTS</span>()
+    queue_lengths    <span class="op">&lt;-</span> <span class="fn">ESTIMATE_QUEUES</span>(vehicle_counts)
+    emergency        <span class="op">&lt;-</span> <span class="fn">CHECK_V2I_TRANSPONDER</span>()
+
+    <span class="cm">// Emergency preemption check</span>
+    <span class="kw">IF</span> emergency <span class="op">=</span> <span class="val">TRUE</span> <span class="kw">THEN</span>
+      <span class="kw">CALL</span> <span class="fn">GrantEmergencyGreen</span>(emergency.approach)
+      <span class="kw">OUTPUT</span> <span class="str">"PREEMPTION: Emergency vehicle priority granted"</span>
+    <span class="kw">ELSE</span>
+      <span class="cm">// ML-based phase optimisation</span>
+      <span class="kw">FOR EACH</span> phase <span class="kw">IN</span> intersection.phases
+        predicted_queue <span class="op">&lt;-</span> ML_MODEL.<span class="fn">PREDICT_QUEUE</span>(queue_lengths, phase)
+        optimal_green   <span class="op">&lt;-</span> <span class="fn">OPTIMISE_GREEN</span>(predicted_queue)
+        optimal_green   <span class="op">&lt;-</span> <span class="fn">CLAMP</span>(optimal_green, min_green, max_green)
+        phase.green_time <span class="op">&lt;-</span> optimal_green
+      <span class="kw">END FOR</span>
+
+      <span class="kw">CALL</span> <span class="fn">ApplyPhaseTiming</span>(intersection.phases)
+      <span class="kw">OUTPUT</span> <span class="str">"Phase timings updated"</span>
+    <span class="kw">END IF</span>
+
+    <span class="kw">CALL</span> <span class="fn">LogCycleData</span>(queue_lengths, current_time)
+    <span class="kw">CALL</span> <span class="fn">WAIT_FOR_NEXT_CYCLE</span>()
+
+  <span class="kw">UNTIL</span> shutdown <span class="op">=</span> <span class="val">TRUE</span>
+
+<span class="kw">END</span> TrafficController`,
+    dfd: {
+      entities: ["Vehicles / Sensors", "Emergency Services", "Local Council / TMC", "Weather Service"],
+      processes: ["1.0 Detect & Count Vehicles", "2.0 Estimate Queue Lengths", "3.0 ML Phase Optimisation", "4.0 Emergency Preemption", "5.0 Apply Signal Timing"],
+      stores: ["D1 Real-time Traffic Data", "D2 Historical Patterns", "D3 Signal Config Store"]
+    },
+    examQuestions: [
+      { topic: "Topic 1 — Stakeholders", marks: 3, q: "Identify THREE stakeholders of the Adaptive Traffic Signal system whose needs may conflict. Explain the nature of the conflict between any two of them.", a: "Stakeholders: (1) Motorists — want minimal wait times, (2) Pedestrians/cyclists — want longer pedestrian crossing phases, (3) Emergency services — want instant preemption regardless of other traffic. Conflict example: Emergency preemption directly benefits emergency services but forces all other vehicles including queued buses to wait, harming public transport reliability metrics. This is a classic user-versus-operator tension — the system must balance safety priority with wider traffic efficiency." },
+      { topic: "Topic 1 — Constraints", marks: 2, q: "Explain how poor weather conditions act as a constraint on the Adaptive Traffic Signal system, and describe how the system design might attempt to mitigate this.", a: "Rain, night-time glare, and fog degrade camera-based vehicle detection accuracy (ML model receives noisier, lower-quality input images). This can cause under-counting of vehicles, leading to insufficient green time allocation. Mitigation: use inductive loop sensors as a redundant detection method — these are not affected by visibility. When camera confidence drops below a threshold, the system can fall back to loop-sensor-only mode or revert to a safe fixed-cycle timing pattern." },
+      { topic: "Topic 3 — IPO", marks: 4, q: "Construct a complete IPO table for the Adaptive Traffic Signal system. Include at least 3 items in each column and annotate the most important PROCESS step.", a: "INPUT: Camera video (vehicle counts), Inductive loop counts, Queue length estimates, Emergency transponder signal, Time of day, Historical traffic patterns. PROCESS: (1) Detect vehicles via computer vision, (2) Estimate queue lengths per approach, *(3) Run ML queue prediction model — most important as this drives all timing decisions*, (4) Calculate optimal green duration (clamped to min/max), (5) Check emergency preemption, (6) Apply updated phase timing. OUTPUT: Updated signal phase timing, Emergency priority green, Intersection throughput metric, Average wait time logged." },
+      { topic: "Topic 3 — DFD", marks: 2, q: "For a DFD Level 0 of the Adaptive Traffic Signal system, list all external entities and describe the key data flow between the system and Emergency Services.", a: "External entities: Vehicles/Road Sensors, Emergency Services, Local Council/Traffic Management Centre, Weather Service. Key data flow to Emergency Services: the system sends a 'priority green confirmation' to the emergency vehicle transponder/dashboard (V2I). Emergency Services send to the system: a 'priority request' signal from the vehicle transponder as it approaches the intersection." }
+    ],
+    videos: [
+      { title: "How Adaptive Traffic Lights Work", source: "YouTube — Surtrac CMU", duration: "3:45", url: "https://www.youtube.com/results?search_query=Surtrac+adaptive+traffic+signal+Pittsburgh" },
+      { title: "How Australia's SCATS System Works", source: "YouTube — Transport for NSW", duration: "5:10", url: "https://www.youtube.com/results?search_query=SCATS+traffic+system+Australia" },
+      { title: "Computer Vision for Traffic Detection", source: "YouTube — OpenCV Explained", duration: "8:30", url: "https://www.youtube.com/results?search_query=computer+vision+vehicle+detection+traffic" },
+      { title: "V2I — Vehicle to Infrastructure", source: "YouTube — US DOT", duration: "4:20", url: "https://www.youtube.com/results?search_query=vehicle+to+infrastructure+V2I+explained" }
+    ]
+  },
+
+  // 3: FALLS DETECTION
+  {
+    title: "Elderly Falls Detection",
+    emoji: "⌚",
+    cat: "Health · Wearable IoT + On-Device ML",
+    catClass: "cat-health",
+    color: "#EF4444",
+    overview: {
+      problem: "Falls are the leading cause of injury-related hospital admissions for Australians aged over 65. Many falls occur when the person is alone — they may lie on the floor for hours before help arrives, significantly worsening outcomes. Existing call buttons require the person to be conscious and able to press a button.",
+      solution: "A wearable device (watch or pendant) with a 3-axis accelerometer and gyroscope continuously monitors movement patterns. An on-device ML model classifies movement in real time, distinguishing normal activities (walking, sitting, sleeping) from fall events. A confirmed fall triggers an alert to carers or emergency services via Bluetooth and mobile network.",
+      hardware: ["3-axis accelerometer (movement acceleration)", "3-axis gyroscope (rotational movement)", "Barometric pressure sensor (floor level)", "GPS (location tracking outdoors)", "BLE (Bluetooth Low Energy) transmitter", "Cellular module (4G alert dispatch)", "Rechargeable battery + charging dock"],
+      software: ["On-device ML movement classifier", "Activity recognition pipeline", "Fall confirmation algorithm (reduces false alerts)", "Carer alert notification app", "Emergency services API integration", "Location & history logging platform"],
+      stakeholders: ["Elderly users (safety, independence, dignity, comfort)", "Family / carers (peace of mind, timely alerts)", "GPs / healthcare providers (health monitoring data)", "Aged care facilities (liability reduction)", "Emergency services (accurate dispatch info)", "Insurers (reduced claim costs)", "Privacy advocates (sensitive location/health data)"],
+      constraints: ["Device must be comfortable and lightweight (compliance — user won't wear it if uncomfortable)", "Battery must last 24+ hours (user won't charge daily)", "False positive alerts distress users and erode trust", "Indoor GPS accuracy poor — location data unreliable inside", "BLE range limited — must be near smartphone", "Waterproof requirement (falls often occur in bathroom/shower)"]
+    },
+    vocab: [
+      { term: "Accelerometer", def: "Sensor measuring the rate of change of velocity (acceleration) in three axes — used to detect sudden impacts like falls." },
+      { term: "Gyroscope", def: "Sensor measuring angular rotation rate — combined with accelerometer data to determine body orientation and distinguish a fall from normal movement." },
+      { term: "Activity recognition", def: "ML technique for classifying physical movements (walking, running, sitting, falling) from accelerometer/gyroscope data." },
+      { term: "False positive", def: "System incorrectly detecting a fall when none occurred (e.g. dropping the device). Causes unnecessary distress and erodes user confidence." },
+      { term: "False negative", def: "System failing to detect a genuine fall. In health monitoring, this is the more dangerous error — the whole point of the system is to catch falls." },
+      { term: "BLE (Bluetooth Low Energy)", def: "Ultra-low-power wireless protocol for short-range communication (up to ~100m). Used to relay alerts from the wearable to the user's smartphone." },
+      { term: "Threshold vs ML classification", def: "Older systems used fixed acceleration thresholds (e.g. >3g = fall). Modern systems use ML to classify multi-axis patterns — far more accurate, fewer false positives." },
+      { term: "Confirmation window", def: "A short time window after initial fall detection during which the system monitors for post-fall stillness before confirming and sending an alert." }
+    ],
+    ipo: {
+      inputs: ["3-axis accelerometer data (continuous stream)", "3-axis gyroscope data (continuous stream)", "Barometric pressure data (altitude/floor level)", "GPS coordinates (when outdoors)", "User cancel/false alarm button press", "Device battery level", "BLE connection status to smartphone"],
+      process: ["1. Continuously sample accelerometer + gyroscope at 50Hz", "2. Apply sliding window filter to smooth data", "3. Run on-device ML activity classifier", "4. If fall signature detected → start confirmation window (8 sec)", "5. Monitor for post-fall stillness (no movement)", "6. Decision: stillness confirmed AND user hasn't cancelled?", "7. Escalate: BLE alert to smartphone → push notification to carer app", "8. Decision: no carer response in 60 sec?", "9. Escalate: automated call/SMS to emergency services with GPS"],
+      outputs: ["Carer app push notification: 'Fall detected — [name] at [location]'", "Emergency services alert (if no response)", "GPS location shared to carers", "In-app cancel option (user confirms false alarm)", "Daily activity summary to health dashboard", "Fall event log (timestamp, location, severity)"]
+    },
+    pseudocode: `<span class="cm">// Falls Detection — On-Device Wearable Algorithm</span>
+<span class="kw">BEGIN</span> FallsMonitor
+
+  <span class="kw">DECLARE</span> confirm_window <span class="op">=</span> <span class="val">8</span>      <span class="cm">// 8 seconds to confirm fall</span>
+  <span class="kw">DECLARE</span> escalate_wait  <span class="op">=</span> <span class="val">60</span>     <span class="cm">// 60 sec before calling emergency</span>
+  <span class="kw">DECLARE</span> user_cancelled <span class="op">=</span> <span class="val">FALSE</span>
+
+  <span class="kw">REPEAT</span>
+    <span class="cm">// Read motion sensors</span>
+    accel  <span class="op">&lt;-</span> <span class="fn">READ_ACCELEROMETER</span>()   <span class="cm">// x, y, z axes</span>
+    gyro   <span class="op">&lt;-</span> <span class="fn">READ_GYROSCOPE</span>()
+    window <span class="op">&lt;-</span> <span class="fn">SLIDE_WINDOW</span>(accel, gyro, <span class="val">50</span>)  <span class="cm">// 50 samples</span>
+
+    <span class="cm">// On-device ML classification</span>
+    activity <span class="op">&lt;-</span> ML_MODEL.<span class="fn">CLASSIFY</span>(window)
+    <span class="cm">// activity = "walking" | "sitting" | "sleeping" | "FALL"</span>
+
+    <span class="kw">IF</span> activity <span class="op">=</span> <span class="str">"FALL"</span> <span class="kw">THEN</span>
+
+      <span class="cm">// Confirmation window — check for post-fall stillness</span>
+      <span class="kw">CALL</span> <span class="fn">StartVibrationAlert</span>()  <span class="cm">// Prompt user to cancel</span>
+      <span class="kw">CALL</span> <span class="fn">WAIT</span>(confirm_window)
+      user_cancelled <span class="op">&lt;-</span> <span class="fn">CHECK_CANCEL_PRESS</span>()
+
+      <span class="kw">IF</span> user_cancelled <span class="op">=</span> <span class="val">FALSE</span> <span class="kw">THEN</span>
+        <span class="kw">CALL</span> <span class="fn">AlertCarer</span>(user_name, gps_location)
+        <span class="kw">OUTPUT</span> <span class="str">"Fall alert sent to carer"</span>
+
+        <span class="kw">CALL</span> <span class="fn">WAIT</span>(escalate_wait)
+        carer_responded <span class="op">&lt;-</span> <span class="fn">CHECK_CARER_ACK</span>()
+
+        <span class="kw">IF</span> carer_responded <span class="op">=</span> <span class="val">FALSE</span> <span class="kw">THEN</span>
+          <span class="kw">CALL</span> <span class="fn">CallEmergencyServices</span>(gps_location)
+          <span class="kw">OUTPUT</span> <span class="str">"ESCALATED: Emergency services contacted"</span>
+        <span class="kw">END IF</span>
+      <span class="kw">ELSE</span>
+        <span class="kw">CALL</span> <span class="fn">LogFalseAlarm</span>()
+      <span class="kw">END IF</span>
+    <span class="kw">END IF</span>
+
+  <span class="kw">UNTIL</span> device_off <span class="op">=</span> <span class="val">TRUE</span>
+
+<span class="kw">END</span> FallsMonitor`,
+    dfd: {
+      entities: ["Elderly User", "Carers / Family App", "Emergency Services", "Healthcare Provider"],
+      processes: ["1.0 Capture Motion Data", "2.0 ML Activity Classification", "3.0 Fall Confirmation Window", "4.0 Carer Alert Dispatch", "5.0 Emergency Escalation"],
+      stores: ["D1 Activity Log", "D2 Contact List & Preferences", "D3 ML Activity Model"]
+    },
+    examQuestions: [
+      { topic: "Topic 1 — User Perspective", marks: 3, q: "Explain how the user perspective of elderly wearers influenced THREE design decisions in the Falls Detection system. For each, identify the user need and the specific design response.", a: "(1) Comfort/compliance: elderly users resist wearing uncomfortable devices → design: lightweight, waterproof wristband form factor with 24hr+ battery so charging isn't a daily burden. (2) False alarm distress: unexpected alerts terrify users and carers, erode trust → design: 8-second confirmation window with cancel button lets user override false detections. (3) Dignity/privacy: elderly users are concerned about being surveilled → design: on-device ML (no video, only motion data) and opt-in location sharing only during events (not continuously logged)." },
+      { topic: "Topic 1 — Constraints", marks: 2, q: "Explain why battery life is a critical constraint on the Falls Detection wearable, and describe the design trade-off this creates with detection performance.", a: "Battery life is critical because if the device requires daily charging, users (especially those with cognitive decline) will frequently forget, leaving them unprotected. The device must last 24+ hours. The trade-off: higher sampling rates (e.g. 200Hz vs 50Hz) produce better ML accuracy for activity classification, but drain the battery faster. The designer must find the minimum sampling rate that maintains acceptable recall (detecting real falls) while meeting the battery life constraint." },
+      { topic: "Topic 3 — Algorithm trace", marks: 3, q: "Trace through the Falls Detection algorithm with these test values: activity = 'FALL', user_cancelled = FALSE, carer_responded = FALSE. Show each significant step and the final system output.", a: "Step 1: activity = 'FALL' → enter IF block. Step 2: StartVibrationAlert() called. WAIT 8 seconds. Step 3: CHECK_CANCEL_PRESS() → user_cancelled = FALSE → enter IF block. Step 4: AlertCarer(user_name, gps_location) → OUTPUT 'Fall alert sent to carer'. Step 5: WAIT 60 seconds. Step 6: CHECK_CARER_ACK() → carer_responded = FALSE → enter inner IF block. Step 7: CallEmergencyServices(gps_location) → OUTPUT 'ESCALATED: Emergency services contacted'." },
+      { topic: "Topic 1 — Missing information", marks: 2, q: "Identify ONE type of information that is currently MISSING from the wearable falls detection system but would significantly improve its ability to determine whether emergency services are actually needed.", a: "Heart rate / biometric data is missing. A fall combined with an abnormal heart rate (very slow = potential cardiac event; very fast = shock/panic) would allow the system to assess injury severity, not just occurrence. Currently the system cannot distinguish a minor fall from a fall causing serious injury — it escalates all unacknowledged falls identically. Biometric data would allow risk stratification (e.g. immediate 000 call vs. carer-only notification)." }
+    ],
+    videos: [
+      { title: "How Apple Watch Detects Falls", source: "YouTube — Apple Support", duration: "3:10", url: "https://www.youtube.com/results?search_query=apple+watch+fall+detection+how+it+works" },
+      { title: "Accelerometer & Gyroscope Explained", source: "YouTube — How Sensors Work", duration: "5:30", url: "https://www.youtube.com/results?search_query=accelerometer+gyroscope+wearable+explained" },
+      { title: "Machine Learning Activity Recognition", source: "YouTube — Towards Data Science", duration: "7:20", url: "https://www.youtube.com/results?search_query=machine+learning+activity+recognition+wearable" },
+      { title: "IoT in Healthcare Overview", source: "YouTube — Simplilearn", duration: "9:00", url: "https://www.youtube.com/results?search_query=IoT+healthcare+wearables+explained" }
+    ]
+  },
+
+  // 4: ANTI-POACHING
+  {
+    title: "Acoustic Anti-Poaching",
+    emoji: "🎧",
+    cat: "Wildlife · Rainforest Connection",
+    catClass: "cat-wildlife",
+    color: "#F59E0B",
+    overview: {
+      problem: "Illegal poaching and deforestation are leading causes of wildlife extinction. Rangers cannot patrol all forest areas simultaneously — poachers operate in remote, inaccessible zones. By the time rangers arrive after visual detection, animals or trees are already gone.",
+      solution: "Repurposed old smartphones (Guardians) are mounted high in the forest canopy, solar-powered, listening continuously. An on-device ML model analyses audio in real time for gunshots, chainsaw sounds, and animal distress calls. When a threat is detected, an alert — including GPS coordinates — is sent via existing 3G/4G signals to rangers within 90 seconds.",
+      hardware: ["Repurposed Android smartphones (audio + compute)", "High-sensitivity external microphone", "Solar panel + battery pack", "Ruggedised weatherproof housing", "GPS module", "Existing cellular network (3G/4G)"],
+      software: ["Acoustic ML classifier (TensorFlow Lite)", "Real-time audio stream processing", "Threat classification (gunshot, chainsaw, distress call)", "Alert dispatch system", "Ranger mobile app", "Species monitoring analytics dashboard"],
+      stakeholders: ["Rangers / Wildlife Officers (actionable real-time alerts)", "Conservation NGOs (funding justification, species data)", "Local indigenous communities (land protection, cultural sites)", "National Park authorities (management reporting)", "Scientists / Researchers (biodiversity monitoring data)", "Governments (anti-poaching compliance / CITES)", "Poachers (system exists specifically to deter them)"],
+      constraints: ["Natural sounds misclassified — thunder, falling trees, waterfalls sound similar to gunshots", "Phone hardware degrades in tropical humidity and heat", "Cellular coverage absent in deepest forest areas", "Solar charging ineffective under dense canopy", "False positives waste ranger resources and reduce trust", "Device theft or deliberate destruction by poachers"]
+    },
+    vocab: [
+      { term: "TensorFlow Lite", def: "Google's lightweight ML framework for running neural network models on mobile and embedded devices with limited CPU and memory." },
+      { term: "Acoustic signature", def: "The unique pattern of frequencies and timing that characterises a specific sound (e.g. a gunshot has a sharp impulsive transient; a chainsaw has continuous harmonic vibration)." },
+      { term: "Spectrogram", def: "A visual representation of audio — shows frequency over time as an image. Many acoustic ML models treat spectrograms as images and use computer vision techniques." },
+      { term: "Transfer learning", def: "Reusing a pre-trained ML model and fine-tuning it on a new dataset. Used in Rainforest Connection to adapt a general audio classifier to forest-specific sounds." },
+      { term: "Latency", def: "The time delay between an event occurring (gunshot) and the alert reaching a ranger. Rainforest Connection achieves ~90 seconds." },
+      { term: "CITES", def: "Convention on International Trade in Endangered Species — international agreement that makes poaching of protected species a criminal offence." },
+      { term: "Biodiversity monitoring", def: "Using species detection data (bird calls, mammal sounds) to track population health and ecosystem changes over time — a secondary benefit of the system." }
+    ],
+    ipo: {
+      inputs: ["Continuous audio stream (microphone)", "GPS coordinates of device", "Time and date", "Battery level", "Cellular signal strength", "Weather context (rain = high noise)"],
+      process: ["1. Continuously buffer 5-second audio segments", "2. Convert audio to spectrogram (frequency image)", "3. Run TensorFlow Lite ML model on spectrogram", "4. Classify: gunshot / chainsaw / distress / ambient", "5. Evaluate confidence score vs threshold", "6. Cross-check with nearby Guardian devices (mesh confirmation)", "7. If confirmed threat → format alert with GPS + sound type + confidence", "8. Dispatch via cellular to ranger app server", "9. Log event with full audio clip for evidence"],
+      outputs: ["Push notification to ranger mobile app (GPS, threat type, confidence)", "Audio evidence clip uploaded to server", "Species detection log (non-threat sounds classified)", "Monthly biodiversity report", "Alert history dashboard for park management"]
+    },
+    pseudocode: `<span class="cm">// Rainforest Guardian — Acoustic Threat Detection</span>
+<span class="kw">BEGIN</span> AcousticGuardian
+
+  <span class="kw">DECLARE</span> threat_threshold  <span class="op">=</span> <span class="val">0.85</span>
+  <span class="kw">DECLARE</span> segment_duration <span class="op">=</span> <span class="val">5</span>   <span class="cm">// 5-second audio windows</span>
+  <span class="kw">DECLARE</span> threats <span class="op">=</span> [<span class="str">"GUNSHOT"</span>, <span class="str">"CHAINSAW"</span>, <span class="str">"DISTRESS"</span>]
+
+  <span class="kw">REPEAT</span>
+    <span class="cm">// Capture and convert audio</span>
+    audio_segment <span class="op">&lt;-</span> <span class="fn">CAPTURE_AUDIO</span>(segment_duration)
+    spectrogram   <span class="op">&lt;-</span> <span class="fn">AUDIO_TO_SPECTROGRAM</span>(audio_segment)
+
+    <span class="cm">// Run edge ML classifier</span>
+    result     <span class="op">&lt;-</span> ML_MODEL.<span class="fn">CLASSIFY</span>(spectrogram)
+    sound_type <span class="op">&lt;-</span> result.class_label
+    confidence <span class="op">&lt;-</span> result.confidence
+
+    <span class="kw">IF</span> sound_type <span class="kw">IN</span> threats <span class="op">AND</span> confidence <span class="op">&gt;=</span> threat_threshold <span class="kw">THEN</span>
+      <span class="cm">// Attempt mesh confirmation</span>
+      nearby_confirm <span class="op">&lt;-</span> <span class="fn">REQUEST_MESH_CONFIRM</span>(sound_type)
+
+      alert_data <span class="op">&lt;-</span> <span class="fn">BUILD_ALERT</span>(sound_type, confidence,
+                       gps_location, current_time)
+      <span class="kw">CALL</span> <span class="fn">UPLOAD_AUDIO_EVIDENCE</span>(audio_segment)
+      <span class="kw">CALL</span> <span class="fn">DISPATCH_ALERT</span>(alert_data)
+      <span class="kw">OUTPUT</span> <span class="str">"ALERT: "</span> <span class="op">+</span> sound_type <span class="op">+</span> <span class="str">" detected at "</span> <span class="op">+</span> gps_location
+
+    <span class="kw">ELSE</span>
+      <span class="cm">// Log non-threat sounds for biodiversity data</span>
+      <span class="kw">IF</span> sound_type <span class="op">NOT IN</span> threats <span class="kw">THEN</span>
+        <span class="kw">CALL</span> <span class="fn">LOG_SPECIES_SOUND</span>(sound_type, confidence)
+      <span class="kw">END IF</span>
+    <span class="kw">END IF</span>
+
+  <span class="kw">UNTIL</span> <span class="val">FALSE</span>
+
+<span class="kw">END</span> AcousticGuardian`,
+    dfd: {
+      entities: ["Forest Environment (Audio)", "Park Rangers", "Conservation NGOs", "Research Scientists"],
+      processes: ["1.0 Capture & Segment Audio", "2.0 Convert to Spectrogram", "3.0 ML Threat Classification", "4.0 Mesh Network Confirmation", "5.0 Dispatch Alert & Upload Evidence"],
+      stores: ["D1 Audio Evidence Archive", "D2 Species Sound Database", "D3 ML Classification Model"]
+    },
+    examQuestions: [
+      { topic: "Topic 1 — Problem & Scope", marks: 3, q: "Compare the scope of the problem that the Acoustic Anti-Poaching system addresses with the LAARMA system. Identify TWO similarities and ONE key difference in the nature of the digital problem.", a: "Similarities: (1) Both solve a real-time wildlife safety problem — LAARMA protects cassowaries from vehicles; Rainforest Connection protects wildlife from poachers. Both require immediate detection and rapid alert dispatch. (2) Both face the challenge of insufficient training data for specific rare events in specific environments, requiring innovative ML approaches. Difference: LAARMA addresses a transport infrastructure problem where the solution is driver behaviour change; Rainforest Connection addresses a law enforcement / conservation problem where the solution is enabling ranger rapid response. The human behavioural response required is very different." },
+      { topic: "Topic 1 — Success Criteria", marks: 2, q: "Define a success criterion for the Acoustic Anti-Poaching system that addresses the economic and conservation impact of the solution.", a: "Economic impact criterion: system must reduce poaching incidents by ≥ 40% within 12 months of deployment at a monitored site, measured against pre-deployment baseline data. Conservation impact criterion: measurable increase in target species population counts (e.g. 10% increase in survey detections within 2 years), demonstrating that reduced poaching is translating to improved species survival rates. Both criteria should be monitored through ongoing data collection built into the system." },
+      { topic: "Topic 3 — DFD Level 0", marks: 2, q: "Draw or describe the external entities and key data flows for a Context Diagram (DFD Level 0) of the Acoustic Anti-Poaching system.", a: "Central process: Acoustic Anti-Poaching System. External entities: (1) Forest Environment → sends: audio stream; (2) Park Rangers → receives: threat alert (GPS, type, confidence), sends: confirmation/response; (3) Conservation NGO → receives: monthly biodiversity reports, threat summary data; (4) Research Scientists → receives: species sound data; sends: updated ML model parameters. All data flows must be clearly labelled with the type of data moving in each direction." },
+      { topic: "Topic 3 — Algorithm", marks: 3, q: "Explain how the pseudocode algorithm for the Acoustic Anti-Poaching system handles TWO different types of data output — threat alerts AND biodiversity monitoring. Trace the relevant code paths.", a: "Path 1 (Threat): sound_type IN ['GUNSHOT','CHAINSAW','DISTRESS'] AND confidence ≥ 0.85 → BUILD_ALERT called → UPLOAD_AUDIO_EVIDENCE → DISPATCH_ALERT → ranger app notified with GPS. Path 2 (Biodiversity): sound_type NOT IN threats (e.g. 'BIRD_CALL') → LOG_SPECIES_SOUND(sound_type, confidence) → species database updated. The ELSE branch with nested IF means the system makes productive use of all audio even when no threat is detected, providing secondary research value." }
+    ],
+    videos: [
+      { title: "Rainforest Connection — Topher White TEDx", source: "TEDx Talk", duration: "14:00", url: "https://www.youtube.com/results?search_query=Rainforest+Connection+Topher+White+acoustic+monitoring" },
+      { title: "How ML Classifies Audio Sounds", source: "YouTube — 3Blue1Brown / Serrano", duration: "8:30", url: "https://www.youtube.com/results?search_query=machine+learning+audio+classification+explained" },
+      { title: "Spectrograms Explained Simply", source: "YouTube — Valerio Velardo", duration: "6:40", url: "https://www.youtube.com/results?search_query=spectrogram+explained+machine+learning+audio" },
+      { title: "Wildlife Conservation Tech", source: "YouTube — WWF / Conservation Tech", duration: "5:50", url: "https://www.youtube.com/results?search_query=wildlife+conservation+technology+IoT" }
+    ]
+  },
+
+  // 5: PREDICTIVE MAINTENANCE
+  {
+    title: "Predictive Maintenance",
+    emoji: "⚙️",
+    cat: "Industry · Mining & Manufacturing",
+    catClass: "cat-industry",
+    color: "#7C3AED",
+    overview: {
+      problem: "Unplanned equipment failures in mining and manufacturing cost billions annually. A conveyor belt or pump failing mid-shift halts entire production lines. Traditional 'run to failure' or scheduled preventive maintenance (replacing parts on a fixed schedule) is either too late or wastes money replacing parts that still have useful life.",
+      solution: "Vibration, temperature, and acoustic sensors are attached to critical machinery. A cloud-based ML model analyses sensor data patterns over time to detect anomalies that precede failure — often 24–72 hours in advance. Maintenance teams are alerted to specific machines, allowing targeted repairs during planned downtime rather than emergency shutdowns.",
+      hardware: ["Piezoelectric vibration sensors", "Thermal/infrared temperature sensors", "Acoustic emission sensors (ultrasonic)", "Current/power draw monitors", "Industrial IoT gateway (MODBUS / OPC-UA)", "4G / WiFi industrial network", "SCADA system integration"],
+      software: ["Time-series anomaly detection ML model", "Remaining Useful Life (RUL) prediction model", "Sensor data historian platform", "CMMS (Computerised Maintenance Management System) integration", "Alert & work-order dispatch system", "Digital twin simulation layer"],
+      stakeholders: ["Maintenance engineers (work-order scheduling, actionable alerts)", "Production managers (uptime maximisation, cost savings)", "C-suite / Finance (ROI, insurance cost reduction)", "Machine operators (safety — equipment failure is a physical hazard)", "OEM suppliers (warranty / failure pattern data)", "Insurers (risk assessment data)"],
+      constraints: ["Industrial environments generate electrical noise (EMI) that interferes with sensors", "Machinery varies enormously — one model doesn't fit all equipment types", "Requires months of 'normal' baseline data before ML can detect anomalies", "Integrating with legacy SCADA / PLC systems is technically complex", "Alert fatigue — too many false alerts leads maintenance teams to ignore them", "Sensor attachment on rotating machinery requires careful engineering"]
+    },
+    vocab: [
+      { term: "Vibration analysis", def: "Examining frequency patterns in vibration data to detect bearing wear, imbalance, misalignment — each fault produces a characteristic vibration signature." },
+      { term: "Anomaly detection", def: "ML technique that identifies data points significantly different from a learned 'normal' baseline — doesn't need labelled failure examples to train." },
+      { term: "RUL (Remaining Useful Life)", def: "A prediction of how many hours/cycles until a component fails, allowing maintenance to be scheduled at the optimal time." },
+      { term: "SCADA", def: "Supervisory Control and Data Acquisition — the industrial control system that monitors and controls factory/mine equipment. Predictive ML must integrate with this." },
+      { term: "Digital twin", def: "A virtual simulation model of physical equipment that runs in parallel with the real machine, using live sensor data to simulate wear and predict failures." },
+      { term: "EMI (Electromagnetic Interference)", def: "Electrical noise from motors, welders, and other industrial equipment that corrupts sensor readings and requires filtering." },
+      { term: "CMMS", def: "Computerised Maintenance Management System — software for logging, scheduling, and tracking maintenance work orders. Predictive ML generates work orders in this system." }
+    ],
+    ipo: {
+      inputs: ["Vibration sensor data (multiple axes, kHz sampling)", "Temperature sensor readings (bearing, motor, gearbox)", "Acoustic emission sensor data", "Motor current / power draw", "Equipment run-time hours (from SCADA)", "Maintenance history log", "Equipment model and specification data"],
+      process: ["1. Stream sensor data to IoT gateway at high frequency", "2. Apply EMI noise filtering and signal conditioning", "3. Extract features (FFT, RMS, kurtosis from vibration data)", "4. Compare against learned baseline (normal operating signature)", "5. Run anomaly detection ML model → anomaly score", "6. Run RUL prediction model → estimated hours to failure", "7. Decision: anomaly score > threshold AND RUL < maintenance window?", "8. Generate prioritised maintenance work order", "9. Dispatch alert to maintenance engineer + CMMS"],
+      outputs: ["Maintenance work order (machine ID, fault type, urgency, RUL estimate)", "Push alert to maintenance engineer mobile app", "CMMS work order creation", "Equipment health dashboard update", "Trend graphs (vibration/temperature over time)", "Monthly reliability report for management"]
+    },
+    pseudocode: `<span class="cm">// Predictive Maintenance — Anomaly Detection Algorithm</span>
+<span class="kw">BEGIN</span> PredictiveMaintenance
+
+  <span class="kw">DECLARE</span> anomaly_threshold <span class="op">=</span> <span class="val">0.75</span>
+  <span class="kw">DECLARE</span> urgent_rul        <span class="op">=</span> <span class="val">24</span>   <span class="cm">// Hours — urgent if &lt;24 hrs to failure</span>
+  <span class="kw">DECLARE</span> warning_rul       <span class="op">=</span> <span class="val">72</span>   <span class="cm">// Hours — plan maintenance if &lt;72 hrs</span>
+
+  <span class="kw">REPEAT</span>
+    <span class="cm">// Collect and process sensor data</span>
+    vibration <span class="op">&lt;-</span> <span class="fn">READ_VIBRATION_SENSOR</span>()
+    temperature <span class="op">&lt;-</span> <span class="fn">READ_TEMPERATURE</span>()
+    current   <span class="op">&lt;-</span> <span class="fn">READ_POWER_DRAW</span>()
+    run_hours <span class="op">&lt;-</span> <span class="fn">GET_SCADA_RUNTIME</span>()
+
+    <span class="cm">// Feature extraction</span>
+    features <span class="op">&lt;-</span> <span class="fn">EXTRACT_FEATURES</span>(vibration, temperature, current)
+    <span class="cm">// e.g. FFT spectrum, RMS value, kurtosis</span>
+
+    <span class="cm">// ML predictions</span>
+    anomaly_score <span class="op">&lt;-</span> ANOMALY_MODEL.<span class="fn">SCORE</span>(features)
+    rul_estimate  <span class="op">&lt;-</span> RUL_MODEL.<span class="fn">PREDICT</span>(features, run_hours)
+
+    <span class="kw">IF</span> anomaly_score <span class="op">&gt;=</span> anomaly_threshold <span class="kw">THEN</span>
+
+      <span class="kw">IF</span> rul_estimate <span class="op">&lt;=</span> urgent_rul <span class="kw">THEN</span>
+        <span class="kw">CALL</span> <span class="fn">CreateWorkOrder</span>(machine_id, <span class="str">"URGENT"</span>, rul_estimate)
+        <span class="kw">CALL</span> <span class="fn">AlertEngineer</span>(<span class="str">"URGENT: Imminent failure in "</span> <span class="op">+</span> rul_estimate <span class="op">+</span> <span class="str">" hrs"</span>)
+        <span class="kw">OUTPUT</span> <span class="str">"URGENT maintenance alert dispatched"</span>
+
+      <span class="kw">ELSE IF</span> rul_estimate <span class="op">&lt;=</span> warning_rul <span class="kw">THEN</span>
+        <span class="kw">CALL</span> <span class="fn">CreateWorkOrder</span>(machine_id, <span class="str">"PLANNED"</span>, rul_estimate)
+        <span class="kw">OUTPUT</span> <span class="str">"Schedule maintenance within "</span> <span class="op">+</span> rul_estimate <span class="op">+</span> <span class="str">" hours"</span>
+      <span class="kw">END IF</span>
+
+    <span class="kw">END IF</span>
+
+    <span class="kw">CALL</span> <span class="fn">UpdateDashboard</span>(machine_id, anomaly_score, rul_estimate)
+    <span class="kw">CALL</span> <span class="fn">WAIT</span>(<span class="val">300</span>)  <span class="cm">// Check every 5 minutes</span>
+
+  <span class="kw">UNTIL</span> system_off <span class="op">=</span> <span class="val">TRUE</span>
+
+<span class="kw">END</span> PredictiveMaintenance`,
+    dfd: {
+      entities: ["Industrial Equipment (Sensors)", "Maintenance Engineers", "Production Manager", "CMMS System"],
+      processes: ["1.0 Stream & Filter Sensor Data", "2.0 Feature Extraction (FFT)", "3.0 Anomaly Detection ML", "4.0 RUL Prediction ML", "5.0 Work Order Generation & Alert"],
+      stores: ["D1 Sensor Time-Series Data", "D2 Maintenance History", "D3 ML Model Store", "D4 Equipment Specification DB"]
+    },
+    examQuestions: [
+      { topic: "Topic 1 — Problem & Constraints", marks: 3, q: "Explain why predictive maintenance requires MONTHS of baseline data before the ML model can function effectively. What constraint does this create, and how might the system design address it?", a: "The anomaly detection ML model learns what 'normal' vibration, temperature, and power signatures look like for a specific machine. Without this baseline, any reading — even a perfectly healthy machine — looks anomalous. Months of data are needed to capture normal variation across seasons, loads, and operating conditions. Constraint: the system provides no value for the first 2–6 months after installation. Design response: use transfer learning from similar equipment models to create an initial approximation of 'normal', then refine with site-specific data. Alternatively, use physics-based models to supplement ML during the data-collection phase." },
+      { topic: "Topic 1 — Stakeholders", marks: 2, q: "A predictive maintenance system sends an alert but the maintenance engineer ignores it because previous alerts were false positives. Explain this as a user-experience problem and describe a design solution.", a: "This is alert fatigue — when too many false positive alerts erode user trust, humans stop responding to alerts entirely. This is a critical UX failure because the entire value of the system depends on engineers acting on alerts promptly. Design solution: (1) display confidence score and historical accuracy alongside each alert so engineers can calibrate trust; (2) use a tiered alert system (warning / urgent) with proven precision metrics shown per tier; (3) A/B test alert thresholds to find the minimum false positive rate engineers will tolerate while maintaining acceptable recall." },
+      { topic: "Topic 3 — Algorithm logic", marks: 3, q: "Trace through the predictive maintenance pseudocode with: anomaly_score = 0.82, rul_estimate = 18 hours. Identify every decision branch taken and the output produced.", a: "Step 1: features extracted from sensor data. anomaly_score = 0.82, rul_estimate = 18. Step 2: IF 0.82 >= 0.75 → TRUE → enter outer IF. Step 3: IF 18 <= 24 → TRUE → URGENT branch: CreateWorkOrder(machine_id, 'URGENT', 18) → AlertEngineer('URGENT: Imminent failure in 18 hrs') → OUTPUT 'URGENT maintenance alert dispatched'. UpdateDashboard called. WAIT 300 seconds. Else-if (72 hr) branch is NOT reached because the urgent branch executed first." },
+      { topic: "Topic 1 — Economic & Social Impact", marks: 2, q: "Evaluate ONE economic impact and ONE social impact of successful deployment of the Predictive Maintenance system. Use specific evidence from the case study data.", a: "Economic: prevents unplanned downtime worth millions per incident in mining (e.g. a conveyor failure costs ~$1M+ per hour in a large iron ore operation). Predictive systems with 72hr warning allow maintenance to be scheduled during planned production breaks, eliminating emergency repair premiums. Social: machinery failure is a serious safety hazard — bearing seizures can cause catastrophic mechanical failure injuring nearby workers. Predicting failure before it occurs protects workers from physical harm, reducing workplace injury rates in one of Australia's most dangerous industries." }
+    ],
+    videos: [
+      { title: "Predictive Maintenance with IoT Explained", source: "YouTube — IBM Technology", duration: "6:30", url: "https://www.youtube.com/results?search_query=predictive+maintenance+IoT+machine+learning+explained" },
+      { title: "Vibration Analysis for Engineers", source: "YouTube — Fluke Corporation", duration: "8:10", url: "https://www.youtube.com/results?search_query=vibration+analysis+predictive+maintenance" },
+      { title: "Digital Twin Technology", source: "YouTube — Siemens Digital Industries", duration: "5:50", url: "https://www.youtube.com/results?search_query=digital+twin+technology+explained+manufacturing" },
+      { title: "Anomaly Detection in Machine Learning", source: "YouTube — StatQuest / Google Cloud", duration: "10:20", url: "https://www.youtube.com/results?search_query=anomaly+detection+machine+learning+tutorial" }
+    ]
+  }
+];
+
+// ===== CURRENT CASE INDEX =====
+let currentCase = 0;
+
+function openCase(idx) {
+  currentCase = idx;
+  const c = cases[idx];
+  document.getElementById('modalHeader').innerHTML = `
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <span class="case-category ${c.catClass}" style="margin-bottom:10px;display:inline-block;">${c.cat}</span>
+    <div style="display:flex;align-items:center;gap:14px;margin-top:8px;">
+      <span style="font-size:42px;">${c.emoji}</span>
+      <div>
+        <h2 style="font-size:24px;font-weight:800;line-height:1.1;">${c.title}</h2>
+        <p style="color:var(--muted);font-size:13px;margin-top:4px;">Unit 1 · Topics 1 & 3 · Flipped Classroom Module</p>
+      </div>
+    </div>
+  `;
+  switchTab('overview', document.querySelector('.modal-tab.active'));
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModalOnOverlay(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+function switchTab(tab, btn) {
+  document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  else document.querySelectorAll('.modal-tab').forEach(t => { if (t.textContent.toLowerCase().includes(tab)) t.classList.add('active'); });
+  renderTab(tab);
+}
+
+function renderTab(tab) {
+  const c = cases[currentCase];
+  let html = '';
+
+  if (tab === 'overview') {
+    html = `
+      <div class="content-section">
+        <h3>The Problem</h3>
+        <p style="font-size:14px;line-height:1.7;color:var(--text);">${c.overview.problem}</p>
+      </div>
+      <div class="content-section">
+        <h3>The Digital Solution</h3>
+        <p style="font-size:14px;line-height:1.7;color:var(--text);">${c.overview.solution}</p>
+      </div>
+      <div class="content-section">
+        <h3>System Components</h3>
+        <div class="info-grid">
+          <div class="info-block">
+            <div class="info-block-label">⚙️ Hardware</div>
+            <ul>${c.overview.hardware.map(h => `<li>${h}</li>`).join('')}</ul>
+          </div>
+          <div class="info-block">
+            <div class="info-block-label">💻 Software</div>
+            <ul>${c.overview.software.map(s => `<li>${s}</li>`).join('')}</ul>
+          </div>
+        </div>
+      </div>
+      <div class="content-section">
+        <h3>Stakeholders</h3>
+        <div class="info-block">
+          <ul style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">${c.overview.stakeholders.map(s => `<li style="font-size:12px;">${s}</li>`).join('')}</ul>
+        </div>
+      </div>
+      <div class="content-section">
+        <h3>Constraints & Limitations</h3>
+        <div class="info-block">
+          <ul>${c.overview.constraints.map(s => `<li style="font-size:13px;">${s}</li>`).join('')}</ul>
+        </div>
+      </div>
+      <div class="note-box" style="background:rgba(0,212,255,0.06);border-left-color:var(--accent);padding:14px 18px;border-radius:0 8px 8px 0;font-size:13px;line-height:1.6;">
+        <strong style="color:var(--accent);">📚 Before class:</strong> Read this overview, then watch the video resources (🎬 Videos tab). In your workbook, sketch out the system as a simple diagram showing sensors → processing → output.
+      </div>
+    `;
+  }
+
+  else if (tab === 'vocab') {
+    html = `
+      <div class="content-section">
+        <h3>Key Vocabulary</h3>
+        <div class="vocab-grid">
+          ${c.vocab.map(v => `
+            <div class="vocab-card">
+              <div class="vocab-term">${v.term}</div>
+              <div class="vocab-def">${v.def}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+      <div class="note-box" style="background:rgba(16,185,129,0.06);border-left-color:var(--accent3);padding:14px 18px;border-radius:0 8px 8px 0;font-size:13px;margin-top:20px;">
+        <strong style="color:var(--accent3);">✏️ Study task:</strong> For each term, write a sentence that uses it in the context of this specific case study — don't just memorise the definition, apply it.
+      </div>
+    `;
+  }
+
+  else if (tab === 'ipo') {
+    html = `
+      <div class="content-section">
+        <h3>IPO Chart</h3>
+        <div class="ipo-table">
+          <div class="ipo-col-header input">INPUT</div>
+          <div class="ipo-col-header process">PROCESS</div>
+          <div class="ipo-col-header output">OUTPUT</div>
+          <div class="ipo-col-body">
+            <ul>${c.ipo.inputs.map(i => `<li>${i}</li>`).join('')}</ul>
+          </div>
+          <div class="ipo-col-body">
+            <ul>${c.ipo.process.map(i => `<li>${i}</li>`).join('')}</ul>
+          </div>
+          <div class="ipo-col-body">
+            <ul>${c.ipo.outputs.map(i => `<li>${i}</li>`).join('')}</ul>
+          </div>
+        </div>
+      </div>
+      <div class="note-box" style="background:rgba(245,158,11,0.06);border-left-color:var(--accent4);padding:14px 18px;border-radius:0 8px 8px 0;font-size:13px;margin-top:16px;">
+        <strong style="color:var(--accent4);">✏️ Before checking:</strong> Cover this IPO chart and try to recreate it in your workbook. Then compare — what did you miss? Pay special attention to the PROCESS column; this is where most exam marks are lost.
+      </div>
+    `;
+  }
+
+  else if (tab === 'algo') {
+    html = `
+      <div class="content-section">
+        <h3>Pseudocode Algorithm</h3>
+        <div class="code-window">
+          <div class="code-titlebar">
+            <span class="dot-r"></span><span class="dot-y"></span><span class="dot-g"></span>
+            <span class="code-filename">${c.title.toLowerCase().replace(/ /g,'-')}-algorithm.pseudo</span>
+          </div>
+          <div class="code-body">${c.pseudocode}</div>
+        </div>
+      </div>
+      <div class="content-section" style="margin-top:20px;">
+        <h3>Algorithm Structures Used</h3>
+        <div class="info-grid">
+          <div class="info-block">
+            <div class="info-block-label">Structures present</div>
+            <ul>
+              <li>SEQUENCE — step-by-step processing</li>
+              <li>SELECTION — IF/THEN/ELSE decisions</li>
+              <li>ITERATION — REPEAT/UNTIL loop</li>
+              <li>PROCEDURE calls (subroutines)</li>
+            </ul>
+          </div>
+          <div class="info-block">
+            <div class="info-block-label">Key Variables</div>
+            <ul>
+              ${c.ipo.inputs.slice(0,4).map(i => `<li>${i.split('(')[0].trim()}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="note-box" style="background:rgba(124,58,237,0.06);border-left-color:var(--accent2);padding:14px 18px;border-radius:0 8px 8px 0;font-size:13px;margin-top:4px;">
+        <strong style="color:var(--accent2);">✏️ Algorithm challenge:</strong> Modify this pseudocode to add an extra condition: if the system hasn't received a valid sensor reading for more than 60 seconds, it should log an error and attempt to reconnect. Write your extension in your workbook.
+      </div>
+    `;
+  }
+
+  else if (tab === 'dfd') {
+    html = `
+      <div class="content-section">
+        <h3>DFD Level 0 — Context Diagram</h3>
+        <div class="info-block" style="margin-bottom:14px;">
+          <div class="info-block-label">External Entities</div>
+          <ul style="display:grid;grid-template-columns:1fr 1fr;gap:4px;">${c.dfd.entities.map(e => `<li>${e}</li>`).join('')}</ul>
+        </div>
+        <div class="note-box" style="background:rgba(0,212,255,0.05);border-left-color:var(--accent);padding:12px 16px;font-size:13px;border-radius:0 8px 8px 0;">
+          <strong style="color:var(--accent);">📐 Draw this yourself:</strong> In the centre, draw a circle labelled "${c.title}". Around it, place rectangles for each external entity above. Draw arrows showing data flows between them — label every arrow with what data moves.
+        </div>
+      </div>
+      <div class="content-section" style="margin-top:20px;">
+        <h3>DFD Level 1 — Sub-Processes</h3>
+        <div class="info-grid">
+          <div class="info-block">
+            <div class="info-block-label">Sub-Processes</div>
+            <ul>${c.dfd.processes.map(p => `<li>${p}</li>`).join('')}</ul>
+          </div>
+          <div class="info-block">
+            <div class="info-block-label">Data Stores</div>
+            <ul>${c.dfd.stores.map(s => `<li>${s}</li>`).join('')}</ul>
+          </div>
+        </div>
+      </div>
+      <div class="content-section" style="margin-top:16px;">
+        <h3>DFD Notation Reminder</h3>
+        <table class="compare-table">
+          <thead><tr><th>Symbol</th><th>Shape</th><th>Used For</th><th>Example</th></tr></thead>
+          <tbody>
+            <tr><td>Process</td><td>Circle (Yourdon) or Rounded rect</td><td>Transforms data</td><td>${c.dfd.processes[0]}</td></tr>
+            <tr><td>External Entity</td><td>Rectangle</td><td>Source/sink of data</td><td>${c.dfd.entities[0]}</td></tr>
+            <tr><td>Data Store</td><td>Open rectangle (D1 ▏______)</td><td>Stored data at rest</td><td>${c.dfd.stores[0]}</td></tr>
+            <tr><td>Data Flow</td><td>Labelled arrow →</td><td>Data movement</td><td>sensor readings</td></tr>
+          </tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  else if (tab === 'exam') {
+    html = `
+      <div class="content-section">
+        <h3>Exam Practice Questions</h3>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Attempt each question in your workbook before clicking Reveal Answer. Time yourself — aim for 1.5 minutes per mark.</p>
+        ${c.examQuestions.map((q, i) => `
+          <div class="exam-q">
+            <div class="q-topic">${q.topic}</div>
+            <div class="exam-q-header">
+              <span class="q-num">Q${i+1}</span>
+              <span class="q-text">${q.q}</span>
+              <span class="q-marks">${q.marks} marks</span>
+            </div>
+            <button class="reveal-btn" onclick="toggleAnswer(this)">▶ Reveal model answer</button>
+            <div class="answer-reveal">
+              <div class="answer-label">Model Answer</div>
+              <div class="answer-text">${q.a}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="note-box" style="background:rgba(16,185,129,0.06);border-left-color:var(--accent3);padding:14px 18px;border-radius:0 8px 8px 0;font-size:13px;margin-top:8px;">
+        <strong style="color:var(--accent3);">⭐ Exam tip:</strong> Every 'Explain' or 'Analyse' question expects you to identify the thing + describe what it does + say why it matters in this specific context. Don't just list — always link back to the case study.
+      </div>
+    `;
+  }
+
+  else if (tab === 'videos') {
+    html = `
+      <div class="content-section">
+        <h3>Recommended Videos</h3>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Watch these before class. Search the titles on YouTube — these are curated for Year 11 Digital Solutions.</p>
+        <div class="video-grid">
+          ${c.videos.map((v,i) => `
+            <div class="video-card">
+              <div class="video-thumb">
+                <div class="play-btn">▶</div>
+                <span class="video-duration">${v.duration}</span>
+              </div>
+              <div class="video-info">
+                <div class="video-title">${v.title}</div>
+                <div class="video-source">${v.source}</div>
+                <a href="${v.url}" target="_blank" style="display:inline-block;margin-top:8px;font-size:11px;color:var(--accent);font-family:var(--mono);text-decoration:none;border:1px solid rgba(0,212,255,0.3);padding:3px 10px;border-radius:10px;">Search on YouTube ↗</a>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+      <div class="content-section" style="margin-top:24px;">
+        <h3>Note-Taking Framework</h3>
+        <div class="info-block" style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px;">
+          <div class="info-block-label">As you watch, record these for each video:</div>
+          <ul>
+            <li>What sensors does the system use? (INPUT)</li>
+            <li>What does the ML model do with the data? (PROCESS)</li>
+            <li>What alert or action is triggered? (OUTPUT)</li>
+            <li>What stakeholder benefits and how?</li>
+            <li>One constraint mentioned in the video</li>
+          </ul>
+        </div>
+      </div>
+    `;
+  }
+
+  document.getElementById('modalBody').innerHTML = html;
+}
+
+function toggleAnswer(btn) {
+  const reveal = btn.nextElementSibling;
+  if (reveal.classList.contains('show')) {
+    reveal.classList.remove('show');
+    btn.textContent = '▶ Reveal model answer';
+  } else {
+    reveal.classList.add('show');
+    btn.textContent = '▼ Hide answer';
+  }
+}
+
+function filterCases(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.case-card').forEach(card => {
+    if (cat === 'all' || card.dataset.cat === cat) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+// Progress tracker
+const doneState = new Array(6).fill(false);
+
+function toggleDone(idx) {
+  doneState[idx] = !doneState[idx];
+  const items = document.querySelectorAll('.progress-item');
+  items[idx].classList.toggle('done', doneState[idx]);
+  if (doneState[idx]) items[idx].classList.add('done-glow');
+  else items[idx].classList.remove('done-glow');
+  updateProgressBar();
+}
+
+function updateProgressBar() {
+  const count = doneState.filter(Boolean).length;
+  const pct = Math.round(count / 6 * 100);
+  document.getElementById('mainProgress').style.width = pct + '%';
+  document.getElementById('progressPct').textContent = pct + '%';
+}
+
+// Close modal on ESC
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// Initial tab state
+document.querySelectorAll('.modal-tab').forEach(t => t.addEventListener('click', function() {
+  const tabName = this.textContent.replace('🎬 ','').toLowerCase().replace(' ','');
+  const map = {'overview':'overview','keyvocab':'vocab','ipochart':'ipo','algorithm':'algo','dfd':'dfd','examprep':'exam','videos':'videos'};
+  switchTab(map[tabName] || 'overview', this);
+}));
+</script>
+</body>
+</html>
