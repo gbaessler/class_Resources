@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Year 11 Digital Solutions – Unit 1: Algorithms & Programming</title>
+<style>
+  :root {
+    --bg: #0f0f1a;
+    --surface: #1a1a2e;
+    --card: #16213e;
+    --accent: #4ecdc4;
+    --accent2: #ff6b6b;
+    --accent3: #ffe66d;
+    --text: #e8e8f0;
+    --muted: #8888aa;
+    --code-bg: #0d1117;
+    --code-border: #30363d;
+    --green: #a8e6cf;
+    --purple: #dda0dd;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.7; }
+  
+  /* NAV */
+  nav { background: var(--surface); border-bottom: 2px solid var(--accent); padding: 0 2rem; display: flex; align-items: center; gap: 1rem; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; }
+  nav .logo { font-size: 1.1rem; font-weight: 700; color: var(--accent); padding: 1rem 0; white-space: nowrap; }
+  nav a { color: var(--muted); text-decoration: none; padding: 1rem 0.6rem; font-size: 0.85rem; transition: color 0.2s; white-space: nowrap; }
+  nav a:hover, nav a.active { color: var(--accent); border-bottom: 2px solid var(--accent); }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%); padding: 4rem 2rem; text-align: center; border-bottom: 1px solid #ffffff15; }
+  .hero h1 { font-size: clamp(1.8rem, 4vw, 3rem); color: var(--accent); margin-bottom: 0.5rem; }
+  .hero p { color: var(--muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 2rem; }
+  .badge-row { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
+  .badge { background: var(--card); border: 1px solid var(--accent); border-radius: 2rem; padding: 0.4rem 1.2rem; font-size: 0.8rem; color: var(--accent); }
+
+  /* SECTIONS */
+  section { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; }
+  section + section { border-top: 1px solid #ffffff10; }
+  h2 { font-size: 1.8rem; color: var(--accent3); margin-bottom: 0.3rem; }
+  h3 { font-size: 1.2rem; color: var(--accent); margin: 1.5rem 0 0.7rem; }
+  p { color: var(--text); margin-bottom: 0.8rem; }
+  
+  .section-tag { font-size: 0.75rem; color: var(--accent2); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.5rem; }
+
+  /* CARDS */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+  .card { background: var(--card); border: 1px solid #ffffff15; border-radius: 12px; padding: 1.5rem; transition: border-color 0.2s, transform 0.2s; }
+  .card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .card-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+  .card h4 { color: var(--accent); margin-bottom: 0.5rem; font-size: 1rem; }
+  .card p { font-size: 0.9rem; color: var(--muted); }
+
+  /* CODE BLOCKS */
+  .code-container { margin: 1.2rem 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--code-border); }
+  .code-header { background: #21262d; padding: 0.6rem 1rem; display: flex; justify-content: space-between; align-items: center; }
+  .code-lang { font-size: 0.75rem; color: var(--accent); font-weight: 600; letter-spacing: 1px; }
+  .copy-btn { background: var(--accent); color: #000; border: none; padding: 0.3rem 0.8rem; border-radius: 4px; cursor: pointer; font-size: 0.75rem; font-weight: 600; transition: opacity 0.2s; }
+  .copy-btn:hover { opacity: 0.8; }
+  pre { background: var(--code-bg); padding: 1.2rem 1.5rem; overflow-x: auto; font-size: 0.85rem; line-height: 1.6; }
+  code { font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace; }
+  
+  /* Syntax highlight colours */
+  .kw  { color: #ff7b72; }
+  .fn  { color: #d2a8ff; }
+  .str { color: #a5d6ff; }
+  .num { color: #79c0ff; }
+  .cm  { color: #6a737d; font-style: italic; }
+  .var { color: #ffa657; }
+
+  /* PSEUDO CODE */
+  .pseudo { background: #0d1117; border-left: 4px solid var(--accent3); border-radius: 0 10px 10px 0; padding: 1.2rem 1.5rem; font-family: 'Cascadia Code', monospace; font-size: 0.85rem; line-height: 2; color: var(--text); margin: 1rem 0; }
+  .pseudo .step { color: var(--accent3); }
+  .pseudo .keyword { color: #ff7b72; }
+  .pseudo .comment { color: var(--muted); font-style: italic; }
+
+  /* BUBBLE SORT VIS */
+  #sort-demo { background: var(--card); border-radius: 12px; padding: 2rem; margin-top: 1.5rem; }
+  .bars-container { display: flex; gap: 6px; align-items: flex-end; height: 200px; margin: 1rem 0; }
+  .bar { flex: 1; background: var(--accent); border-radius: 4px 4px 0 0; transition: height 0.3s, background 0.3s; min-width: 20px; display: flex; align-items: flex-end; justify-content: center; }
+  .bar.comparing { background: var(--accent3) !important; }
+  .bar.sorted { background: var(--green) !important; }
+  .bar span { font-size: 0.65rem; color: #000; font-weight: 700; padding-bottom: 4px; }
+  .controls { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
+  .btn { padding: 0.6rem 1.4rem; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.2s; }
+  .btn-primary { background: var(--accent); color: #000; }
+  .btn-secondary { background: transparent; border: 2px solid var(--accent); color: var(--accent); }
+  .btn:hover { opacity: 0.85; transform: scale(1.03); }
+  #sort-status { color: var(--muted); font-size: 0.9rem; margin-top: 0.5rem; }
+
+  /* ARRAYS VIS */
+  .array-vis { display: flex; gap: 0; margin: 1rem 0; }
+  .array-cell { background: var(--card); border: 2px solid var(--accent); min-width: 55px; height: 55px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: monospace; transition: all 0.3s; }
+  .array-cell.active { background: var(--accent); color: #000; }
+  .array-cell .val { font-size: 1rem; font-weight: 700; }
+  .array-cell .idx { font-size: 0.65rem; color: var(--muted); margin-top: 2px; }
+  .array-cell.active .idx { color: #000; }
+  #array-input { background: var(--code-bg); border: 1px solid var(--code-border); color: var(--text); padding: 0.5rem 1rem; border-radius: 6px; font-family: monospace; width: 300px; }
+  #array-output { color: var(--accent); font-family: monospace; margin-top: 0.8rem; min-height: 1.5rem; }
+
+  /* EVENT LISTENER DEMO */
+  .demo-box { background: var(--card); border: 2px dashed var(--code-border); border-radius: 12px; padding: 2rem; margin: 1rem 0; text-align: center; transition: all 0.3s; cursor: pointer; }
+  .demo-box:hover { border-color: var(--accent); }
+  #event-log { background: var(--code-bg); border-radius: 8px; padding: 1rem; font-family: monospace; font-size: 0.8rem; max-height: 200px; overflow-y: auto; margin-top: 1rem; }
+  .log-entry { padding: 2px 0; border-bottom: 1px solid #ffffff08; }
+  .log-entry.click { color: var(--accent); }
+  .log-entry.keypress { color: var(--accent3); }
+  .log-entry.mouse { color: var(--purple); }
+
+  /* EUCLID INTERACTIVE */
+  #euclid-demo { background: var(--card); border-radius: 12px; padding: 2rem; margin-top: 1.5rem; }
+  #euclid-canvas { display: block; margin: 0 auto; background: #0d1117; border: 2px solid var(--code-border); border-radius: 8px; }
+  .euclid-controls { display: flex; gap: 1rem; align-items: center; margin: 1rem 0; flex-wrap: wrap; }
+  .euclid-controls label { color: var(--muted); font-size: 0.9rem; }
+  .euclid-controls input[type="number"] { background: var(--code-bg); border: 1px solid var(--code-border); color: var(--text); padding: 0.4rem 0.8rem; border-radius: 6px; width: 90px; font-size: 0.9rem; }
+  #euclid-steps { font-family: monospace; font-size: 0.85rem; color: var(--text); max-height: 200px; overflow-y: auto; }
+  .euclid-step { padding: 4px 0; border-bottom: 1px solid #ffffff08; }
+  .euclid-step.active { color: var(--accent3); font-weight: 700; }
+  .euclid-result { color: var(--green); font-weight: 700; font-size: 1rem; margin-top: 0.5rem; }
+
+  /* TABS */
+  .tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+  .tab { padding: 0.5rem 1.2rem; border-radius: 6px; border: 1px solid var(--code-border); cursor: pointer; font-size: 0.85rem; color: var(--muted); transition: all 0.2s; background: transparent; }
+  .tab.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 600; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* PRACTICE */
+  .challenge { background: var(--card); border: 1px solid #ffffff15; border-radius: 10px; padding: 1.5rem; margin: 1rem 0; }
+  .challenge-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; }
+  .difficulty { font-size: 0.75rem; padding: 0.2rem 0.7rem; border-radius: 2rem; font-weight: 600; }
+  .easy { background: #a8e6cf30; color: var(--green); border: 1px solid var(--green); }
+  .medium { background: #ffe66d30; color: var(--accent3); border: 1px solid var(--accent3); }
+  .hard { background: #ff6b6b30; color: var(--accent2); border: 1px solid var(--accent2); }
+  textarea.code-editor { width: 100%; background: var(--code-bg); border: 1px solid var(--code-border); color: var(--text); padding: 1rem; border-radius: 8px; font-family: 'Cascadia Code', monospace; font-size: 0.85rem; resize: vertical; min-height: 120px; margin-top: 0.8rem; }
+  .run-btn { margin-top: 0.5rem; }
+  .output-panel { background: #000; border-radius: 6px; padding: 0.8rem; font-family: monospace; font-size: 0.85rem; margin-top: 0.5rem; min-height: 40px; color: var(--green); }
+  
+  /* ALGORITHM STEPS */
+  .step-list { counter-reset: steps; list-style: none; }
+  .step-list li { counter-increment: steps; padding: 0.8rem 0.8rem 0.8rem 3.5rem; position: relative; border-left: 3px solid var(--accent); margin-bottom: 0.5rem; background: var(--card); border-radius: 0 8px 8px 0; }
+  .step-list li::before { content: counter(steps); position: absolute; left: -1px; top: 50%; transform: translateY(-50%); background: var(--accent); color: #000; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.85rem; line-height: 28px; text-align: center; }
+
+  /* TABLE */
+  .info-table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+  .info-table th { background: var(--accent); color: #000; padding: 0.7rem 1rem; text-align: left; }
+  .info-table td { padding: 0.7rem 1rem; border-bottom: 1px solid #ffffff10; font-size: 0.9rem; }
+  .info-table tr:hover td { background: #ffffff05; }
+
+  /* FOOTER */
+  footer { background: var(--surface); border-top: 1px solid #ffffff10; text-align: center; padding: 2rem; color: var(--muted); font-size: 0.85rem; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="logo">🖥️ Yr11 Digital Solutions</span>
+  <a href="#concepts" class="active">Concepts</a>
+  <a href="#bubble-sort">Bubble Sort</a>
+  <a href="#arrays">Arrays</a>
+  <a href="#events">Events</a>
+  <a href="#euclid">Euclid's Tiles</a>
+  <a href="#practice">Practice</a>
+  <a href="#python">Python</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>🎓 Unit 1: Algorithms & Programming</h1>
+  <p>Year 11 Digital Solutions – Self-Paced Interactive Learning Resource</p>
+  <div class="badge-row">
+    <span class="badge">JavaScript</span>
+    <span class="badge">Python</span>
+    <span class="badge">Pseudocode</span>
+    <span class="badge">Bubble Sort</span>
+    <span class="badge">Arrays</span>
+    <span class="badge">Event Listeners</span>
+    <span class="badge">Euclid's Algorithm</span>
+    <span class="badge">OOP</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ CONCEPTS -->
+<section id="concepts">
+  <p class="section-tag">Foundation</p>
+  <h2>Objects &amp; Classes</h2>
+  <p>In Object-Oriented Programming (OOP), a <strong>class</strong> is a blueprint and an <strong>object</strong> is an instance of that blueprint. This mirrors how we model real-world entities in software.</p>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab(this, 'js-class')">JavaScript</button>
+    <button class="tab" onclick="switchTab(this, 'py-class')">Python</button>
+    <button class="tab" onclick="switchTab(this, 'pseudo-class')">Pseudocode</button>
+  </div>
+
+  <div id="js-class" class="tab-panel active">
+    <h3>JavaScript – Class Example</h3>
+    <div class="code-container">
+      <div class="code-header"><span class="code-lang">JAVASCRIPT</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre><code><span class="cm">// Define a class – the blueprint</span>
+<span class="kw">class</span> <span class="fn">Animal</span> {
+  <span class="fn">constructor</span>(name, sound) {
+    <span class="kw">this</span>.name  = name;   <span class="cm">// instance property</span>
+    <span class="kw">this</span>.sound = sound;
+  }
+
+  <span class="fn">speak</span>() {
+    <span class="kw">return</span> <span class="str">`${this.name} says ${this.sound}!`</span>;
+  }
+}
+
+<span class="cm">// Inheritance – Dog extends Animal</span>
+<span class="kw">class</span> <span class="fn">Dog</span> <span class="kw">extends</span> <span class="fn">Animal</span> {
+  <span class="fn">constructor</span>(name) {
+    <span class="kw">super</span>(name, <span class="str">"Woof"</span>);   <span class="cm">// call parent constructor</span>
+    <span class="kw">this</span>.tricks = [];
+  }
+
+  <span class="fn">learnTrick</span>(trick) {
+    <span class="kw">this</span>.tricks.push(trick);
+  }
+
+  <span class="fn">showTricks</span>() {
+    <span class="kw">return</span> <span class="str">`${this.name} knows: ${this.tricks.join(", ")}`</span>;
+  }
+}
+
+<span class="cm">// Create objects (instances)</span>
+<span class="kw">const</span> myDog = <span class="kw">new</span> <span class="fn">Dog</span>(<span class="str">"Rex"</span>);
+myDog.<span class="fn">learnTrick</span>(<span class="str">"sit"</span>);
+myDog.<span class="fn">learnTrick</span>(<span class="str">"roll over"</span>);
+
+console.<span class="fn">log</span>(myDog.<span class="fn">speak</span>());       <span class="cm">// Rex says Woof!</span>
+console.<span class="fn">log</span>(myDog.<span class="fn">showTricks</span>());  <span class="cm">// Rex knows: sit, roll over</span></code></pre>
+    </div>
+  </div>
+
+  <div id="py-class" class="tab-panel">
+    <h3>Python – Class Example</h3>
+    <div class="code-container">
+      <div class="code-header"><span class="code-lang">PYTHON</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre><code><span class="cm"># Define a class – the blueprint</span>
+<span class="kw">class</span> <span class="fn">Animal</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="var">self</span>, name, sound):
+        <span class="var">self</span>.name  = name   <span class="cm"># instance attribute</span>
+        <span class="var">self</span>.sound = sound
+
+    <span class="kw">def</span> <span class="fn">speak</span>(<span class="var">self</span>):
+        <span class="kw">return</span> <span class="str">f"{self.name} says {self.sound}!"</span>
+
+<span class="cm"># Inheritance</span>
+<span class="kw">class</span> <span class="fn">Dog</span>(<span class="fn">Animal</span>):
+    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="var">self</span>, name):
+        <span class="kw">super</span>().<span class="fn">__init__</span>(name, <span class="str">"Woof"</span>)
+        <span class="var">self</span>.tricks = []
+
+    <span class="kw">def</span> <span class="fn">learn_trick</span>(<span class="var">self</span>, trick):
+        <span class="var">self</span>.tricks.append(trick)
+
+    <span class="kw">def</span> <span class="fn">show_tricks</span>(<span class="var">self</span>):
+        <span class="kw">return</span> <span class="str">f"{self.name} knows: {', '.join(self.tricks)}"</span>
+
+<span class="cm"># Create objects (instances)</span>
+my_dog = <span class="fn">Dog</span>(<span class="str">"Rex"</span>)
+my_dog.<span class="fn">learn_trick</span>(<span class="str">"sit"</span>)
+my_dog.<span class="fn">learn_trick</span>(<span class="str">"roll over"</span>)
+
+<span class="fn">print</span>(my_dog.<span class="fn">speak</span>())        <span class="cm"># Rex says Woof!</span>
+<span class="fn">print</span>(my_dog.<span class="fn">show_tricks</span>())  <span class="cm"># Rex knows: sit, roll over</span></code></pre>
+    </div>
+  </div>
+
+  <div id="pseudo-class" class="tab-panel">
+    <h3>Pseudocode – Class Design</h3>
+    <div class="pseudo">
+<span class="step">CLASS</span> Animal<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="step">ATTRIBUTES:</span> name, sound<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="step">METHOD</span> initialise(name, sound)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET self.name ← name<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET self.sound ← sound<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="step">METHOD</span> speak()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN name + " says " + sound<br>
+<span class="step">END CLASS</span><br>
+<br>
+<span class="step">CLASS</span> Dog <span class="keyword">INHERITS FROM</span> Animal<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="step">ATTRIBUTES:</span> tricks (list)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="step">METHOD</span> learnTrick(trick)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND trick TO tricks<br>
+<span class="step">END CLASS</span><br>
+<br>
+<span class="comment">// Create and use objects</span><br>
+myDog ← <span class="keyword">NEW</span> Dog("Rex")<br>
+CALL myDog.learnTrick("sit")<br>
+OUTPUT myDog.speak()
+    </div>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon">🏗️</div>
+      <h4>Class</h4>
+      <p>The template or blueprint. Defines what attributes (data) and methods (behaviours) all objects of that type will have.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📦</div>
+      <h4>Object</h4>
+      <p>A specific instance of a class. Each object has its own copy of the attributes defined by the class.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔒</div>
+      <h4>Encapsulation</h4>
+      <p>Bundling data and methods together, hiding internal implementation details from the outside.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🧬</div>
+      <h4>Inheritance</h4>
+      <p>A child class inherits attributes and methods from its parent class, enabling code reuse.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════ BUBBLE SORT -->
+<section id="bubble-sort">
+  <p class="section-tag">Sorting Algorithm</p>
+  <h2>Bubble Sort</h2>
+  <p>Bubble Sort repeatedly steps through a list, compares adjacent elements, and swaps them if they are in the wrong order. The largest values "bubble up" to the end with each pass.</p>
+
+  <div class="pseudo">
+<span class="step">ALGORITHM</span> BubbleSort(array)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;n ← LENGTH(array)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">FOR</span> i ← 0 <span class="keyword">TO</span> n - 1 <span class="keyword">DO</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">FOR</span> j ← 0 <span class="keyword">TO</span> n - i - 2 <span class="keyword">DO</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">IF</span> array[j] &gt; array[j+1] <span class="keyword">THEN</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SWAP array[j] <span class="keyword">AND</span> array[j+1]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">END IF</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">END FOR</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">END FOR</span><br>
+<span class="step">END ALGORITHM</span>
+  </div>
+
+  <div id="sort-demo">
+    <h3 style="color:var(--accent3); margin-top:0">▶ Interactive Demo</h3>
+    <div class="bars-container" id="bars"></div>
+    <div id="sort-status">Click "Start Sort" to begin the animation</div>
+    <div class="controls">
+      <button class="btn btn-primary" id="startBtn" onclick="startSort()">▶ Start Sort</button>
+      <button class="btn btn-secondary" onclick="resetSort()">↺ Shuffle</button>
+    </div>
+  </div>
+
+  <div class="tabs" style="margin-top:2rem">
+    <button class="tab active" onclick="switchTab(this, 'bs-js')">JavaScript</button>
+    <button class="tab" onclick="switchTab(this, 'bs-py')">Python</button>
+  </div>
+
+  <div id="bs-js" class="tab-panel active">
+    <div class="code-container">
+      <div class="code-header"><span class="code-lang">JAVASCRIPT</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre><code><span class="kw">function</span> <span class="fn">bubbleSort</span>(arr) {
+  <span class="kw">const</span> n = arr.length;
+
+  <span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i &lt; n - <span class="num">1</span>; i++) {
+    <span class="kw">let</span> swapped = <span class="kw">false</span>;
+
+    <span class="kw">for</span> (<span class="kw">let</span> j = <span class="num">0</span>; j &lt; n - i - <span class="num">1</span>; j++) {
+      <span class="kw">if</span> (arr[j] &gt; arr[j + <span class="num">1</span>]) {
+        <span class="cm">// Destructuring swap</span>
+        [arr[j], arr[j + <span class="num">1</span>]] = [arr[j + <span class="num">1</span>], arr[j]];
+        swapped = <span class="kw">true</span>;
+      }
+    }
+
+    <span class="cm">// Optimisation: stop if already sorted</span>
+    <span class="kw">if</span> (!swapped) <span class="kw">break</span>;
+  }
+
+  <span class="kw">return</span> arr;
+}
+
+<span class="kw">const</span> data = [<span class="num">64</span>, <span class="num">34</span>, <span class="num">25</span>, <span class="num">12</span>, <span class="num">22</span>, <span class="num">11</span>, <span class="num">90</span>];
+console.<span class="fn">log</span>(<span class="str">"Sorted:"</span>, <span class="fn">bubbleSort</span>(data));</code></pre>
+    </div>
+  </div>
+
+  <div id="bs-py" class="tab-panel">
+    <div class="code-container">
+      <div class="code-header"><span class="code-lang">PYTHON</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre><code><span class="kw">def</span> <span class="fn">bubble_sort</span>(arr):
+    n = <span class="fn">len</span>(arr)
+
+    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n - <span class="num">1</span>):
+        swapped = <span class="kw">False</span>
+
+        <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(n - i - <span class="num">1</span>):
+            <span class="kw">if</span> arr[j] &gt; arr[j + <span class="num">1</span>]:
+                arr[j], arr[j + <span class="num">1</span>] = arr[j + <span class="num">1</span>], arr[j]
+                swapped = <span class="kw">True</span>
+
+        <span class="cm"># Optimisation: stop if no swaps made</span>
+        <span class="kw">if not</span> swapped:
+            <span class="kw">break</span>
+
+    <span class="kw">return</span> arr
+
+data = [<span class="num">64</span>, <span class="num">34</span>, <span class="num">25</span>, <span class="num">12</span>, <span class="num">22</span>, <span class="num">11</span>, <span class="num">90</span>]
+<span class="fn">print</span>(<span class="str">"Sorted:"</span>, <span class="fn">bubble_sort</span>(data))</code></pre>
+    </div>
+  </div>
+
+  <table class="info-table" style="margin-top:1.5rem">
+    <tr><th>Property</th><th>Value</th><th>Notes</th></tr>
+    <tr><td>Best Case</td><td>O(n)</td><td>Already sorted — with early exit optimisation</td></tr>
+    <tr><td>Average Case</td><td>O(n²)</td><td>Random data</td></tr>
+    <tr><td>Worst Case</td><td>O(n²)</td><td>Reverse sorted</td></tr>
+    <tr><td>Space</td><td>O(1)</td><td>In-place sorting — no extra memory</td></tr>
+    <tr><td>Stable?</td><td>Yes</td><td>Equal elements keep their original order</td></tr>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════════════════ ARRAYS -->
+<section id="arrays">
+  <p class="section-tag">Data Structures</p>
+  <h2>Arrays in JavaScript &amp; Python</h2>
+  <p>An array (called a <strong>list</strong> in Python) is an ordered collection of elements accessed by index. Arrays are zero-indexed — the first element is at position <code>0</code>.</p>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab(this, 'arr-js')">JavaScript Arrays</button>
+    <button class="tab" onclick="switchTab(this, 'arr-py')">Python Lists</button>
+    <button class="tab" onclick="switchTab(this, 'arr-2d')">2D Arrays</button>
+  </div>
+
+  <div id="arr-js" class="tab-panel active">
+    <div class="code-container">
+      <div class="code-header"><span class="code-lang">JAVASCRIPT</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre><code><span class="cm">// Declare and initialise an array</span>
+<span class="kw">const</span> scores = [<span class="num">85</span>, <span class="num">92</span>, <span class="num">78</span>, <span class="num">95</span>, <span class="num">88</span>];
+
+<span class="cm">// Access elements by index (zero-based)</span>
+console.<span class="fn">log</span>(scores[<span class="num">0</span>]);   <span class="cm">// 85  (first element)</span>
+console.<span class="fn">log</span>(scores[<span class="num">4</span>]);   <span class="cm">// 88  (last element)</span>
+
+<span class="cm">// Array methods</span>
+scores.<span class="fn">push</span>(<span class="num">100</span>);         <span class="cm">// Add to end</span>
+scores.<span class="fn">pop</span>();             <span class="cm">// Remove from end</span>
+scores.<span class="fn">unshift</span>(<span class="num">70</span>);      <span class="cm">// Add to start</span>
+scores.<span class="fn">shift</span>();           <span class="cm">// Remove from start</span>
+
+<span class="cm">// Iterating with forEach</span>
+scores.<span class="fn">forEach</span>((score, index) =&gt; {
+  console.<span class="fn">log</span>(<span class="str">`scores[${index}] = ${score}`</span>);
+});
+
+<span class="cm">// map, filter, reduce</span>
+<span class="kw">const</span> doubled = scores.<span class="fn">map</span>(s =&gt; s * <span class="num">2</span>);
+<span class="kw">const</span> passes  = scores.<span class="fn">filter</span>(s =&gt; s &gt;= <span class="num">80</span>);
+<span class="kw">const</span> total   = scores.<span class="fn">reduce</span>((sum, s) =&gt; sum + s, <span class="num">0</span>);
+
+<span class="cm">// Slicing</span>
+<span class="kw">const</span> first3 = scores.<span class="fn">slice</span>(<span class="num">0</span>, <span class="num">3</span>);  <span class="cm">// [85, 92, 78]</span></code></pre>
+    </div>
+  </div>
+
+  <div id="arr-py" class="tab-panel">
+    <div class="code-container">
+      <div class="code-header"><span class="code-lang">PYTHON</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre><code><span class="cm"># Declare and initialise a list</span>
+scores = [<span class="num">85</span>, <span class="num">92</span>, <span class="num">78</span>, <span class="num">95</span>, <span class="num">88</span>]
+
+<span class="cm"># Access elements by index</span>
+<span class="fn">print</span>(scores[<span class="num">0</span>])    <span class="cm"># 85  (first element)</span>
+<span class="fn">print</span>(scores[-<span class="num">1</span>])   <span class="cm"># 88  (last element using negative index)</span>
+
+<span class="cm"># List methods</span>
+scores.<span class="fn">append</span>(<span class="num">100</span>)      <span class="cm"># Add to end</span>
+scores.<span class="fn">pop</span>()            <span class="cm"># Remove last</span>
+scores.<span class="fn">insert</span>(<span class="num">0</span>, <span class="num">70</span>)   <span class="cm"># Insert at index 0</span>
+scores.<span class="fn">remove</span>(<span class="num">70</span>)      <span class="cm"># Remove first occurrence</span>
+
+<span class="cm"># Slicing [start:end:step]</span>
+first3 = scores[<span class="num">0</span>:<span class="num">3</span>]         <span class="cm"># [85, 92, 78]</span>
+reversed_list = scores[::-<span class="num">1</span>]   <span class="cm"># Reverse the list</span>
+
+<span class="cm"># List comprehension (Pythonic way to create lists)</span>
+doubled = [s * <span class="num">2</span> <span class="kw">for</span> s <span class="kw">in</span> scores]
+passes  = [s <span class="kw">for</span> s <span class="kw">in</span> scores <span class="kw">if</span> s &gt;= <span class="num">80</span>]
+
+<span class="cm"># Useful built-ins</span>
+<span class="fn">print</span>(<span class="fn">len</span>(scores), <span class="fn">sum</span>(scores), <span class="fn">max</span>(scores), <span class="fn">min</span>(scores))</code></pre>
+    </div>
+  </div>
+
+  <div id="arr-2d" class="tab-panel">
+    <div class="code-container">
+      <div class="code-header"><span class="code-lang">JAVASCRIPT / PYTHON</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre><code><span class="cm">// JavaScript – 2D array (grid/matrix)</span>
+<span class="kw">const</span> grid = [
+  [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>],
+  [<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>],
+  [<span class="num">7</span>, <span class="num">8</span>, <span class="num">9</span>]
+];
+console.<span class="fn">log</span>(grid[<span class="num">1</span>][<span class="num">2</span>]);  <span class="cm">// 6  (row 1, column 2)</span>
+
+<span class="cm">// Iterate over 2D array</span>
+<span class="kw">for</span> (<span class="kw">let</span> row <span class="kw">of</span> grid) {
+  console.<span class="fn">log</span>(row.<span class="fn">join</span>(<span class="str">" | "</span>));
+}
+
+<span class="cm">// ─────────────────────────────────────────
+# Python – 2D list (grid/matrix)</span>
+grid = [
+  [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>],
+  [<span class="num">4</span>, <span class="num">5</span>, <span class="num">6</span>],
+  [<span class="num">7</span>, <span class="num">8</span>, <span class="num">9</span>]
+]
+<span class="fn">print</span>(grid[<span class="num">1</span>][<span class="num">2</span>])  <span class="cm"># 6</span>
+
+<span class="cm"># Create with list comprehension</span>
+matrix = [[<span class="num">0</span>] * <span class="num">3</span> <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="num">3</span>)]
+
+<span class="cm"># Iterate</span>
+<span class="kw">for</span> row <span class="kw">in</span> grid:
+    <span class="fn">print</span>(<span class="str">" | "</span>.<span class="fn">join</span>(<span class="fn">str</span>(x) <span class="kw">for</span> x <span class="kw">in</span> row))</code></pre>
+    </div>
+  </div>
+
+  <h3>Interactive Array Explorer</h3>
+  <div style="background:var(--card); padding:1.5rem; border-radius:12px; margin-top:0.5rem;">
+    <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:1rem">
+      <input id="array-input" type="text" value="10, 25, 8, 42, 17, 33" placeholder="Enter comma-separated numbers">
+      <button class="btn btn-primary" onclick="renderArray()">Render Array</button>
+    </div>
+    <div class="array-vis" id="array-vis"></div>
+    <div id="array-output"></div>
+    <div style="display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:0.8rem">
+      <button class="btn btn-secondary" onclick="arrayOp('sort')">Sort</button>
+      <button class="btn btn-secondary" onclick="arrayOp('reverse')">Reverse</button>
+      <button class="btn btn-secondary" onclick="arrayOp('max')">Find Max</button>
+      <button class="btn btn-secondary" onclick="arrayOp('min')">Find Min</button>
+      <button class="btn btn-secondary" onclick="arrayOp('sum')">Sum</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════ EVENTS -->
+<section id="events">
+  <p class="section-tag">JavaScript Interaction</p>
+  <h2>Event Listeners</h2>
+  <p>Event listeners allow your page to respond to user actions — clicks, key presses, mouse moves, and more. They are the backbone of interactive web pages.</p>
+
+  <div class="code-container">
+    <div class="code-header"><span class="code-lang">JAVASCRIPT – Event Listener Syntax</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <pre><code><span class="cm">// Syntax: element.addEventListener(event, handlerFunction)</span>
+
+<span class="kw">const</span> button = document.<span class="fn">getElementById</span>(<span class="str">"myBtn"</span>);
+
+button.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, <span class="kw">function</span>(event) {
+  console.<span class="fn">log</span>(<span class="str">"Button clicked!"</span>, event);
+});
+
+<span class="cm">// Arrow function shorthand</span>
+button.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, (e) =&gt; {
+  e.target.textContent = <span class="str">"Clicked!"</span>;
+});
+
+<span class="cm">// Keyboard events</span>
+document.<span class="fn">addEventListener</span>(<span class="str">"keydown"</span>, (e) =&gt; {
+  console.<span class="fn">log</span>(<span class="str">`Key pressed: ${e.key}`</span>);
+});
+
+<span class="cm">// Mouse events</span>
+box.<span class="fn">addEventListener</span>(<span class="str">"mouseover"</span>, () =&gt; box.style.background = <span class="str">"blue"</span>);
+box.<span class="fn">addEventListener</span>(<span class="str">"mouseout"</span>,  () =&gt; box.style.background = <span class="str">""</span>);
+
+<span class="cm">// Form events</span>
+input.<span class="fn">addEventListener</span>(<span class="str">"input"</span>, (e) =&gt; console.<span class="fn">log</span>(e.target.value));
+form.<span class="fn">addEventListener</span>(<span class="str">"submit"</span>, (e) =&gt; { e.<span class="fn">preventDefault</span>(); });</code></pre>
+  </div>
+
+  <h3>Live Event Demo</h3>
+  <div class="demo-box" id="event-demo-box" tabindex="0">
+    <p style="font-size:1.2rem;color:var(--accent)">🎯 Click, hover, or type keys here!</p>
+    <p style="color:var(--muted);font-size:0.9rem">All events are captured below</p>
+  </div>
+
+  <div style="display:flex;gap:0.8rem;margin-top:0.8rem;flex-wrap:wrap">
+    <button class="btn btn-secondary" onclick="clearLog()">Clear Log</button>
+    <span style="color:var(--muted);font-size:0.85rem;align-self:center">Events fired: <strong id="event-count" style="color:var(--accent)">0</strong></span>
+  </div>
+  <div id="event-log"></div>
+
+  <table class="info-table" style="margin-top:1.5rem">
+    <tr><th>Event</th><th>Trigger</th><th>Use Case</th></tr>
+    <tr><td><code>click</code></td><td>Mouse click</td><td>Buttons, links</td></tr>
+    <tr><td><code>dblclick</code></td><td>Double click</td><td>Edit mode toggle</td></tr>
+    <tr><td><code>keydown</code></td><td>Key pressed</td><td>Keyboard shortcuts</td></tr>
+    <tr><td><code>keyup</code></td><td>Key released</td><td>Search-as-you-type</td></tr>
+    <tr><td><code>mouseover</code></td><td>Mouse enters element</td><td>Hover effects</td></tr>
+    <tr><td><code>input</code></td><td>Form value changes</td><td>Live validation</td></tr>
+    <tr><td><code>submit</code></td><td>Form submitted</td><td>Form handling</td></tr>
+    <tr><td><code>load</code></td><td>Page fully loaded</td><td>Initialisation</td></tr>
+  </table>
+</section>
+
+<!-- ══════════════════════════════════════════════════════ EUCLID -->
+<section id="euclid">
+  <p class="section-tag">Algorithm Design</p>
+  <h2>Euclid's Tiles Problem</h2>
+  <p>Given a rectangle of width <em>W</em> and height <em>H</em>, what is the <strong>largest square tile</strong> that can perfectly tile the rectangle with no gaps or overlaps? The answer is the <strong>GCD</strong> (Greatest Common Divisor) of W and H.</p>
+
+  <h3>📋 Step-by-Step Algorithm</h3>
+  <ol class="step-list">
+    <li><strong>Understand the problem:</strong> We need to find the largest square that divides evenly into both the width and height of the rectangle.</li>
+    <li><strong>Identify the pattern:</strong> This is the Euclidean Algorithm — repeatedly subtract the smaller value from the larger until they are equal.</li>
+    <li><strong>Write the pseudocode:</strong> Express the logic in plain language before coding it.</li>
+    <li><strong>Trace through an example:</strong> Use W=12, H=8 → 12-8=4, 8-4=4, 4=4 ✓ → GCD = 4.</li>
+    <li><strong>Implement in code:</strong> Translate pseudocode into JavaScript or Python.</li>
+    <li><strong>Test with edge cases:</strong> Try W=H (same dimensions), W=1, prime numbers.</li>
+    <li><strong>Visualise the solution:</strong> Use canvas/turtle to draw the tiles.</li>
+  </ol>
+
+  <div class="pseudo" style="margin-top:1.5rem">
+<span class="step">ALGORITHM</span> EuclidTiles(width, height)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">WHILE</span> width ≠ height<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">IF</span> width &gt; height <span class="keyword">THEN</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width ← width − height<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">ELSE</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height ← height − width<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">END IF</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">END WHILE</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="step">RETURN</span> width &nbsp;&nbsp;<span class="comment">// width = height = GCD = tile size</span><br>
+<span class="step">END ALGORITHM</span>
+  </div>
+
+  <div id="euclid-demo">
+    <h3 style="color:var(--accent3);margin-top:0">▶ Interactive Euclid's Tiles</h3>
+    <div class="euclid-controls">
+      <label>Width: <input type="number" id="euc-w" value="360" min="1" max="600"></label>
+      <label>Height: <input type="number" id="euc-h" value="252" min="1" max="600"></label>
+      <button class="btn btn-primary" onclick="runEuclid()">▶ Animate Tiles</button>
+      <button class="btn btn-secondary" onclick="resetEuclid()">↺ Reset</button>
+    </div>
+    <canvas id="euclid-canvas" width="680" height="300"></canvas>
+    <div id="euclid-steps" style="margin-top:1rem"></div>
+  </div>
+
+  <div class="tabs" style="margin-top:2rem">
+    <button class="tab active" onclick="switchTab(this, 'euc-js')">JavaScript</button>
+    <button class="tab" onclick="switchTab(this, 'euc-py')">Python (GCD)</button>
+    <button class="tab" onclick="switchTab(this, 'euc-turtle')">Python + Turtle</button>
+  </div>
+
+  <div id="euc-js" class="tab-panel active">
+    <div class="code-container">
+      <div class="code-header"><span class="code-lang">JAVASCRIPT</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre><code><span class="cm">// Subtraction-based (matches algorithm exactly)</span>
+<span class="kw">function</span> <span class="fn">euclidSubtract</span>(w, h) {
+  <span class="kw">while</span> (w !== h) {
+    <span class="kw">if</span> (w &gt; h) w -= h;
+    <span class="kw">else</span> h -= w;
+  }
+  <span class="kw">return</span> w;  <span class="cm">// w === h === GCD</span>
+}
+
+<span class="cm">// Efficient version using modulo</span>
+<span class="kw">function</span> <span class="fn">gcd</span>(a, b) {
+  <span class="kw">while</span> (b !== <span class="num">0</span>) {
+    [a, b] = [b, a % b];
+  }
+  <span class="kw">return</span> a;
+}
+
+<span class="kw">const</span> tileSize = <span class="fn">gcd</span>(<span class="num">360</span>, <span class="num">252</span>);
+console.<span class="fn">log</span>(<span class="str">`Tile size: ${tileSize}`</span>);          <span class="cm">// 36</span>
+console.<span class="fn">log</span>(<span class="str">`Tiles across: ${360 / tileSize}`</span>); <span class="cm">// 10</span>
+console.<span class="fn">log</span>(<span class="str">`Tiles down: ${252 / tileSize}`</span>);   <span class="cm">// 7</span></code></pre>
+    </div>
+  </div>
+
+  <div id="euc-py" class="tab-panel">
+    <div class="code-container">
+      <div class="code-header"><span class="code-lang">PYTHON</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre><code><span class="cm"># Subtraction-based (matches pseudocode directly)</span>
+<span class="kw">def</span> <span class="fn">euclid_subtract</span>(w, h):
+    <span class="kw">while</span> w != h:
+        <span class="kw">if</span> w &gt; h:
+            w -= h
+        <span class="kw">else</span>:
+            h -= w
+    <span class="kw">return</span> w
+
+<span class="cm"># Efficient version using modulo</span>
+<span class="kw">def</span> <span class="fn">gcd</span>(a, b):
+    <span class="kw">while</span> b:
+        a, b = b, a % b
+    <span class="kw">return</span> a
+
+<span class="cm"># Recursive version</span>
+<span class="kw">def</span> <span class="fn">gcd_recursive</span>(a, b):
+    <span class="kw">if</span> b == <span class="num">0</span>:
+        <span class="kw">return</span> a
+    <span class="kw">return</span> <span class="fn">gcd_recursive</span>(b, a % b)
+
+tile_size = <span class="fn">gcd</span>(<span class="num">360</span>, <span class="num">252</span>)
+<span class="fn">print</span>(<span class="str">f"Tile size: {tile_size}"</span>)           <span class="cm"># 36</span>
+<span class="fn">print</span>(<span class="str">f"Tiles: {360//tile_size} × {252//tile_size}"</span>)</code></pre>
+    </div>
+  </div>
+
+  <div id="euc-turtle" class="tab-panel">
+    <div class="code-container">
+      <div class="code-header"><span class="code-lang">PYTHON + TURTLE (see euclids_tiles.py)</span><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+      <pre><code><span class="cm">"""
+Run the full animated solution:
+  python euclids_tiles.py
+
+Key concepts in the turtle animation:
+  1. Draw outer rectangle
+  2. Apply algorithm step-by-step
+  3. Fill squares with different colours
+  4. Show pseudocode panel alongside
+"""</span>
+
+<span class="kw">import</span> turtle
+
+<span class="kw">def</span> <span class="fn">draw_square</span>(t, x, y, size, color):
+    t.<span class="fn">goto</span>(x, y)
+    t.<span class="fn">pendown</span>()
+    t.<span class="fn">fillcolor</span>(color)
+    t.<span class="fn">begin_fill</span>()
+    <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="num">4</span>):
+        t.<span class="fn">forward</span>(size)
+        t.<span class="fn">left</span>(<span class="num">90</span>)
+    t.<span class="fn">end_fill</span>()
+    t.<span class="fn">penup</span>()
+
+<span class="cm"># Run: python euclids_tiles.py for full animation</span>
+<span class="fn">print</span>(<span class="str">"See euclids_tiles.py for the complete animated solution"</span>)</code></pre>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════ PRACTICE -->
+<section id="practice">
+  <p class="section-tag">Self-Paced Exercises</p>
+  <h2>Practice Challenges</h2>
+  <p>Complete these challenges in order. Attempt each before clicking "Show Hint".</p>
+
+  <div class="challenge">
+    <div class="challenge-header">
+      <h3 style="margin:0">Challenge 1: Array Sum</h3>
+      <span class="difficulty easy">Easy</span>
+    </div>
+    <p>Write a JavaScript function that takes an array of numbers and returns the sum of all elements.</p>
+    <div class="pseudo" style="font-size:0.8rem;padding:0.8rem">
+<span class="step">FUNCTION</span> arraySum(numbers)<br>
+&nbsp;&nbsp;total ← 0<br>
+&nbsp;&nbsp;<span class="keyword">FOR EACH</span> num <span class="keyword">IN</span> numbers<br>
+&nbsp;&nbsp;&nbsp;&nbsp;total ← total + num<br>
+&nbsp;&nbsp;<span class="keyword">END FOR</span><br>
+&nbsp;&nbsp;<span class="step">RETURN</span> total
+    </div>
+    <textarea class="code-editor" id="c1-code">function arraySum(numbers) {
+  // Your code here
+  
+}</textarea>
+    <button class="btn btn-primary run-btn" onclick="runChallenge(1)">▶ Run Code</button>
+    <div class="output-panel" id="c1-out">Output will appear here...</div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-header">
+      <h3 style="margin:0">Challenge 2: Selection Sort Class</h3>
+      <span class="difficulty medium">Medium</span>
+    </div>
+    <p>Create a JavaScript <code>Sorter</code> class with a <code>selectionSort</code> method and a <code>compare</code> method that counts comparisons.</p>
+    <textarea class="code-editor" id="c2-code">class Sorter {
+  constructor() {
+    this.comparisons = 0;
+  }
+
+  selectionSort(arr) {
+    // Selection sort: find minimum, place at front
+    // Track comparisons with this.comparisons
+    
+  }
+}
+
+const s = new Sorter();
+const result = s.selectionSort([64, 25, 12, 22, 11]);
+console.log("Sorted:", result);
+console.log("Comparisons:", s.comparisons);</textarea>
+    <button class="btn btn-primary run-btn" onclick="runChallenge(2)">▶ Run Code</button>
+    <div class="output-panel" id="c2-out">Output will appear here...</div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-header">
+      <h3 style="margin:0">Challenge 3: GCD Function</h3>
+      <span class="difficulty hard">Hard</span>
+    </div>
+    <p>Implement the Euclidean GCD algorithm and use it to determine how many tiles fit in a 480×320 room.</p>
+    <textarea class="code-editor" id="c3-code">function gcd(a, b) {
+  // Implement the Euclidean algorithm
+  
+}
+
+// Test with Euclid's Tiles
+const width = 480, height = 320;
+const tileSize = gcd(width, height);
+const tilesAcross = width / tileSize;
+const tilesDown = height / tileSize;
+console.log(`Tile size: ${tileSize}`);
+console.log(`Grid: ${tilesAcross} × ${tilesDown} = ${tilesAcross * tilesDown} tiles`);</textarea>
+    <button class="btn btn-primary run-btn" onclick="runChallenge(3)">▶ Run Code</button>
+    <div class="output-panel" id="c3-out">Output will appear here...</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════ PYTHON INFO -->
+<section id="python">
+  <p class="section-tag">Python Setup</p>
+  <h2>Running the Python Turtle Animation</h2>
+  <p>The animated Euclid's Tiles solution requires Python 3 with the built-in <code>turtle</code> module.</p>
+
+  <ol class="step-list">
+    <li>Ensure Python 3 is installed: <code>python --version</code></li>
+    <li>Download <code>euclids_tiles.py</code> from your teacher's resource folder</li>
+    <li>Open a terminal/command prompt in the same folder</li>
+    <li>Run: <code>python euclids_tiles.py</code></li>
+    <li>Watch the animation! The algorithm is displayed alongside the visual</li>
+    <li>Click anywhere on the window to close when done</li>
+  </ol>
+
+  <div class="code-container" style="margin-top:1.5rem">
+    <div class="code-header"><span class="code-lang">TERMINAL COMMANDS</span></div>
+    <pre><code><span class="cm"># Check Python version</span>
+python --version
+
+<span class="cm"># Run the animation</span>
+python euclids_tiles.py
+
+<span class="cm"># Modify the rectangle size (edit these in the file)</span>
+<span class="var">RECT_WIDTH</span>  = <span class="num">360</span>   <span class="cm"># Change to any value</span>
+<span class="var">RECT_HEIGHT</span> = <span class="num">252</span>   <span class="cm"># Change to any value</span>
+
+<span class="cm"># Try your own dimensions!</span>
+<span class="cm"># 300 x 180  →  GCD = 60</span>
+<span class="cm"># 480 x 320  →  GCD = 160</span>
+<span class="cm"># 100 x 75   →  GCD = 25</span></code></pre>
+  </div>
+</section>
+
+<footer>
+  <p>Year 11 Digital Solutions – Unit 1: Algorithms &amp; Programming</p>
+  <p style="margin-top:0.4rem">Covers: Objects, Classes, Bubble Sort, Arrays, Event Listeners, Euclid's Algorithm | JavaScript &amp; Python</p>
+</footer>
+
+<script>
+// ─── Tab system ────────────────────────────────────────────────────────────────
+function switchTab(btn, panelId) {
+  const container = btn.closest('section') || document;
+  const group = btn.parentElement;
+  group.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  const panels = btn.closest('section').querySelectorAll('.tab-panel');
+  panels.forEach(p => p.classList.remove('active'));
+  document.getElementById(panelId).classList.add('active');
+}
+
+// ─── Copy code ─────────────────────────────────────────────────────────────────
+function copyCode(btn) {
+  const code = btn.closest('.code-container').querySelector('pre').innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 2000);
+  });
+}
+
+// ─── Bubble Sort Demo ──────────────────────────────────────────────────────────
+let sortData = [];
+let sortRunning = false;
+
+function randomArray(n = 10, max = 100) {
+  return Array.from({length: n}, () => Math.floor(Math.random() * max) + 5);
+}
+
+function resetSort() {
+  sortRunning = false;
+  sortData = randomArray();
+  renderBars(sortData, [], []);
+  document.getElementById('sort-status').textContent = 'Click "Start Sort" to begin the animation';
+  document.getElementById('startBtn').disabled = false;
+}
+
+function renderBars(data, comparing = [], sorted = []) {
+  const container = document.getElementById('bars');
+  const maxVal = Math.max(...data);
+  container.innerHTML = data.map((v, i) => {
+    let cls = 'bar';
+    if (sorted.includes(i)) cls += ' sorted';
+    else if (comparing.includes(i)) cls += ' comparing';
+    const h = Math.round((v / maxVal) * 180);
+    return `<div class="${cls}" style="height:${h}px"><span>${v}</span></div>`;
+  }).join('');
+}
+
+async function startSort() {
+  if (sortRunning) return;
+  sortRunning = true;
+  document.getElementById('startBtn').disabled = true;
+  const arr = [...sortData];
+  const n = arr.length;
+  const sortedIndices = [];
+
+  for (let i = 0; i < n - 1; i++) {
+    let swapped = false;
+    for (let j = 0; j < n - i - 1; j++) {
+      if (!sortRunning) return;
+      renderBars(arr, [j, j+1], sortedIndices);
+      document.getElementById('sort-status').textContent =
+        `Pass ${i+1}: comparing arr[${j}]=${arr[j]} and arr[${j+1}]=${arr[j+1]}`;
+      await sleep(300);
+      if (arr[j] > arr[j+1]) {
+        [arr[j], arr[j+1]] = [arr[j+1], arr[j]];
+        swapped = true;
+        renderBars(arr, [j, j+1], sortedIndices);
+        await sleep(300);
+      }
+    }
+    sortedIndices.push(n - i - 1);
+    if (!swapped) break;
+  }
+  sortedIndices.push(0);
+  renderBars(arr, [], [...Array(n).keys()]);
+  document.getElementById('sort-status').textContent = '✅ Sorted! The array is now in ascending order.';
+  sortData = arr;
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ─── Array Explorer ────────────────────────────────────────────────────────────
+let currentArray = [];
+
+function renderArray(highlight = -1) {
+  const raw = document.getElementById('array-input').value;
+  currentArray = raw.split(',').map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
+  const vis = document.getElementById('array-vis');
+  vis.innerHTML = currentArray.map((v, i) =>
+    `<div class="array-cell ${i === highlight ? 'active' : ''}">
+      <div class="val">${v}</div><div class="idx">[${i}]</div>
+    </div>`).join('');
+}
+
+function arrayOp(op) {
+  if (currentArray.length === 0) renderArray();
+  let out = '';
+  let highlight = -1;
+  if (op === 'sort') {
+    currentArray.sort((a,b) => a-b);
+    document.getElementById('array-input').value = currentArray.join(', ');
+    out = `Sorted: [${currentArray.join(', ')}]`;
+    renderArray();
+  } else if (op === 'reverse') {
+    currentArray.reverse();
+    document.getElementById('array-input').value = currentArray.join(', ');
+    out = `Reversed: [${currentArray.join(', ')}]`;
+    renderArray();
+  } else if (op === 'max') {
+    const max = Math.max(...currentArray);
+    highlight = currentArray.indexOf(max);
+    out = `Max = ${max}  at index [${highlight}]`;
+    renderArray(highlight);
+  } else if (op === 'min') {
+    const min = Math.min(...currentArray);
+    highlight = currentArray.indexOf(min);
+    out = `Min = ${min}  at index [${highlight}]`;
+    renderArray(highlight);
+  } else if (op === 'sum') {
+    const sum = currentArray.reduce((a,b) => a+b, 0);
+    out = `Sum = ${sum}   Average = ${(sum/currentArray.length).toFixed(2)}`;
+  }
+  document.getElementById('array-output').textContent = out;
+}
+
+// ─── Event Listener Demo ───────────────────────────────────────────────────────
+let eventCount = 0;
+
+function addLog(text, type) {
+  eventCount++;
+  document.getElementById('event-count').textContent = eventCount;
+  const log = document.getElementById('event-log');
+  const entry = document.createElement('div');
+  entry.className = `log-entry ${type}`;
+  entry.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
+  log.prepend(entry);
+  if (log.children.length > 30) log.removeChild(log.lastChild);
+}
+
+function clearLog() {
+  document.getElementById('event-log').innerHTML = '';
+  eventCount = 0;
+  document.getElementById('event-count').textContent = 0;
+}
+
+const box = document.getElementById('event-demo-box');
+box.addEventListener('click',     (e) => addLog(`🖱️ click at (${e.offsetX}, ${e.offsetY})`, 'click'));
+box.addEventListener('dblclick',  ()  => addLog('🖱️ dblclick!', 'click'));
+box.addEventListener('mouseover', ()  => { box.style.borderColor = 'var(--accent)'; addLog('🖱️ mouseover', 'mouse'); });
+box.addEventListener('mouseout',  ()  => { box.style.borderColor = ''; addLog('🖱️ mouseout', 'mouse'); });
+box.addEventListener('keydown',   (e) => addLog(`⌨️ keydown: "${e.key}"`, 'keypress'));
+box.addEventListener('focus',     ()  => addLog('🎯 focus', 'mouse'));
+box.addEventListener('blur',      ()  => addLog('🔕 blur', 'mouse'));
+
+// ─── Euclid's Tiles Canvas ─────────────────────────────────────────────────────
+const COLORS_EUC = ['#4ECDC4','#FF6B6B','#FFE66D','#A8E6CF','#DDA0DD','#87CEEB','#F0A500','#98D8C8'];
+let euclidAnim = null;
+
+function resetEuclid() {
+  clearInterval(euclidAnim);
+  const canvas = document.getElementById('euclid-canvas');
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  document.getElementById('euclid-steps').innerHTML = '';
+}
+
+function runEuclid() {
+  resetEuclid();
+  const W = parseInt(document.getElementById('euc-w').value) || 360;
+  const H = parseInt(document.getElementById('euc-h').value) || 252;
+  if (W <= 0 || H <= 0 || W > 600 || H > 600) return;
+
+  const canvas = document.getElementById('euclid-canvas');
+  const ctx = canvas.getContext('2d');
+  const stepsEl = document.getElementById('euclid-steps');
+
+  // Scale to fit canvas
+  const scale = Math.min(620 / W, 280 / H, 1);
+  const dw = Math.round(W * scale);
+  const dh = Math.round(H * scale);
+  const ox = Math.round((canvas.width - dw) / 2);
+  const oy = Math.round((canvas.height - dh) / 2);
+
+  // Compute steps
+  const steps = [];
+  let a = W, b = H;
+  while (a !== b) {
+    if (a > b) { steps.push({op:`${a} − ${b} = ${a-b}`, dir:'w'}); a -= b; }
+    else        { steps.push({op:`${b} − ${a} = ${b-a}`, dir:'h'}); b -= a; }
+  }
+  const tileSize = a;
+  steps.push({op:`${a} = ${b} → GCD = ${tileSize} ✓`, dir:'done'});
+
+  // Build tiles list
+  const tiles = [];
+  let rx = 0, ry = 0, rw = W, rh = H;
+  let ci = 0;
+  while (rw !== rh) {
+    if (rw > rh) {
+      const n = Math.floor(rw / rh);
+      for (let i = 0; i < n; i++) {
+        tiles.push({x: ox + Math.round((rx + i*rh)*scale), y: oy + Math.round(ry*scale),
+                    s: Math.round(rh*scale), c: COLORS_EUC[ci % COLORS_EUC.length]});
+        ci++;
+      }
+      rx += n * rh; rw = rw % rh; if (rw === 0) { rw = rh; break; }
+    } else {
+      const n = Math.floor(rh / rw);
+      for (let i = 0; i < n; i++) {
+        tiles.push({x: ox + Math.round(rx*scale), y: oy + Math.round((ry + i*rw)*scale),
+                    s: Math.round(rw*scale), c: COLORS_EUC[ci % COLORS_EUC.length]});
+        ci++;
+      }
+      ry += n * rw; rh = rh % rw; if (rh === 0) { rh = rw; break; }
+    }
+  }
+  // Fill remaining
+  const ts = Math.round(tileSize * scale);
+  for (let row = 0; row < Math.round(rh/tileSize); row++) {
+    for (let col = 0; col < Math.round(rw/tileSize); col++) {
+      tiles.push({x: ox + Math.round((rx + col*tileSize)*scale),
+                  y: oy + Math.round((ry + row*tileSize)*scale),
+                  s: ts, c: COLORS_EUC[ci % COLORS_EUC.length]});
+      ci++;
+    }
+  }
+
+  // Draw outline
+  ctx.strokeStyle = '#4ecdc4'; ctx.lineWidth = 3;
+  ctx.strokeRect(ox, oy, dw, dh);
+
+  // Show steps text
+  steps.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'euclid-step';
+    div.id = `es-${i}`;
+    div.textContent = `Step ${i+1}: ${s.op}`;
+    stepsEl.appendChild(div);
+  });
+
+  // Animate tiles
+  let ti = 0;
+  euclidAnim = setInterval(() => {
+    if (ti >= tiles.length) {
+      clearInterval(euclidAnim);
+      ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 3;
+      ctx.strokeRect(ox, oy, dw, dh);
+      stepsEl.querySelector('.euclid-step:last-child').classList.add('active');
+      const res = document.createElement('div');
+      res.className = 'euclid-result';
+      res.textContent = `✅ Tile size = ${tileSize}  |  Grid: ${W/tileSize} × ${H/tileSize} = ${W/tileSize * H/tileSize} tiles`;
+      stepsEl.appendChild(res);
+      return;
+    }
+    const t = tiles[ti];
+    ctx.fillStyle = t.c;
+    ctx.fillRect(t.x+1, t.y+1, t.s-2, t.s-2);
+    ctx.strokeStyle = '#000000aa'; ctx.lineWidth = 1;
+    ctx.strokeRect(t.x+1, t.y+1, t.s-2, t.s-2);
+    ti++;
+  }, 150);
+}
+
+// ─── Practice Runner ───────────────────────────────────────────────────────────
+function runChallenge(n) {
+  const code = document.getElementById(`c${n}-code`).value;
+  const out = document.getElementById(`c${n}-out`);
+  const logs = [];
+  const origLog = console.log;
+  console.log = (...args) => logs.push(args.map(String).join(' '));
+  try {
+    eval(code);
+    out.style.color = 'var(--green)';
+    out.textContent = logs.length ? logs.join('\n') : '(no output)';
+  } catch(e) {
+    out.style.color = 'var(--accent2)';
+    out.textContent = '❌ Error: ' + e.message;
+  } finally {
+    console.log = origLog;
+  }
+}
+
+// ─── Init ──────────────────────────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  resetSort();
+  renderArray();
+});
+</script>
+</body>
+</html>
