@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Micro Chat — Year 7 Digital Technologies</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Nunito:wght@400;600;700;800;900&display=swap');
+
+  :root {
+    --navy:    #0D1B2A;
+    --blue:    #1565C0;
+    --cyan:    #00B8D4;
+    --yellow:  #FFD600;
+    --green:   #00C853;
+    --orange:  #FF6D00;
+    --purple:  #7B1FA2;
+    --grey:    #607D8B;
+    --lightbg: #EEF4FF;
+    --white:   #FFFFFF;
+    --codebg:  #0E1621;
+    --radius:  12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: #f0f4f8;
+    color: #1a2332;
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ─────────────────────────────────────── */
+  header {
+    background: var(--navy);
+    color: white;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  }
+  .header-bar {
+    height: 5px;
+    background: linear-gradient(90deg, var(--cyan), var(--blue), var(--purple));
+  }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 24px;
+  }
+  .header-icon { font-size: 2rem; }
+  .header-title { font-size: 1.3rem; font-weight: 900; letter-spacing: 1px; }
+  .header-sub { font-size: 0.78rem; color: var(--cyan); margin-top: 2px; }
+  .acara-badge {
+    margin-left: auto;
+    background: rgba(0,184,212,0.15);
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  /* ── NAV TABS ────────────────────────────────────── */
+  nav {
+    background: var(--navy);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    overflow-x: auto;
+    padding: 0 16px;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    background: none;
+    border: none;
+    color: #aaa;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 12px 18px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .tab-btn:hover { color: white; }
+  .tab-btn.active { color: var(--cyan); border-bottom-color: var(--cyan); }
+
+  /* ── MAIN ────────────────────────────────────────── */
+  main { max-width: 960px; margin: 0 auto; padding: 24px 16px 60px; }
+
+  .tab-content { display: none; animation: fadeIn 0.3s ease; }
+  .tab-content.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  /* ── CARDS ───────────────────────────────────────── */
+  .card {
+    background: white;
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+  .card-accent { border-left: 5px solid var(--blue); }
+  .card-cyan   { border-left: 5px solid var(--cyan); }
+  .card-green  { border-left: 5px solid var(--green); }
+  .card-orange { border-left: 5px solid var(--orange); }
+  .card-purple { border-left: 5px solid var(--purple); }
+  .card-yellow { border-left: 5px solid var(--yellow); }
+
+  h1.section-title {
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--navy);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  h2.card-title {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--blue);
+    margin-bottom: 12px;
+  }
+  h3.sub-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--navy);
+    margin: 16px 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  p { line-height: 1.7; margin-bottom: 10px; font-size: 0.95rem; }
+
+  /* ── HERO CARD ───────────────────────────────────── */
+  .hero-card {
+    background: linear-gradient(135deg, var(--navy) 60%, #1a3560);
+    color: white;
+    border-radius: var(--radius);
+    padding: 36px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-card::before {
+    content: '📡';
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 7rem;
+    opacity: 0.12;
+  }
+  .hero-card h1 { font-size: 2.2rem; font-weight: 900; letter-spacing: 2px; color: white; margin-bottom: 8px; }
+  .hero-card p { color: #b0c4de; font-size: 1rem; max-width: 500px; }
+  .hero-badge {
+    display: inline-block;
+    background: var(--cyan);
+    color: var(--navy);
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 3px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+
+  /* ── INTENTIONS LIST ─────────────────────────────── */
+  .intent-list { list-style: none; }
+  .intent-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    background: var(--lightbg);
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+  .intent-list li .icon { font-size: 1.3rem; flex-shrink: 0; }
+  .acara-tag {
+    margin-left: auto;
+    background: var(--blue);
+    color: white;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ── BINARY DEMO ─────────────────────────────────── */
+  .binary-demo {
+    background: var(--navy);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin: 16px 0;
+  }
+  .binary-demo label {
+    display: block;
+    color: var(--cyan);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .binary-input {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.1rem;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: 2px solid var(--cyan);
+    background: rgba(255,255,255,0.07);
+    color: white;
+    width: 100%;
+    max-width: 300px;
+    outline: none;
+  }
+  .binary-input:focus { border-color: var(--yellow); }
+  .binary-result {
+    margin-top: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+  .bit-box {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.3rem;
+    font-weight: 700;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+  }
+  .bit-0 { background: #223344; color: #6699bb; border-color: #334455; }
+  .bit-1 { background: var(--cyan); color: var(--navy); border-color: var(--cyan); box-shadow: 0 0 12px rgba(0,184,212,0.4); }
+  .binary-arrow { color: white; font-size: 1.4rem; margin: 0 8px; }
+  .binary-char {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--yellow);
+    background: rgba(255,214,0,0.12);
+    border: 2px solid var(--yellow);
+    border-radius: 10px;
+    padding: 4px 16px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .binary-hint { color: #aaa; font-size: 0.8rem; margin-top: 8px; }
+
+  /* ── FLOW DIAGRAM ────────────────────────────────── */
+  .flow-diagram {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+    margin: 16px 0;
+  }
+  .flow-step {
+    background: var(--navy);
+    color: white;
+    border-radius: 10px;
+    padding: 14px 12px;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    min-width: 90px;
+    flex: 1;
+  }
+  .flow-step .step-icon { font-size: 1.6rem; display: block; margin-bottom: 4px; }
+  .flow-step.step-send { border: 2px solid var(--blue); }
+  .flow-step.step-binary { border: 2px solid var(--orange); }
+  .flow-step.step-radio { border: 2px solid var(--cyan); }
+  .flow-step.step-receive { border: 2px solid var(--green); }
+  .flow-arrow { color: var(--cyan); font-size: 1.3rem; flex-shrink: 0; }
+
+  /* ── CODE BLOCK ──────────────────────────────────── */
+  .code-block {
+    background: var(--codebg);
+    border-radius: var(--radius);
+    padding: 20px;
+    overflow-x: auto;
+    position: relative;
+    margin: 12px 0;
+    border: 1px solid #1e2e42;
+  }
+  .code-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #1e2e42;
+  }
+  .code-label .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .code-filename {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: #aaa;
+  }
+  .copy-btn {
+    margin-left: auto;
+    background: rgba(0,184,212,0.15);
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .copy-btn:hover { background: var(--cyan); color: var(--navy); }
+  pre {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: #c9d1d9;
+    white-space: pre;
+  }
+  .kw { color: #ff7b72; }  /* keyword */
+  .fn { color: #79c0ff; }  /* function */
+  .str { color: #a5d6ff; } /* string */
+  .cm { color: #6a9955; font-style: italic; } /* comment */
+  .num { color: #f0883e; } /* number */
+  .op { color: #d2a8ff; }  /* operator */
+
+  /* ── PSEUDOCODE ──────────────────────────────────── */
+  .pseudo-block {
+    background: #1a1a2e;
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    border: 2px solid var(--cyan);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88rem;
+    line-height: 1.8;
+    color: #e0e0e0;
+  }
+  .pseudo-block .pk { color: var(--yellow); font-weight: 700; }
+  .pseudo-block .pa { color: var(--green); }
+  .pseudo-block .pc { color: var(--cyan); }
+
+  /* ── STEPS TABLE ─────────────────────────────────── */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 16px 0;
+  }
+  @media (max-width: 640px) { .steps-grid { grid-template-columns: 1fr; } }
+  .steps-col-header {
+    background: var(--navy);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px 8px 0 0;
+    font-weight: 800;
+    font-size: 0.9rem;
+  }
+  .steps-col-header.mac-header { background: #333; }
+  .steps-col-header.win-header { background: var(--blue); }
+  .step-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 14px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.88rem;
+    transition: background 0.15s;
+  }
+  .step-row:last-child { border-bottom: none; }
+  .step-row:hover { background: var(--lightbg); }
+  .step-num {
+    background: var(--blue);
+    color: white;
+    font-weight: 800;
+    min-width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .mac-step .step-num { background: #555; }
+
+  /* ── INFO BOX ────────────────────────────────────── */
+  .info-box {
+    display: flex;
+    gap: 14px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin: 12px 0;
+    align-items: flex-start;
+    font-size: 0.9rem;
+  }
+  .info-box.tip  { background: #e8f5e9; border-left: 4px solid var(--green); }
+  .info-box.warn { background: #fff3e0; border-left: 4px solid var(--orange); }
+  .info-box.info { background: var(--lightbg); border-left: 4px solid var(--blue); }
+  .info-box .ib-icon { font-size: 1.3rem; flex-shrink: 0; }
+  .info-box .ib-text { font-weight: 600; }
+
+  /* ── CHALLENGES ──────────────────────────────────── */
+  .challenge-card {
+    display: flex;
+    gap: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .challenge-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+    padding: 14px 10px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: white;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .challenge-body {
+    background: #fafafa;
+    padding: 14px 18px;
+    flex: 1;
+  }
+  .challenge-body h3 { font-size: 0.95rem; color: var(--navy); margin-bottom: 6px; }
+  .challenge-body p { font-size: 0.88rem; color: #444; margin: 0; }
+
+  /* ── BINARY QUIZ ─────────────────────────────────── */
+  .quiz-box {
+    background: var(--lightbg);
+    border-radius: var(--radius);
+    padding: 22px;
+    margin: 16px 0;
+  }
+  .quiz-question { font-size: 1rem; font-weight: 800; color: var(--navy); margin-bottom: 14px; }
+  .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .quiz-option {
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-align: left;
+    transition: all 0.2s;
+  }
+  .quiz-option:hover { border-color: var(--blue); color: var(--blue); }
+  .quiz-option.correct { background: #e8f5e9; border-color: var(--green); color: #1b5e20; }
+  .quiz-option.wrong { background: #ffebee; border-color: #f44336; color: #b71c1c; }
+  .quiz-feedback { margin-top: 12px; padding: 10px 14px; border-radius: 8px; font-weight: 700; font-size: 0.88rem; display: none; }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.ok { background: #e8f5e9; color: #1b5e20; }
+  .quiz-feedback.bad { background: #ffebee; color: #b71c1c; }
+  .quiz-next { margin-top: 12px; background: var(--blue); color: white; border: none; border-radius: 8px; padding: 8px 20px; font-family: 'Nunito', sans-serif; font-weight: 700; cursor: pointer; font-size: 0.88rem; display: none; }
+  .quiz-next.show { display: inline-block; }
+  .quiz-progress { font-size: 0.8rem; color: var(--grey); margin-bottom: 12px; }
+
+  /* ── GLOSSARY ────────────────────────────────────── */
+  .glossary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media (max-width: 500px) { .glossary-grid { grid-template-columns: 1fr; } }
+  .glossary-item {
+    background: white;
+    border-radius: 8px;
+    padding: 12px 14px;
+    border-left: 4px solid var(--cyan);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .glossary-item .term { font-weight: 800; color: var(--navy); font-size: 0.9rem; }
+  .glossary-item .def { font-size: 0.83rem; color: #555; margin-top: 4px; }
+
+  /* ── BLOCKS VISUAL ───────────────────────────────── */
+  .block-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .block {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 6px;
+    color: white;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .block.b-green  { background: #43A047; }
+  .block.b-pink   { background: #E91E63; }
+  .block.b-blue   { background: #1E88E5; }
+  .block.b-purple { background: #8E24AA; }
+  .block.b-orange { background: #FB8C00; }
+  .block.b-red    { background: #E53935; }
+  .block-indent { padding-left: 28px; }
+  .block-indent2 { padding-left: 56px; }
+
+  /* ── PROGRESS ────────────────────────────────────── */
+  .progress-tracker {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .progress-item {
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+  .progress-item.done { background: #e8f5e9; border-color: var(--green); color: #1b5e20; }
+  .progress-item .pi-icon { font-size: 1.4rem; display: block; margin-bottom: 4px; }
+
+  /* ── FOOTER ──────────────────────────────────────── */
+  .page-footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--grey);
+    font-size: 0.8rem;
+  }
+  .page-footer a { color: var(--blue); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-bar"></div>
+  <div class="header-inner">
+    <span class="header-icon">📡</span>
+    <div>
+      <div class="header-title">MICRO CHAT</div>
+      <div class="header-sub">Year 7 Digital Technologies — python.microbit.org</div>
+    </div>
+    <div class="acara-badge">ACARA V9 QLD</div>
+  </div>
+</header>
+
+<nav>
+  <button class="tab-btn active" onclick="showTab('overview')">🏠 Overview</button>
+  <button class="tab-btn" onclick="showTab('binary')">🔢 Binary Data</button>
+  <button class="tab-btn" onclick="showTab('algorithms')">🧩 Algorithms</button>
+  <button class="tab-btn" onclick="showTab('python')">🐍 Python Code</button>
+  <button class="tab-btn" onclick="showTab('setup')">💻 Setup Guide</button>
+  <button class="tab-btn" onclick="showTab('challenges')">🚀 Challenges</button>
+  <button class="tab-btn" onclick="showTab('quiz')">🧠 Quiz</button>
+  <button class="tab-btn" onclick="showTab('glossary')">📖 Glossary</button>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════════ OVERVIEW ════ -->
+<div id="tab-overview" class="tab-content active">
+
+  <div class="hero-card">
+    <div class="hero-badge">Year 7 Digital Technologies — ACARA Version 9</div>
+    <h1>MICRO CHAT 📡</h1>
+    <p>Build a wireless messaging app using Python on your physical micro:bit. Explore how binary data travels through the air as radio waves!</p>
+  </div>
+
+  <div class="card card-accent">
+    <h2 class="card-title">🎯 Learning Intentions</h2>
+    <ul class="intent-list">
+      <li><span class="icon">🔢</span> Explain how computers represent all data using binary (0s and 1s) <span class="acara-tag">AC9TDI8K04</span></li>
+      <li><span class="icon">📡</span> Describe how messages travel wirelessly between micro:bits <span class="acara-tag">AC9TDI8K05</span></li>
+      <li><span class="icon">🧩</span> Read block code to identify algorithms and write pseudocode <span class="acara-tag">AC9TDI8P01</span></li>
+      <li><span class="icon">🐍</span> Write Python code to send and receive radio messages <span class="acara-tag">AC9TDI8P03</span></li>
+      <li><span class="icon">🐛</span> Test, debug and extend your Micro Chat program <span class="acara-tag">AC9TDI8P05</span></li>
+    </ul>
+  </div>
+
+  <div class="card card-cyan">
+    <h2 class="card-title">📦 What You Need</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:8px;">
+      <div class="info-box tip" style="margin:0"><span class="ib-icon">🖥️</span><span class="ib-text">Your laptop (Mac or Windows both work!)</span></div>
+      <div class="info-box tip" style="margin:0"><span class="ib-icon">🔌</span><span class="ib-text">Physical micro:bit + USB cable</span></div>
+      <div class="info-box tip" style="margin:0"><span class="ib-icon">🌐</span><span class="ib-text">Browser: Chrome or Edge (recommended)</span></div>
+      <div class="info-box tip" style="margin:0"><span class="ib-icon">👫</span><span class="ib-text">A partner with their own micro:bit to chat with!</span></div>
+    </div>
+  </div>
+
+  <div class="card card-green">
+    <h2 class="card-title">🗺️ Lesson Overview</h2>
+    <div class="flow-diagram">
+      <div class="flow-step step-send"><span class="step-icon">🔢</span>Learn Binary</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step step-binary"><span class="step-icon">🧩</span>Understand Algorithm</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step step-radio"><span class="step-icon">🐍</span>Write Python</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step step-receive"><span class="step-icon">⚡</span>Flash & Test</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step" style="border:2px solid var(--purple)"><span class="step-icon">🚀</span>Extend It!</div>
+    </div>
+  </div>
+
+  <div class="card" style="background:var(--navy);color:white;">
+    <h2 class="card-title" style="color:var(--cyan)">📡 How Micro Chat Works (Big Picture)</h2>
+    <div class="flow-diagram" style="flex-wrap:wrap;">
+      <div class="flow-step step-send"><span class="step-icon">👤</span>You press Button A</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step step-binary"><span class="step-icon">📝</span>Text "Hello!"</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step step-radio"><span class="step-icon">0️⃣1️⃣</span>Convert to Binary</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step step-radio"><span class="step-icon">📻</span>Radio Wave sent</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step step-receive"><span class="step-icon">📲</span>Friend's micro:bit</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step step-receive"><span class="step-icon">💬</span>Message displays!</div>
+    </div>
+    <div class="info-box warn" style="margin-top:16px">
+      <span class="ib-icon">⚡</span>
+      <span class="ib-text">Radio waves travel at the speed of light — 300,000 km per second! That's why messages arrive almost instantly.</span>
+    </div>
+  </div>
+
+  <div class="card card-yellow">
+    <h2 class="card-title">✅ My Progress Checklist</h2>
+    <p style="font-size:0.85rem;color:#555;margin-bottom:12px;">Click each item when you've completed it!</p>
+    <div class="progress-tracker" id="progress">
+      <div class="progress-item" onclick="toggleDone(this)"><span class="pi-icon">🔢</span>Learned Binary</div>
+      <div class="progress-item" onclick="toggleDone(this)"><span class="pi-icon">🧩</span>Read Pseudocode</div>
+      <div class="progress-item" onclick="toggleDone(this)"><span class="pi-icon">🐍</span>Typed Python Code</div>
+      <div class="progress-item" onclick="toggleDone(this)"><span class="pi-icon">🔌</span>Connected micro:bit</div>
+      <div class="progress-item" onclick="toggleDone(this)"><span class="pi-icon">⚡</span>Flashed Code</div>
+      <div class="progress-item" onclick="toggleDone(this)"><span class="pi-icon">💬</span>Sent a Message!</div>
+      <div class="progress-item" onclick="toggleDone(this)"><span class="pi-icon">🚀</span>Tried a Challenge</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ BINARY ═══════ -->
+<div id="tab-binary" class="tab-content">
+  <h1 class="section-title">🔢 Binary Data & Transmission</h1>
+
+  <div class="card card-accent">
+    <h2 class="card-title">What is Binary?</h2>
+    <p>Computers can only understand two things: <strong>electricity ON</strong> or <strong>electricity OFF</strong>. We represent these as <code>1</code> (on) and <code>0</code> (off). This is called the <strong>binary system</strong>.</p>
+    <p>Everything stored or sent by a computer — text messages, images, music, videos — must first be converted into binary!</p>
+    <div style="display:flex;gap:16px;margin-top:16px;flex-wrap:wrap;">
+      <div style="background:var(--navy);color:white;border-radius:10px;padding:20px 28px;text-align:center;flex:1;min-width:140px;">
+        <div style="font-size:3rem;font-family:'JetBrains Mono',monospace;font-weight:900;color:#607D8B;">0</div>
+        <div style="font-weight:800;color:#aaa;margin-top:4px;">OFF — No electricity</div>
+        <div style="font-size:0.8rem;color:#666;margin-top:4px;">LED is dark 💡</div>
+      </div>
+      <div style="background:var(--blue);color:white;border-radius:10px;padding:20px 28px;text-align:center;flex:1;min-width:140px;">
+        <div style="font-size:3rem;font-family:'JetBrains Mono',monospace;font-weight:900;color:var(--yellow);">1</div>
+        <div style="font-weight:800;margin-top:4px;">ON — Has electricity</div>
+        <div style="font-size:0.8rem;color:#b0c4de;margin-top:4px;">LED is lit ⚡</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-cyan">
+    <h2 class="card-title">🔤 How Letters are Stored (ASCII)</h2>
+    <p>Each letter, number, and symbol has a unique binary code. The system is called <strong>ASCII</strong>. Here are some examples:</p>
+    <div style="overflow-x:auto;margin-top:12px;">
+      <table style="width:100%;border-collapse:collapse;font-size:0.88rem;">
+        <thead>
+          <tr style="background:var(--blue);color:white;">
+            <th style="padding:10px 14px;text-align:left;border-radius:6px 0 0 0;">Character</th>
+            <th style="padding:10px 14px;text-align:left;">Decimal</th>
+            <th style="padding:10px 14px;text-align:left;border-radius:0 6px 0 0;">Binary (8 bits)</th>
+          </tr>
+        </thead>
+        <tbody id="ascii-table">
+          <tr style="background:#f5f8ff"><td style="padding:8px 14px;font-weight:800;color:var(--navy)">H</td><td style="padding:8px 14px">72</td><td style="padding:8px 14px;font-family:'JetBrains Mono',monospace;font-weight:700;">01001000</td></tr>
+          <tr><td style="padding:8px 14px;font-weight:800;color:var(--navy)">e</td><td style="padding:8px 14px">101</td><td style="padding:8px 14px;font-family:'JetBrains Mono',monospace;font-weight:700;">01100101</td></tr>
+          <tr style="background:#f5f8ff"><td style="padding:8px 14px;font-weight:800;color:var(--navy)">l</td><td style="padding:8px 14px">108</td><td style="padding:8px 14px;font-family:'JetBrains Mono',monospace;font-weight:700;">01101100</td></tr>
+          <tr><td style="padding:8px 14px;font-weight:800;color:var(--navy)">o</td><td style="padding:8px 14px">111</td><td style="padding:8px 14px;font-family:'JetBrains Mono',monospace;font-weight:700;">01101111</td></tr>
+          <tr style="background:#f5f8ff"><td style="padding:8px 14px;font-weight:800;color:var(--navy)">!</td><td style="padding:8px 14px">33</td><td style="padding:8px 14px;font-family:'JetBrains Mono',monospace;font-weight:700;">00100001</td></tr>
+          <tr><td style="padding:8px 14px;font-weight:800;color:var(--navy)">A</td><td style="padding:8px 14px">65</td><td style="padding:8px 14px;font-family:'JetBrains Mono',monospace;font-weight:700;">01000001</td></tr>
+          <tr style="background:#f5f8ff"><td style="padding:8px 14px;font-weight:800;color:var(--navy)">7</td><td style="padding:8px 14px">55</td><td style="padding:8px 14px;font-family:'JetBrains Mono',monospace;font-weight:700;">00110111</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="color:var(--grey);font-size:0.82rem;margin-top:10px;">The word "Hello!" = 6 letters × 8 bits = 48 bits (6 bytes) of data!</p>
+  </div>
+
+  <div class="card card-green">
+    <h2 class="card-title">🎮 Interactive Binary Converter</h2>
+    <p>Type a letter below to see its binary code!</p>
+    <div class="binary-demo">
+      <label>Type a letter or number:</label>
+      <input class="binary-input" type="text" id="binInput" maxlength="1" placeholder="e.g. H" oninput="updateBinary()">
+      <div class="binary-result" id="binResult">
+        <div style="color:#aaa;font-size:0.9rem;">Type a character above ↑</div>
+      </div>
+      <div class="binary-hint">Each box is one BIT. 8 bits = 1 BYTE = 1 character.</div>
+    </div>
+  </div>
+
+  <div class="card card-orange">
+    <h2 class="card-title">📡 How is Binary Transmitted Wirelessly?</h2>
+    <ol style="padding-left:20px;line-height:2;">
+      <li>Your Python code calls <code style="background:#eef;padding:1px 6px;border-radius:4px;font-family:'JetBrains Mono',monospace;">radio.send('Hello!')</code></li>
+      <li>The micro:bit converts each character to its binary (ASCII) code</li>
+      <li>The radio chip converts the binary data into <strong>radio waves</strong> (electromagnetic pulses)</li>
+      <li><strong>1 = strong signal pulse</strong> → <strong>0 = weak/no pulse</strong></li>
+      <li>The waves travel through the air at the speed of light</li>
+      <li>Your partner's micro:bit antenna detects the waves</li>
+      <li>It converts: radio waves → binary → text → LED display!</li>
+    </ol>
+    <div class="info-box info" style="margin-top:14px">
+      <span class="ib-icon">🔑</span>
+      <span class="ib-text">Both micro:bits must use <code>radio.config(channel=7)</code> — the same channel number — to hear each other. Different channels = can't communicate!</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ ALGORITHMS ═══ -->
+<div id="tab-algorithms" class="tab-content">
+  <h1 class="section-title">🧩 Algorithms & Block Code</h1>
+
+  <div class="card card-accent">
+    <h2 class="card-title">What is an Algorithm?</h2>
+    <p>An <strong>algorithm</strong> is a step-by-step set of instructions that tells a computer how to solve a problem. Good algorithms are:</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px;">
+      <div style="background:var(--lightbg);border-radius:8px;padding:12px;text-align:center;font-weight:700;font-size:0.85rem;">📝<br>Clear &amp; Unambiguous</div>
+      <div style="background:var(--lightbg);border-radius:8px;padding:12px;text-align:center;font-weight:700;font-size:0.85rem;">🔢<br>Step by Step</div>
+      <div style="background:var(--lightbg);border-radius:8px;padding:12px;text-align:center;font-weight:700;font-size:0.85rem;">✅<br>Has an End (usually!)</div>
+    </div>
+  </div>
+
+  <div class="card card-cyan">
+    <h2 class="card-title">🧱 Three Types of Algorithm Structure</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:8px;">
+      <div style="background:#e8f5e9;border-radius:10px;padding:14px;border-top:4px solid var(--green)">
+        <div style="font-weight:800;color:var(--green);margin-bottom:6px;">📋 SEQUENCE</div>
+        <div style="font-size:0.83rem;">Steps run one after the other, in order.<br><br>Example: Turn on radio, then set channel, then start loop.</div>
+      </div>
+      <div style="background:#e3f2fd;border-radius:10px;padding:14px;border-top:4px solid var(--blue)">
+        <div style="font-weight:800;color:var(--blue);margin-bottom:6px;">🔀 SELECTION</div>
+        <div style="font-size:0.83rem;">Makes a decision using IF.<br><br>Example: IF button_a pressed → send message.</div>
+      </div>
+      <div style="background:#fff3e0;border-radius:10px;padding:14px;border-top:4px solid var(--orange)">
+        <div style="font-weight:800;color:var(--orange);margin-bottom:6px;">🔄 ITERATION</div>
+        <div style="font-size:0.83rem;">Repeats a block of code in a loop.<br><br>Example: while True → repeat forever.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-purple">
+    <h2 class="card-title">🟩 Block Code — MakeCode Visual</h2>
+    <p style="margin-bottom:14px;">This is how the Micro Chat algorithm looks in block form. Each coloured block type does something different:</p>
+    <div class="block-visual">
+      <div><span class="block b-green">on start</span></div>
+      <div class="block-indent"><span class="block b-purple">radio set channel 7</span></div>
+      <div style="margin-top:8px;"><span class="block b-pink">forever</span></div>
+      <div class="block-indent"><span class="block b-blue">if button A pressed</span></div>
+      <div class="block-indent2"><span class="block b-purple">radio send string "Hello!"</span></div>
+      <div class="block-indent2"><span class="block b-red">show icon ☺</span></div>
+      <div class="block-indent2"><span class="block b-orange">pause 1000 ms</span></div>
+      <div class="block-indent2"><span class="block b-red">clear screen</span></div>
+      <div class="block-indent" style="margin-top:4px;"><span class="block b-blue">on radio received message</span></div>
+      <div class="block-indent2"><span class="block b-red">show string message</span></div>
+    </div>
+    <div style="margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:0.82rem;">
+      <div><span class="block b-green" style="font-size:0.75rem;">on start</span> Runs ONCE at power-on</div>
+      <div><span class="block b-pink" style="font-size:0.75rem;">forever</span> Loops forever (iteration)</div>
+      <div><span class="block b-blue" style="font-size:0.75rem;">if</span> Decision (selection)</div>
+      <div><span class="block b-purple" style="font-size:0.75rem;">radio</span> Wireless communication</div>
+      <div><span class="block b-red" style="font-size:0.75rem;">show</span> LED display output</div>
+      <div><span class="block b-orange" style="font-size:0.75rem;">pause</span> Wait/delay (time)</div>
+    </div>
+  </div>
+
+  <div class="card card-green">
+    <h2 class="card-title">📝 Pseudocode</h2>
+    <p>Pseudocode is writing your algorithm in plain English that looks like code. It helps you plan before you type!</p>
+    <div class="pseudo-block" style="margin-top:12px;">
+<span class="pc">START</span>
+  <span class="pk">Turn ON</span> the radio
+  <span class="pk">Set</span> radio channel <span class="pa">to 7</span>
+
+  <span class="pk">REPEAT</span> forever:
+    <span class="pk">IF</span> Button A is pressed:
+      <span class="pa">SEND</span> text "Hello!" over radio
+      <span class="pa">SHOW</span> happy face on LED display
+      <span class="pa">WAIT</span> 1 second
+      <span class="pa">CLEAR</span> display
+
+    message ← <span class="pa">RECEIVE</span> radio message
+    <span class="pk">IF</span> message exists:
+      <span class="pa">SCROLL</span> message on LED display
+  <span class="pk">END REPEAT</span>
+<span class="pc">END</span>
+    </div>
+    <div class="info-box tip" style="margin-top:14px">
+      <span class="ib-icon">🎨</span>
+      <span class="ib-text">Highlight: <span style="color:var(--green)">green = SEQUENCE</span>, <span style="color:var(--blue)">blue = SELECTION (IF)</span>, <span style="color:var(--orange)">orange = ITERATION (REPEAT)</span></span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ PYTHON ════════ -->
+<div id="tab-python" class="tab-content">
+  <h1 class="section-title">🐍 Python Code</h1>
+
+  <div class="card card-accent">
+    <h2 class="card-title">Why Python?</h2>
+    <p>Python is one of the most popular programming languages in the world. Scientists, engineers, data analysts and app developers use it every day. By learning Python on the micro:bit, you're using the same language as the pros!</p>
+    <div class="info-box info">
+      <span class="ib-icon">🐍</span>
+      <span class="ib-text">The micro:bit uses a special version of Python called <strong>MicroPython</strong> — designed to run on tiny computers!</span>
+    </div>
+  </div>
+
+  <div class="card card-cyan">
+    <h2 class="card-title">📦 The Complete Micro Chat Code</h2>
+    <p>Type this code carefully into <strong>python.microbit.org</strong>. Pay close attention to indentation (spaces at the start of lines)!</p>
+    <div class="code-block">
+      <div class="code-label">
+        <div class="dot" style="background:#ff5f57"></div>
+        <div class="dot" style="background:#febc2e"></div>
+        <div class="dot" style="background:#28c840"></div>
+        <span class="code-filename">🐍 micro_chat.py</span>
+        <button class="copy-btn" onclick="copyCode()">📋 Copy Code</button>
+      </div>
+      <pre id="theCode"><span class="cm"># ─── Micro Chat ─── Year 7 Digital Technologies ───────</span>
+<span class="cm"># Make sure BOTH micro:bits use the SAME channel number!</span>
+
+<span class="kw">from</span> <span class="fn">microbit</span> <span class="kw">import</span> *   <span class="cm"># Load all micro:bit features</span>
+<span class="kw">import</span> <span class="fn">radio</span>              <span class="cm"># Load the wireless radio library</span>
+
+<span class="cm"># ── Setup ─────────────────────────────────────────────</span>
+<span class="fn">radio</span>.on()                <span class="cm"># Power on the radio transmitter</span>
+<span class="fn">radio</span>.config(channel=<span class="num">7</span>)   <span class="cm"># Set channel (must match your partner!)</span>
+
+<span class="cm"># ── Main Loop ─────────────────────────────────────────</span>
+<span class="kw">while</span> <span class="op">True</span>:               <span class="cm"># Repeat forever (infinite loop)</span>
+
+    <span class="cm"># ── SENDING ───────────────────────────────────────</span>
+    <span class="kw">if</span> <span class="fn">button_a</span>.was_pressed():    <span class="cm"># Was Button A pressed?</span>
+        <span class="fn">radio</span>.send(<span class="str">'Hello!'</span>)      <span class="cm"># Broadcast the message</span>
+        <span class="fn">display</span>.show(<span class="fn">Image</span>.HAPPY) <span class="cm"># Show smiley face on LEDs</span>
+        <span class="fn">sleep</span>(<span class="num">1000</span>)               <span class="cm"># Wait 1 second (1000ms)</span>
+        <span class="fn">display</span>.clear()            <span class="cm"># Clear the display</span>
+
+    <span class="cm"># ── RECEIVING ─────────────────────────────────────</span>
+    message = <span class="fn">radio</span>.receive()    <span class="cm"># Check for incoming message</span>
+    <span class="kw">if</span> message <span class="kw">is</span> <span class="kw">not</span> <span class="op">None</span>:      <span class="cm"># Did a message arrive?</span>
+        <span class="fn">display</span>.scroll(message)    <span class="cm"># Scroll it on the LED display</span></pre>
+    </div>
+  </div>
+
+  <div class="card card-green">
+    <h2 class="card-title">🔍 Line-by-Line Explanation</h2>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <div style="background:#f5f8ff;border-radius:8px;padding:12px 14px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:var(--navy);font-weight:700;margin-bottom:4px;">from microbit import *</div>
+        <div style="font-size:0.88rem;">📦 Loads all micro:bit built-in features (buttons, display, sensors)</div>
+      </div>
+      <div style="background:#fafafa;border-radius:8px;padding:12px 14px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:var(--navy);font-weight:700;margin-bottom:4px;">import radio</div>
+        <div style="font-size:0.88rem;">📻 Loads the radio library — gives access to radio.on(), radio.send(), radio.receive()</div>
+      </div>
+      <div style="background:#f5f8ff;border-radius:8px;padding:12px 14px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:var(--navy);font-weight:700;margin-bottom:4px;">radio.on()</div>
+        <div style="font-size:0.88rem;">⚡ Powers up the radio transmitter inside the micro:bit</div>
+      </div>
+      <div style="background:#fafafa;border-radius:8px;padding:12px 14px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:var(--navy);font-weight:700;margin-bottom:4px;">radio.config(channel=7)</div>
+        <div style="font-size:0.88rem;">📡 Sets the radio channel to 7 — BOTH micro:bits need the same channel!</div>
+      </div>
+      <div style="background:#f5f8ff;border-radius:8px;padding:12px 14px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:var(--navy);font-weight:700;margin-bottom:4px;">while True:</div>
+        <div style="font-size:0.88rem;">🔄 Creates an infinite loop — the code inside repeats forever (ITERATION)</div>
+      </div>
+      <div style="background:#fafafa;border-radius:8px;padding:12px 14px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:var(--navy);font-weight:700;margin-bottom:4px;">if button_a.was_pressed():</div>
+        <div style="font-size:0.88rem;">🖱️ SELECTION — checks if Button A was pressed since the last check</div>
+      </div>
+      <div style="background:#f5f8ff;border-radius:8px;padding:12px 14px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:var(--navy);font-weight:700;margin-bottom:4px;">radio.send('Hello!')</div>
+        <div style="font-size:0.88rem;">📨 Converts 'Hello!' to binary then broadcasts it as radio waves</div>
+      </div>
+      <div style="background:#fafafa;border-radius:8px;padding:12px 14px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:var(--navy);font-weight:700;margin-bottom:4px;">message = radio.receive()</div>
+        <div style="font-size:0.88rem;">📬 Checks if any radio message has arrived and stores it in the variable 'message'</div>
+      </div>
+      <div style="background:#f5f8ff;border-radius:8px;padding:12px 14px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:var(--navy);font-weight:700;margin-bottom:4px;">if message is not None:</div>
+        <div style="font-size:0.88rem;">🔍 'None' means nothing/empty. This checks if an actual message arrived</div>
+      </div>
+      <div style="background:#fafafa;border-radius:8px;padding:12px 14px;">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:var(--navy);font-weight:700;margin-bottom:4px;">display.scroll(message)</div>
+        <div style="font-size:0.88rem;">💬 Scrolls the received message text across the 5×5 LED display</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-orange">
+    <h2 class="card-title">⚠️ Python Rules — Watch Out!</h2>
+    <div class="info-box warn"><span class="ib-icon">📐</span><span class="ib-text"><strong>Indentation matters!</strong> Python uses spaces to show which code is inside a loop or if statement. Always use 4 spaces (or press Tab).</span></div>
+    <div class="info-box warn" style="margin-top:8px;"><span class="ib-icon">🔡</span><span class="ib-text"><strong>Case sensitive!</strong> <code>radio.send()</code> ≠ <code>Radio.Send()</code>. Everything must be exactly right.</span></div>
+    <div class="info-box warn" style="margin-top:8px;"><span class="ib-icon">🎭</span><span class="ib-text"><strong>Quotes matter!</strong> 'Hello!' uses single quotes. Don't forget them around your text strings.</span></div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ SETUP ═════════ -->
+<div id="tab-setup" class="tab-content">
+  <h1 class="section-title">💻 Setup Guide</h1>
+
+  <div class="card card-cyan">
+    <h2 class="card-title">🌐 Website to Use</h2>
+    <div style="background:var(--navy);border-radius:10px;padding:18px 22px;display:flex;align-items:center;gap:16px;">
+      <div style="font-size:2.5rem;">🌐</div>
+      <div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:700;color:var(--cyan);">python.microbit.org</div>
+        <div style="color:#aaa;font-size:0.85rem;margin-top:4px;">No software to install — works in your browser!</div>
+      </div>
+      <a href="https://python.microbit.org" target="_blank" style="margin-left:auto;background:var(--cyan);color:var(--navy);font-weight:800;padding:8px 18px;border-radius:8px;text-decoration:none;font-size:0.85rem;white-space:nowrap;">Open Editor →</a>
+    </div>
+  </div>
+
+  <div class="steps-grid">
+    <div>
+      <div class="steps-col-header mac-header">🍎 Mac / MacBook Steps</div>
+      <div style="background:white;border-radius:0 0 10px 10px;border:1px solid #eee;border-top:none;">
+        <div class="step-row mac-step"><span class="step-num">1</span>Open Safari or Chrome browser</div>
+        <div class="step-row mac-step"><span class="step-num">2</span>Type <strong>python.microbit.org</strong> in the address bar</div>
+        <div class="step-row mac-step"><span class="step-num">3</span>Click <strong>Open Editor</strong></div>
+        <div class="step-row mac-step"><span class="step-num">4</span>Plug micro:bit into the USB port on the left side</div>
+        <div class="step-row mac-step"><span class="step-num">5</span>Click the <strong>Connect</strong> button (top right of editor)</div>
+        <div class="step-row mac-step"><span class="step-num">6</span>Choose your micro:bit from the popup list → Connect</div>
+        <div class="step-row mac-step"><span class="step-num">7</span>Type or paste your Python code into the editor</div>
+        <div class="step-row mac-step"><span class="step-num">8</span>Click <strong>Flash</strong> — wait for micro:bit to stop blinking</div>
+        <div class="step-row mac-step"><span class="step-num">9</span>Press Button A to send your message! 🎉</div>
+      </div>
+    </div>
+    <div>
+      <div class="steps-col-header win-header">🪟 Windows / Microsoft Steps</div>
+      <div style="background:white;border-radius:0 0 10px 10px;border:1px solid #eee;border-top:none;">
+        <div class="step-row"><span class="step-num">1</span>Open Microsoft Edge or Chrome browser</div>
+        <div class="step-row"><span class="step-num">2</span>Type <strong>python.microbit.org</strong> in the address bar</div>
+        <div class="step-row"><span class="step-num">3</span>Click <strong>Open Editor</strong></div>
+        <div class="step-row"><span class="step-num">4</span>Plug micro:bit into any USB port on your laptop</div>
+        <div class="step-row"><span class="step-num">5</span>Click the <strong>Connect</strong> button (top right of editor)</div>
+        <div class="step-row"><span class="step-num">6</span>Choose your micro:bit from the popup list → Connect</div>
+        <div class="step-row"><span class="step-num">7</span>Type or paste your Python code into the editor</div>
+        <div class="step-row"><span class="step-num">8</span>Click <strong>Flash</strong> — wait for micro:bit to stop blinking</div>
+        <div class="step-row"><span class="step-num">9</span>Press Button A to send your message! 🎉</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box warn"><span class="ib-icon">⚠️</span><span class="ib-text"><strong>Browser asks to "pair" or "connect"?</strong> Click Allow! This is safe — it just lets the browser talk to your micro:bit.</span></div>
+
+  <div class="card card-orange" style="margin-top:16px;">
+    <h2 class="card-title">🐛 Troubleshooting</h2>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      <div style="background:#fff3e0;border-radius:8px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:1.2rem;">🔌</span>
+        <div><strong>micro:bit not found:</strong> Try a different USB port. Make sure it's a data cable (not charge-only). Try unplugging and replugging.</div>
+      </div>
+      <div style="background:#fff3e0;border-radius:8px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:1.2rem;">📡</span>
+        <div><strong>Messages not received:</strong> Check BOTH micro:bits have <code>channel=7</code> (the same number!). Are you close enough? (~10m range).</div>
+      </div>
+      <div style="background:#fff3e0;border-radius:8px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:1.2rem;">❌</span>
+        <div><strong>Red error in editor:</strong> Look for indentation mistakes. Python needs exactly 4 spaces for each level. Check your spelling too!</div>
+      </div>
+      <div style="background:#fff3e0;border-radius:8px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:1.2rem;">🌐</span>
+        <div><strong>Browser not supported:</strong> Use Google Chrome or Microsoft Edge. Safari on Mac has limited support for WebUSB.</div>
+      </div>
+      <div style="background:#fff3e0;border-radius:8px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start;">
+        <span style="font-size:1.2rem;">💡</span>
+        <div><strong>Display not showing:</strong> Make sure you clicked Flash and the yellow LED on the back stopped blinking before testing.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ CHALLENGES ════ -->
+<div id="tab-challenges" class="tab-content">
+  <h1 class="section-title">🚀 Extension Challenges</h1>
+  <p style="color:var(--grey);margin-bottom:20px;">Finished the main task? Try these challenges! They start easy and get harder.</p>
+
+  <div class="challenge-card">
+    <div class="challenge-badge" style="background:var(--green);">⭐<br>Level 1<br><span style="font-size:0.85rem;font-weight:600;">EASY</span></div>
+    <div class="challenge-body">
+      <h3>Two-Way Messages</h3>
+      <p>Modify the code so <strong>Button B</strong> sends a different message like <code>'Bye!'</code>. Hint: Copy the button_a block and change <code>button_a</code> to <code>button_b</code> and <code>'Hello!'</code> to <code>'Bye!'</code></p>
+    </div>
+  </div>
+
+  <div class="challenge-card">
+    <div class="challenge-badge" style="background:var(--blue);">⭐⭐<br>Level 2<br><span style="font-size:0.85rem;font-weight:600;">MEDIUM</span></div>
+    <div class="challenge-body">
+      <h3>Personalised Message</h3>
+      <p>Change <code>'Hello!'</code> to your own name or a custom greeting. Try: <code>radio.send('I am ' + str(temperature()))</code> to send the current temperature reading!</p>
+    </div>
+  </div>
+
+  <div class="challenge-card">
+    <div class="challenge-badge" style="background:var(--cyan);color:var(--navy);">⭐⭐⭐<br>Level 3<br><span style="font-size:0.85rem;font-weight:600;">HARDER</span></div>
+    <div class="challenge-body">
+      <h3>Show Different Icons</h3>
+      <p>When you receive a message, show <code>Image.HEART</code> instead of scrolling text. Explore other images: <code>Image.SAD</code>, <code>Image.SURPRISED</code>, <code>Image.DUCK</code>, <code>Image.GHOST</code></p>
+    </div>
+  </div>
+
+  <div class="challenge-card">
+    <div class="challenge-badge" style="background:var(--orange);">⭐⭐⭐⭐<br>Level 4<br><span style="font-size:0.85rem;font-weight:600;">ADVANCED</span></div>
+    <div class="challenge-body">
+      <h3>Message Counter</h3>
+      <p>Add a variable <code>count = 0</code> at the top. Each time a message is received, do <code>count = count + 1</code>. When you press Button B, do <code>display.show(count)</code> to see how many messages arrived!</p>
+    </div>
+  </div>
+
+  <div class="challenge-card">
+    <div class="challenge-badge" style="background:#7B1FA2;">🏆<br>BOSS<br>LEVEL</div>
+    <div class="challenge-body">
+      <h3>Shake to Send</h3>
+      <p>Replace <code>button_a.was_pressed()</code> with <code>accelerometer.was_gesture('shake')</code>. Every time someone shakes their micro:bit, it sends a secret code. Can you make this into a game?</p>
+    </div>
+  </div>
+
+  <div class="card card-yellow" style="margin-top:20px;">
+    <h2 class="card-title">💡 Challenge Hint Sheet</h2>
+    <div class="code-block">
+      <div class="code-label"><span class="code-filename">Useful Python commands for challenges</span></div>
+      <pre><span class="cm"># Check Button B</span>
+<span class="kw">if</span> <span class="fn">button_b</span>.was_pressed():
+
+<span class="cm"># Detect shaking</span>
+<span class="kw">if</span> <span class="fn">accelerometer</span>.was_gesture(<span class="str">'shake'</span>):
+
+<span class="cm"># Read temperature (degrees C)</span>
+<span class="fn">temperature</span>()
+
+<span class="cm"># Show different images</span>
+<span class="fn">display</span>.show(<span class="fn">Image</span>.HEART)
+<span class="fn">display</span>.show(<span class="fn">Image</span>.SAD)
+<span class="fn">display</span>.show(<span class="fn">Image</span>.SURPRISED)
+
+<span class="cm"># Show a number</span>
+<span class="fn">display</span>.show(<span class="num">5</span>)
+
+<span class="cm"># Convert number to text for sending</span>
+<span class="fn">radio</span>.send(<span class="str">'Temp: '</span> + <span class="fn">str</span>(<span class="fn">temperature</span>()))</pre>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ QUIZ ══════════ -->
+<div id="tab-quiz" class="tab-content">
+  <h1 class="section-title">🧠 Knowledge Quiz</h1>
+  <p style="color:var(--grey);margin-bottom:20px;">Test what you've learned! Click the best answer.</p>
+
+  <div id="quizContainer">
+    <div class="card">
+      <div class="quiz-progress" id="quizProgress">Question 1 of 8</div>
+      <div class="quiz-question" id="quizQuestion">Loading...</div>
+      <div class="quiz-options" id="quizOptions"></div>
+      <div class="quiz-feedback" id="quizFeedback"></div>
+      <button class="quiz-next" id="quizNext" onclick="nextQuestion()">Next Question →</button>
+    </div>
+    <div id="quizScore" style="display:none;" class="card card-green">
+      <h2 class="card-title">🏆 Quiz Complete!</h2>
+      <div id="scoreDisplay" style="font-size:2rem;font-weight:900;color:var(--blue);text-align:center;margin:16px 0;"></div>
+      <div id="scoreFeedback" style="text-align:center;font-weight:600;color:#555;"></div>
+      <button onclick="restartQuiz()" style="display:block;margin:16px auto 0;background:var(--blue);color:white;border:none;border-radius:8px;padding:10px 24px;font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer;">Try Again 🔄</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ GLOSSARY ══════ -->
+<div id="tab-glossary" class="tab-content">
+  <h1 class="section-title">📖 Glossary</h1>
+  <p style="color:var(--grey);margin-bottom:20px;">Key words from this lesson. Use this as a reference!</p>
+
+  <div class="glossary-grid">
+    <div class="glossary-item"><div class="term">Algorithm</div><div class="def">A step-by-step set of instructions for solving a problem</div></div>
+    <div class="glossary-item"><div class="term">Binary</div><div class="def">A number system using only 0s and 1s — how computers store all data</div></div>
+    <div class="glossary-item"><div class="term">Bit</div><div class="def">A single binary digit — either 0 or 1</div></div>
+    <div class="glossary-item"><div class="term">Byte</div><div class="def">A group of 8 bits (e.g. 01000001 = the letter 'A')</div></div>
+    <div class="glossary-item"><div class="term">ASCII</div><div class="def">A standard that gives each letter/symbol a unique binary number</div></div>
+    <div class="glossary-item"><div class="term">Pseudocode</div><div class="def">Writing an algorithm in plain English before coding</div></div>
+    <div class="glossary-item"><div class="term">Sequence</div><div class="def">Steps that run one after another in order</div></div>
+    <div class="glossary-item"><div class="term">Selection</div><div class="def">Making a decision using IF statements</div></div>
+    <div class="glossary-item"><div class="term">Iteration</div><div class="def">Repeating code in a loop (e.g. while True)</div></div>
+    <div class="glossary-item"><div class="term">Radio channel</div><div class="def">A specific frequency both micro:bits must share to communicate</div></div>
+    <div class="glossary-item"><div class="term">Flash</div><div class="def">Copying/uploading your program from the computer onto the micro:bit</div></div>
+    <div class="glossary-item"><div class="term">Variable</div><div class="def">A named storage box that holds a value (e.g. message = 'Hello')</div></div>
+    <div class="glossary-item"><div class="term">Library</div><div class="def">Pre-written code you import and use (e.g. radio, microbit)</div></div>
+    <div class="glossary-item"><div class="term">Debug</div><div class="def">Finding and fixing errors (bugs) in your code</div></div>
+    <div class="glossary-item"><div class="term">Radio wave</div><div class="def">Electromagnetic wave used to transmit binary data wirelessly</div></div>
+    <div class="glossary-item"><div class="term">MicroPython</div><div class="def">A version of Python designed to run on tiny microcontrollers like micro:bit</div></div>
+  </div>
+
+  <div class="info-box info" style="margin-top:24px;">
+    <span class="ib-icon">🔗</span>
+    <span class="ib-text">More resources: <a href="https://makecode.microbit.org/projects/micro-chat" target="_blank">MakeCode Blocks Version</a> | <a href="https://python.microbit.org" target="_blank">Python Editor</a> | <a href="https://microbit.org/get-started/user-guide/python/" target="_blank">Python Reference</a></span>
+  </div>
+</div>
+
+</main>
+
+<div class="page-footer">
+  Year 7 Digital Technologies — Micro Chat | ACARA Version 9 — Queensland Curriculum<br>
+  <a href="https://python.microbit.org" target="_blank">python.microbit.org</a> | Resource based on <a href="https://makecode.microbit.org/projects/micro-chat" target="_blank">makecode.microbit.org/projects/micro-chat</a>
+</div>
+
+<script>
+// ── TAB SYSTEM ───────────────────────────────────────────────
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ── PROGRESS TRACKER ─────────────────────────────────────────
+function toggleDone(el) {
+  el.classList.toggle('done');
+  if (el.classList.contains('done')) el.innerHTML = el.innerHTML.replace('</span>', '</span>✅ ');
+}
+
+// ── BINARY CONVERTER ─────────────────────────────────────────
+function updateBinary() {
+  const ch = document.getElementById('binInput').value;
+  const resultDiv = document.getElementById('binResult');
+  if (!ch) { resultDiv.innerHTML = '<div style="color:#aaa;font-size:0.9rem;">Type a character above ↑</div>'; return; }
+  const code = ch.charCodeAt(0);
+  const binary = code.toString(2).padStart(8, '0');
+  let html = '';
+  for (let b of binary) {
+    html += `<div class="bit-box ${b==='1' ? 'bit-1' : 'bit-0'}">${b}</div>`;
+  }
+  html += `<span class="binary-arrow">→</span>`;
+  html += `<span class="binary-char">'${ch}'</span>`;
+  html += `<div style="color:#aaa;font-size:0.8rem;margin-top:8px;width:100%;">Decimal: ${code} | Binary: ${binary} | Character: '${ch}'</div>`;
+  resultDiv.innerHTML = html;
+}
+
+// ── COPY CODE ─────────────────────────────────────────────────
+function copyCode() {
+  const code = `from microbit import *
+import radio
+
+radio.on()
+radio.config(channel=7)
+
+while True:
+    if button_a.was_pressed():
+        radio.send('Hello!')
+        display.show(Image.HAPPY)
+        sleep(1000)
+        display.clear()
+
+    message = radio.receive()
+    if message is not None:
+        display.scroll(message)`;
+  navigator.clipboard.writeText(code).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => btn.textContent = '📋 Copy Code', 2000);
+  });
+}
+
+// ── QUIZ ──────────────────────────────────────────────────────
+const questions = [
+  { q: "What number system do computers use to store ALL data?", opts: ["Decimal (0-9)", "Binary (0 and 1)", "Hexadecimal (0-F)", "Roman numerals"], correct: 1, feedback: "Correct! Binary uses only 0s and 1s. Computers represent all data — text, images, sounds — as combinations of these two digits." },
+  { q: "How many bits are in one byte?", opts: ["4", "16", "8", "2"], correct: 2, feedback: "Correct! 8 bits = 1 byte. One byte can represent one character (like the letter 'A')." },
+  { q: "What does 'while True:' mean in Python?", opts: ["Run once", "Stop the program", "Repeat forever (infinite loop)", "Check a condition once"], correct: 2, feedback: "Right! 'while True' creates an infinite loop — it runs the code inside repeatedly, forever. This is ITERATION." },
+  { q: "What must be the same on BOTH micro:bits for them to communicate?", opts: ["The colour of the case", "The radio channel number", "The USB cable brand", "The student's name"], correct: 1, feedback: "Correct! Both micro:bits need radio.config(channel=7) — the same channel number — to hear each other." },
+  { q: "What is 'radio.send('Hello!')' doing?", opts: ["Displaying Hello! on the LEDs", "Converting Hello! to binary and broadcasting it as radio waves", "Receiving a message", "Importing the radio library"], correct: 1, feedback: "Great! radio.send() converts the text to binary, then the radio chip turns that binary into electromagnetic radio waves." },
+  { q: "In programming, what is SELECTION?", opts: ["Running steps in order (sequence)", "Repeating code in a loop", "Making decisions using IF statements", "Importing libraries"], correct: 2, feedback: "Correct! Selection means making decisions. In Python we use 'if' statements. Example: if button_a.was_pressed():" },
+  { q: "What does 'import radio' do in your code?", opts: ["Turns the radio on", "Loads the radio library so you can use radio functions", "Sets the channel number", "Sends a message"], correct: 1, feedback: "Right! 'import radio' loads the radio library — a collection of pre-written code that gives you functions like radio.on(), radio.send(), and radio.receive()." },
+  { q: "In ASCII, the letter 'A' = decimal 65. What is it in binary?", opts: ["10000001", "01000001", "11000001", "00000001"], correct: 1, feedback: "Correct! 65 in binary is 01000001. Remember: 64+1 = 65. Each bit is a power of 2: 64, 32, 16, 8, 4, 2, 1." },
+];
+
+let currentQ = 0, score = 0, answered = false;
+
+function loadQuestion() {
+  if (currentQ >= questions.length) { showScore(); return; }
+  const q = questions[currentQ];
+  document.getElementById('quizProgress').textContent = `Question ${currentQ+1} of ${questions.length}`;
+  document.getElementById('quizQuestion').textContent = q.q;
+  const opts = document.getElementById('quizOptions');
+  opts.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option';
+    btn.textContent = opt;
+    btn.onclick = () => selectAnswer(i);
+    opts.appendChild(btn);
+  });
+  document.getElementById('quizFeedback').className = 'quiz-feedback';
+  document.getElementById('quizFeedback').textContent = '';
+  document.getElementById('quizNext').className = 'quiz-next';
+  answered = false;
+}
+
+function selectAnswer(idx) {
+  if (answered) return;
+  answered = true;
+  const q = questions[currentQ];
+  const opts = document.querySelectorAll('.quiz-option');
+  opts[idx].classList.add(idx === q.correct ? 'correct' : 'wrong');
+  if (idx === q.correct) {
+    score++;
+    opts[q.correct].classList.add('correct');
+  } else {
+    opts[q.correct].classList.add('correct');
+  }
+  const fb = document.getElementById('quizFeedback');
+  fb.className = 'quiz-feedback show ' + (idx === q.correct ? 'ok' : 'bad');
+  fb.textContent = (idx === q.correct ? '✅ ' : '❌ ') + q.feedback;
+  document.getElementById('quizNext').className = 'quiz-next show';
+}
+
+function nextQuestion() {
+  currentQ++;
+  loadQuestion();
+}
+
+function showScore() {
+  document.querySelector('.card').style.display = 'none';
+  const scoreEl = document.getElementById('quizScore');
+  scoreEl.style.display = 'block';
+  const pct = Math.round((score/questions.length)*100);
+  document.getElementById('scoreDisplay').textContent = `${score} / ${questions.length} (${pct}%)`;
+  let msg = pct >= 90 ? "🏆 Outstanding! You're a Digital Technologies expert!" :
+            pct >= 70 ? "⭐ Great work! You've got a solid understanding!" :
+            pct >= 50 ? "👍 Good effort! Review the sections you found tricky." :
+            "💪 Keep going! Read through the lesson again and try once more.";
+  document.getElementById('scoreFeedback').textContent = msg;
+}
+
+function restartQuiz() {
+  currentQ = 0; score = 0; answered = false;
+  document.querySelector('.card').style.display = 'block';
+  document.getElementById('quizScore').style.display = 'none';
+  loadQuestion();
+}
+
+// Init
+loadQuestion();
+</script>
+</body>
+</html>
