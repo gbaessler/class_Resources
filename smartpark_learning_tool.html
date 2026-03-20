@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Solutions — SmartPark Learning Tool | St Peters Lutheran College</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:       #1a2d4f;
+    --navy-dark:  #111e35;
+    --navy-mid:   #243860;
+    --gold:       #c9a84c;
+    --gold-light: #e2c47a;
+    --gold-pale:  #f5e9c8;
+    --white:      #ffffff;
+    --off-white:  #f8f6f1;
+    --light-grey: #eceae4;
+    --mid-grey:   #b0aaA0;
+    --text:       #1c1c1c;
+    --text-soft:  #4a4a4a;
+    --green:      #2e7d52;
+    --green-pale: #eaf4ee;
+    --red:        #b83232;
+    --red-pale:   #fdf0f0;
+    --blue-pale:  #eef3fa;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--off-white);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* ── HEADER ── */
+  .site-header {
+    background: var(--navy-dark);
+    border-bottom: 4px solid var(--gold);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.35);
+  }
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 32px;
+    gap: 20px;
+  }
+  .logo-block { display: flex; align-items: center; gap: 16px; }
+  .logo-crest {
+    width: 52px; height: 52px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--navy-dark);
+    font-weight: 700;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.3);
+  }
+  .logo-text { line-height: 1.2; }
+  .logo-text .school { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--white); letter-spacing: 0.03em; }
+  .logo-text .campus { font-size: 11px; color: var(--gold-light); letter-spacing: 0.08em; text-transform: uppercase; }
+  .header-subject {
+    text-align: right;
+    line-height: 1.3;
+  }
+  .header-subject .subject { font-size: 13px; color: var(--gold-light); letter-spacing: 0.06em; text-transform: uppercase; }
+  .header-subject .topic { font-size: 11px; color: var(--mid-grey); }
+
+  /* ── HERO BANNER ── */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #2a4a7f 100%);
+    padding: 56px 32px 52px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 40px,
+      rgba(201,168,76,0.04) 40px,
+      rgba(201,168,76,0.04) 41px
+    );
+  }
+  .hero-tag {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--navy-dark);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 4vw, 40px);
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 12px;
+    position: relative;
+  }
+  .hero h1 span { color: var(--gold-light); }
+  .hero p {
+    color: rgba(255,255,255,0.72);
+    font-size: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  /* ── LAYOUT ── */
+  .page-body {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .section-number {
+    width: 40px; height: 40px; flex-shrink: 0;
+    background: var(--navy);
+    color: var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--navy);
+    line-height: 1.2;
+  }
+  .section-subtitle { font-size: 13px; color: var(--text-soft); margin-top: 2px; }
+
+  /* ── CARD BASE ── */
+  .card {
+    background: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--light-grey);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .card-header {
+    background: var(--navy);
+    padding: 16px 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .card-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--white);
+  }
+  .card-header .icon {
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .card-body { padding: 28px 28px; }
+
+  /* ── DOT POINT CARDS ── */
+  .dot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .dot-item {
+    border-left: 4px solid var(--gold);
+    background: var(--blue-pale);
+    border-radius: 0 6px 6px 0;
+    padding: 14px 18px;
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+  .dot-item:hover {
+    transform: translateX(3px);
+    box-shadow: -3px 0 0 var(--gold), 2px 4px 16px rgba(0,0,0,0.08);
+  }
+  .dot-item .dot-category {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navy);
+    margin-bottom: 5px;
+  }
+  .dot-item p { font-size: 14px; color: var(--text-soft); line-height: 1.5; }
+  .dot-item strong { color: var(--navy); }
+
+  /* ── STEP-BY-STEP ── */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 0;
+    position: relative;
+  }
+  .step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 31px;
+    top: 64px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold), var(--light-grey));
+  }
+  .step-num-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    position: relative;
+    z-index: 1;
+  }
+  .step-bubble {
+    width: 44px; height: 44px;
+    background: var(--navy);
+    color: var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    border: 3px solid var(--gold-pale);
+    flex-shrink: 0;
+  }
+  .step-content {
+    padding: 20px 0 28px 20px;
+  }
+  .step-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    color: var(--navy);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .step-tag {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--gold-pale);
+    color: var(--navy);
+    border: 1px solid var(--gold-light);
+    border-radius: 3px;
+    padding: 2px 8px;
+  }
+  .step-content p { font-size: 14.5px; color: var(--text-soft); margin-bottom: 10px; }
+  .step-content .example-box {
+    background: var(--off-white);
+    border: 1px dashed var(--gold-light);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-top: 10px;
+    font-size: 13.5px;
+    color: var(--text);
+    font-style: italic;
+    line-height: 1.55;
+  }
+  .step-content .example-box::before {
+    content: '✏️  Example: ';
+    font-style: normal;
+    font-weight: 700;
+    color: var(--navy);
+    font-size: 12px;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* ── CHECKLIST ── */
+  .checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--text-soft);
+    line-height: 1.5;
+  }
+  .checklist li .check {
+    width: 22px; height: 22px; flex-shrink: 0;
+    background: var(--green-pale);
+    border: 2px solid var(--green);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    margin-top: 1px;
+  }
+  .checklist li .cross {
+    width: 22px; height: 22px; flex-shrink: 0;
+    background: var(--red-pale);
+    border: 2px solid var(--red);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    margin-top: 1px;
+  }
+
+  /* ── KEYWORD GLOSSARY ── */
+  .keyword-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .keyword-card {
+    background: var(--navy-dark);
+    border-radius: 6px;
+    padding: 14px 18px;
+    border-top: 3px solid var(--gold);
+  }
+  .keyword-card .kw {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--gold-light);
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  .keyword-card .kw-def { font-size: 12.5px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+
+  /* ── MARKS ALERT ── */
+  .marks-banner {
+    background: linear-gradient(90deg, var(--navy-dark), var(--navy-mid));
+    border-radius: 8px;
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-left: 5px solid var(--gold);
+  }
+  .marks-badge {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .marks-text h3 { font-size: 15px; color: var(--white); margin-bottom: 4px; }
+  .marks-text p { font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.5; }
+
+  /* ── SAMPLE RESPONSE ── */
+  .response-block {
+    background: var(--off-white);
+    border: 1px solid var(--light-grey);
+    border-radius: 6px;
+    padding: 22px 26px;
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: var(--text);
+    position: relative;
+  }
+  .response-block .para-label {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--navy);
+    color: var(--gold);
+    padding: 2px 8px;
+    border-radius: 3px;
+    margin-bottom: 8px;
+    margin-right: 6px;
+  }
+  .response-block p { margin-bottom: 16px; }
+  .response-block p:last-child { margin-bottom: 0; }
+  .highlight { background: rgba(201,168,76,0.25); border-bottom: 2px solid var(--gold); padding: 0 2px; border-radius: 2px; }
+  .highlight-g { background: rgba(46,125,82,0.15); border-bottom: 2px solid var(--green); padding: 0 2px; border-radius: 2px; }
+
+  /* ── LEGEND ── */
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-soft); }
+  .legend-swatch { width: 16px; height: 10px; border-radius: 2px; }
+
+  /* ── TIPS BOX ── */
+  .tips-box {
+    background: var(--green-pale);
+    border: 1px solid #a8d5bb;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-top: 16px;
+  }
+  .tips-box h4 { font-size: 13px; color: var(--green); font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .tips-box ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .tips-box ul li { font-size: 13.5px; color: #2a5a3a; padding-left: 18px; position: relative; line-height: 1.5; }
+  .tips-box ul li::before { content: '→'; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+
+  /* ── AVOID BOX ── */
+  .avoid-box {
+    background: var(--red-pale);
+    border: 1px solid #e8b4b4;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-top: 12px;
+  }
+  .avoid-box h4 { font-size: 13px; color: var(--red); font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .avoid-box ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .avoid-box ul li { font-size: 13.5px; color: #7a2020; padding-left: 18px; position: relative; line-height: 1.5; }
+  .avoid-box ul li::before { content: '✗'; position: absolute; left: 0; color: var(--red); font-weight: 700; }
+
+  /* ── DIVIDER ── */
+  .gold-divider {
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-pale), transparent);
+    border: none;
+    border-radius: 2px;
+    margin: 4px 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy-dark);
+    border-top: 3px solid var(--gold);
+    text-align: center;
+    padding: 20px 24px;
+  }
+  footer p { font-size: 12px; color: rgba(255,255,255,0.45); }
+  footer span { color: var(--gold-light); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .header-inner { flex-direction: column; text-align: center; }
+    .header-subject { text-align: center; }
+    .step { grid-template-columns: 48px 1fr; }
+    .step-bubble { width: 36px; height: 36px; font-size: 15px; }
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    .site-header { position: static; }
+    body { background: white; }
+    .card { box-shadow: none; border: 1px solid #ccc; }
+  }
+
+  /* Animate on load */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .page-body > * {
+    animation: fadeUp 0.5s ease both;
+  }
+  .page-body > *:nth-child(1) { animation-delay: 0.05s; }
+  .page-body > *:nth-child(2) { animation-delay: 0.12s; }
+  .page-body > *:nth-child(3) { animation-delay: 0.19s; }
+  .page-body > *:nth-child(4) { animation-delay: 0.26s; }
+  .page-body > *:nth-child(5) { animation-delay: 0.33s; }
+  .page-body > *:nth-child(6) { animation-delay: 0.40s; }
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo-block">
+      <div class="logo-crest">SP</div>
+      <div class="logo-text">
+        <div class="school">St Peters Lutheran College</div>
+        <div class="campus">Springfield Campus</div>
+      </div>
+    </div>
+    <div class="header-subject">
+      <div class="subject">Digital Solutions — Year 11</div>
+      <div class="topic">Unit 1 · Topic 1 &amp; 3 · FIA1 Preparation</div>
+    </div>
+  </div>
+</header>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-tag">Learning Tool</div>
+  <h1>Exploring Existing Solutions<br><span>SmartPark Management System</span></h1>
+  <p>A structured guide to writing high-quality "Explore" responses using the Australian Bollards stimulus — broken down step by step.</p>
+</div>
+
+<!-- ══ PAGE BODY ══ -->
+<div class="page-body">
+
+  <!-- MARKS OVERVIEW -->
+  <div class="marks-banner">
+    <div class="marks-badge">5–7</div>
+    <div class="marks-text">
+      <h3>Comprehending Marks — What's Expected</h3>
+      <p>To reach the top band you need <strong style="color:var(--gold-light)">discerning recognition and description</strong> of the existing solution — including its purpose, features, data, stakeholders, and personal/social/economic impacts. Vague statements only reach bands 1–2. This tool shows you exactly how to hit the top.</p>
+    </div>
+  </div>
+
+  <!-- SECTION 1: DOT POINTS FROM SAMPLE RESPONSE -->
+  <div>
+    <div class="section-label">
+      <div class="section-number">1</div>
+      <div>
+        <div class="section-title">Key Points from the Sample Response</div>
+        <div class="section-subtitle">Use these dot points to understand what a strong answer contains</div>
+      </div>
+    </div>
+    <hr class="gold-divider">
+
+    <div class="card" style="margin-top:20px;">
+      <div class="card-header">
+        <span class="icon">🎯</span>
+        <h2>The Problem — What is St Peters trying to solve?</h2>
+      </div>
+      <div class="card-body">
+        <div class="dot-grid">
+          <div class="dot-item">
+            <div class="dot-category">Problem Statement</div>
+            <p>St Peters has a <strong>private car park reserved for authorised staff only</strong> but unauthorised vehicles (visitors, parents, delivery/maintenance) regularly occupy these spaces.</p>
+          </div>
+          <div class="dot-item">
+            <div class="dot-category">Impact on Users</div>
+            <p>Staff are <strong>forced to park across the road</strong> in public car parking — further from campus, causing inconvenience, frustration, and lost time.</p>
+          </div>
+          <div class="dot-item">
+            <div class="dot-category">Core Need</div>
+            <p>A system that <strong>physically or digitally restricts access</strong> to authorised vehicles only, while allowing legitimate temporary access when needed.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="card-header">
+        <span class="icon">🔍</span>
+        <h2>The Solution — SmartPark Features Identified</h2>
+      </div>
+      <div class="card-body">
+        <div class="dot-grid">
+          <div class="dot-item">
+            <div class="dot-category">Solution 1 — Card + Boom Gate</div>
+            <p>Uses a <strong>card reader with keypad</strong> to automatically raise a boom gate upon card verification — most directly relevant to St Peters' problem of preventing unauthorised entry.</p>
+          </div>
+          <div class="dot-item">
+            <div class="dot-category">Solution 1 — Security</div>
+            <p>Employs <strong>robust encryption</strong> within the card reader to prevent unauthorised access — only valid cardholders can trigger the boom gate.</p>
+          </div>
+          <div class="dot-item">
+            <div class="dot-category">Solution 1 — Usability</div>
+            <p><strong>User-friendly interface</strong> with clearly marked buttons, easy for staff of all ages and technical abilities — reduces entry time and improves traffic flow.</p>
+          </div>
+          <div class="dot-item">
+            <div class="dot-category">Solution 2 — WiFi App Access</div>
+            <p>Remote WiFi connectivity allows staff to <strong>control access via smartphone</strong> (Android &amp; iOS). Admin can grant/revoke temporary access for authorised visitors remotely.</p>
+          </div>
+          <div class="dot-item">
+            <div class="dot-category">Solution 2 — Integration</div>
+            <p>Can be <strong>integrated into existing parking management systems</strong> to manage availability and payments — flexible for school's future needs.</p>
+          </div>
+          <div class="dot-item">
+            <div class="dot-category">Solution 3 — Licence Plate Recognition</div>
+            <p><strong>Automatic LPR technology</strong> reads a car's plate and admits only registered vehicles — no card needed, identifies repeat unauthorised users.</p>
+          </div>
+          <div class="dot-item">
+            <div class="dot-category">Solution 3 — Operational Benefits</div>
+            <p>Provides <strong>lower operational costs and reduced maintenance</strong> over time compared to card-based systems — long-term economic benefit for the school.</p>
+          </div>
+          <div class="dot-item">
+            <div class="dot-category">Comparative Insight</div>
+            <p>A <strong>combined boom gate + WiFi remote override</strong> would most comprehensively meet St Peters' needs — no single product alone fully addresses the problem.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px;">
+      <div class="card-header">
+        <span class="icon">👥</span>
+        <h2>Stakeholders &amp; Impacts Identified</h2>
+      </div>
+      <div class="card-body">
+        <div class="dot-grid">
+          <div class="dot-item">
+            <div class="dot-category">Personal Impact — Staff</div>
+            <p>Staff <strong>no longer need to park across the road</strong> — saves time, reduces frustration, and improves daily working experience.</p>
+          </div>
+          <div class="dot-item">
+            <div class="dot-category">Personal Impact — Usability</div>
+            <p>Designed for <strong>drivers of all ages and abilities</strong> — inclusive design means no staff member is disadvantaged by the technology.</p>
+          </div>
+          <div class="dot-item">
+            <div class="dot-category">Social Impact — Safety</div>
+            <p>Reducing unauthorised vehicle congestion in a school car park <strong>improves pedestrian safety</strong> — important in an environment with students present.</p>
+          </div>
+          <div class="dot-item">
+            <div class="dot-category">Economic Impact</div>
+            <p>LPR system offers <strong>lower long-term operational costs</strong> compared to traditional ticket or manual systems — cost-effective for the school budget.</p>
+          </div>
+          <div class="dot-item">
+            <div class="dot-category">Limitation</div>
+            <p>No single product alone handles the case where <strong>authorised delivery or maintenance vehicles</strong> need temporary one-off access — requires a combined or flexible solution.</p>
+          </div>
+          <div class="dot-item">
+            <div class="dot-category">Limitation — Data &amp; Privacy</div>
+            <p>LPR requires <strong>storing vehicle licence plate data</strong> — raises privacy considerations about who can access this database and how it is secured.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: KEY VOCABULARY -->
+  <div>
+    <div class="section-label">
+      <div class="section-number">2</div>
+      <div>
+        <div class="section-title">Key Vocabulary — Use These in Your Response</div>
+        <div class="section-subtitle">High-band answers use subject-specific language precisely and accurately</div>
+      </div>
+    </div>
+    <hr class="gold-divider">
+    <div class="keyword-grid" style="margin-top:20px;">
+      <div class="keyword-card">
+        <div class="kw">access control</div>
+        <div class="kw-def">A security mechanism that restricts who can enter a system, space, or resource.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw">encryption</div>
+        <div class="kw-def">Converting data into a coded form to prevent unauthorised access.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw">licence plate recognition (LPR)</div>
+        <div class="kw-def">Technology that automatically reads vehicle number plates to identify or restrict vehicles.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw">boom gate</div>
+        <div class="kw-def">A physical barrier that can be raised/lowered to control vehicle entry and exit.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw">stakeholder</div>
+        <div class="kw-def">Any person or group affected by or having an interest in a system (e.g. staff, admin, visitors).</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw">cross-platform compatibility</div>
+        <div class="kw-def">A system that works across different operating systems (e.g. Android and iOS).</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw">operational costs</div>
+        <div class="kw-def">The ongoing expenses required to run and maintain a system after initial installation.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw">user-friendly interface</div>
+        <div class="kw-def">A design that is intuitive, clearly labelled, and easy to use for the intended audience.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: STEP-BY-STEP GUIDE -->
+  <div>
+    <div class="section-label">
+      <div class="section-number">3</div>
+      <div>
+        <div class="section-title">Step-by-Step Guide — How to Write Your Response</div>
+        <div class="section-subtitle">Follow these steps in order to produce a band 6–7 "Explore Existing Solutions" answer</div>
+      </div>
+    </div>
+    <hr class="gold-divider">
+
+    <div class="card" style="margin-top:20px;">
+      <div class="card-body" style="padding-top:24px;">
+        <div class="steps">
+
+          <!-- Step 1 -->
+          <div class="step">
+            <div class="step-num-col">
+              <div class="step-bubble">1</div>
+            </div>
+            <div class="step-content">
+              <div class="step-title">
+                Restate the Problem Clearly
+                <span class="step-tag">~2 sentences</span>
+              </div>
+              <p>Before exploring any solution, briefly describe what problem the school is facing. Name the affected stakeholders and the specific issue. This shows the examiner you understand the context.</p>
+              <div class="example-box">St Peters Lutheran College Springfield operates a private car park designated exclusively for authorised staff members. However, unauthorised vehicles — including those of visitors, parents, and delivery personnel — frequently occupy these spaces, leaving staff with no option but to park across the road in public spaces further from campus.</div>
+              <div class="tips-box">
+                <h4>💡 Tips</h4>
+                <ul>
+                  <li>Name the specific stakeholders (staff, admin, parents, delivery drivers)</li>
+                  <li>Include the consequence of the problem, not just the problem itself</li>
+                  <li>Keep it brief — 2–3 sentences maximum before moving to the solution</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step">
+            <div class="step-num-col">
+              <div class="step-bubble">2</div>
+            </div>
+            <div class="step-content">
+              <div class="step-title">
+                Identify the Existing Solution(s)
+                <span class="step-tag">Name &amp; describe</span>
+              </div>
+              <p>Name the product(s) from the stimulus by their correct names. State what they do at a high level. For this question, Stimulus 3 contains <strong>three distinct products</strong> — you should acknowledge this range.</p>
+              <div class="example-box">The SmartPark Management System by Australian Bollards offers three distinct access control products: a Card Reader with Boom Gate system, a WiFi Smart Parking Access system with smartphone integration, and a Ticketless Parking System using Licence Plate Recognition (LPR) technology. Each addresses the problem of unauthorised parking access to varying degrees.</div>
+              <div class="tips-box">
+                <h4>💡 Tips</h4>
+                <ul>
+                  <li>Use the exact product names from the stimulus — this shows you've read it carefully</li>
+                  <li>Don't just describe one product — the stimulus has three, and acknowledging all three shows depth</li>
+                  <li>Introduce them briefly here, then explain each one in detail in the next step</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step">
+            <div class="step-num-col">
+              <div class="step-bubble">3</div>
+            </div>
+            <div class="step-content">
+              <div class="step-title">
+                Describe Each Solution's Features &amp; How It Addresses the Problem
+                <span class="step-tag">Core marks</span>
+              </div>
+              <p>This is where you earn the most marks. For each product, describe its specific features from the stimulus and then explicitly link each feature to the St Peters problem. Use linking phrases like <em>"For St Peters, this means..."</em> or <em>"This directly addresses the issue of..."</em></p>
+              <div class="example-box">
+                <strong>Solution 1 — Card Reader + Boom Gate:</strong> The system uses an advanced card reader with keypad that automatically raises the boom gate upon successful card verification. Robust encryption protocols ensure only valid cardholders can trigger entry. For St Peters, this is the most directly relevant solution — it physically prevents unauthorised visitors, parents and delivery vehicles from entering, resolving the core problem of space occupation. The user-friendly interface with clearly marked buttons ensures staff of all ages can operate it quickly during peak arrival times without creating new bottlenecks.<br><br>
+                <strong>Solution 2 — WiFi App Access:</strong> The WiFi system allows remote control of the boom gate via smartphone (compatible with both Android and iOS). Administrators could grant or revoke temporary access remotely, which is particularly useful for managing authorised visitors such as maintenance contractors or inspectors — without needing to issue a permanent card. This addresses a gap in Solution 1, which handles only permanent card-holders.<br><br>
+                <strong>Solution 3 — Licence Plate Recognition:</strong> This ticketless system automatically reads a vehicle's licence plate and admits only registered vehicles. A database of staff plates would be maintained by the school. This removes the need for physical cards and also allows the school to identify repeat unauthorised users — providing evidence for enforcing the policy. The stimulus notes it also offers lower operational costs and reduced maintenance needs over time.
+              </div>
+              <div class="tips-box">
+                <h4>💡 Tips</h4>
+                <ul>
+                  <li>Always connect features back to the specific problem — don't just describe the product in isolation</li>
+                  <li>Use data or specific details from the stimulus (e.g. "robust encryption", "Android and iOS")</li>
+                  <li>One paragraph per product is a clear, organised structure</li>
+                </ul>
+              </div>
+              <div class="avoid-box">
+                <h4>⚠️ Avoid These Mistakes</h4>
+                <ul>
+                  <li>Copying sentences word-for-word from the stimulus without linking to the problem</li>
+                  <li>Only describing one product when three are available in the stimulus</li>
+                  <li>Describing features without explaining why they matter for St Peters</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="step">
+            <div class="step-num-col">
+              <div class="step-bubble">4</div>
+            </div>
+            <div class="step-content">
+              <div class="step-title">
+                Compare the Solutions
+                <span class="step-tag">Analysis mark</span>
+              </div>
+              <p>Don't just describe each product separately — show you can analyse them by comparing their strengths and limitations relative to the school's specific context. A comparison table is an excellent way to do this efficiently.</p>
+              <div class="example-box">While all three products restrict unauthorised access, they do so in different ways with different trade-offs. The Card + Boom Gate provides the strongest physical barrier but requires staff to carry cards. The WiFi system adds remote flexibility but depends on reliable internet connectivity. The LPR system is the most seamless for regular staff but raises data privacy considerations around storing vehicle information. No single product fully addresses the edge case of temporary authorised visitors such as one-off delivery vehicles.</div>
+              <div class="tips-box">
+                <h4>💡 Tips</h4>
+                <ul>
+                  <li>Use comparison language: "however," "while," "unlike," "in contrast to"</li>
+                  <li>Point out which solution best suits the school's specific context and why</li>
+                  <li>Mentioning a limitation of a solution is not a weakness in your answer — it shows critical thinking</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="step">
+            <div class="step-num-col">
+              <div class="step-bubble">5</div>
+            </div>
+            <div class="step-content">
+              <div class="step-title">
+                Address Personal, Social &amp; Economic Impacts
+                <span class="step-tag">Comprehending criterion</span>
+              </div>
+              <p>The marking guide explicitly requires recognition of personal, social, and economic impacts. These should flow naturally from your description — link what the system does to real-world effects on people and the organisation.</p>
+              <div class="example-box">
+                <strong>Personal:</strong> Staff would no longer be forced to park across the road — saving time, reducing daily frustration, and improving their overall working experience.<br><br>
+                <strong>Social:</strong> Reducing vehicle congestion and unauthorised movement in a school car park improves pedestrian safety for students and staff during drop-off and pick-up periods.<br><br>
+                <strong>Economic:</strong> The LPR system's lower long-term operational and maintenance costs represent a sound investment for the school's budget, particularly compared to ongoing administration of a physical ticketing or card system.
+              </div>
+              <div class="tips-box">
+                <h4>💡 Tips</h4>
+                <ul>
+                  <li>Name the specific impact type explicitly (personal / social / economic)</li>
+                  <li>Impacts should relate to the St Peters context — not generic statements about parking systems</li>
+                  <li>Even one well-explained impact per category is enough to reach top band</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 6 -->
+          <div class="step">
+            <div class="step-num-col">
+              <div class="step-bubble">6</div>
+            </div>
+            <div class="step-content">
+              <div class="step-title">
+                Write a Concluding Recommendation
+                <span class="step-tag">Synthesis &amp; evaluation</span>
+              </div>
+              <p>End with a clear, justified recommendation. Which product (or combination) best suits St Peters, and why? This shows you can move beyond description into analysis and evaluation.</p>
+              <div class="example-box">The most effective solution for St Peters would be a combination of the Card Reader Boom Gate for physical access control, supplemented by the WiFi remote access system to allow administrators to grant temporary entry to authorised one-off visitors such as maintenance contractors. This layered approach directly addresses all categories of the problem — routine staff access, physical prevention of unauthorised vehicles, and flexible management of legitimate temporary users — while keeping costs manageable by avoiding the full LPR installation unless the school's enrolment or car park size warrants it.</div>
+              <div class="tips-box">
+                <h4>💡 Tips</h4>
+                <ul>
+                  <li>Don't just pick one solution — consider whether a combination makes more sense</li>
+                  <li>Justify your recommendation with specific reasons tied to the school's context</li>
+                  <li>Keep it concise — 3–5 sentences is enough for a conclusion</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /steps -->
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4: DO / DON'T CHECKLIST -->
+  <div>
+    <div class="section-label">
+      <div class="section-number">4</div>
+      <div>
+        <div class="section-title">Self-Check Before You Submit</div>
+        <div class="section-subtitle">Use this checklist to review your written response</div>
+      </div>
+    </div>
+    <hr class="gold-divider">
+
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top:20px;">
+      <div class="card">
+        <div class="card-header" style="background: var(--green);">
+          <span class="icon">✅</span>
+          <h2>Your response should include…</h2>
+        </div>
+        <div class="card-body">
+          <ul class="checklist">
+            <li><span class="check">✓</span> A clear restatement of the St Peters problem</li>
+            <li><span class="check">✓</span> Names of specific products from Stimulus 3</li>
+            <li><span class="check">✓</span> Feature descriptions linked to the school's context</li>
+            <li><span class="check">✓</span> Coverage of more than one product solution</li>
+            <li><span class="check">✓</span> At least one personal impact identified</li>
+            <li><span class="check">✓</span> At least one social or economic impact identified</li>
+            <li><span class="check">✓</span> A limitation or concern acknowledged</li>
+            <li><span class="check">✓</span> Subject-specific vocabulary used precisely</li>
+            <li><span class="check">✓</span> A justified concluding recommendation</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" style="background: var(--red);">
+          <span class="icon">❌</span>
+          <h2>Common mistakes to avoid</h2>
+        </div>
+        <div class="card-body">
+          <ul class="checklist">
+            <li><span class="cross">✗</span> Describing only one product when three exist in the stimulus</li>
+            <li><span class="cross">✗</span> Copying stimulus text without explaining relevance to the problem</li>
+            <li><span class="cross">✗</span> Making generic statements not tied to the St Peters context</li>
+            <li><span class="cross">✗</span> Ignoring impacts (personal, social, economic) entirely</li>
+            <li><span class="cross">✗</span> Listing features without linking them to the school's needs</li>
+            <li><span class="cross">✗</span> Forgetting to name stakeholders who are affected</li>
+            <li><span class="cross">✗</span> Ending without any recommendation or conclusion</li>
+            <li><span class="cross">✗</span> Using vague language like "it helps" without explaining how</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: ANNOTATED SAMPLE PARAGRAPH -->
+  <div>
+    <div class="section-label">
+      <div class="section-number">5</div>
+      <div>
+        <div class="section-title">Annotated Sample Paragraph</div>
+        <div class="section-subtitle">See how marks are earned — highlighted features explained below</div>
+      </div>
+    </div>
+    <hr class="gold-divider">
+
+    <div class="card" style="margin-top:20px;">
+      <div class="card-body">
+        <div class="response-block">
+          <span class="para-label">Step 1 — Problem</span>
+          <p>St Peters Lutheran College Springfield faces a persistent access management problem in its private staff car park — <span class="highlight">unauthorised vehicles including visitors, parents, and delivery personnel</span> regularly occupy spaces designated exclusively for staff, <span class="highlight">forcing authorised staff to use public parking across the road</span>, further from campus.</p>
+
+          <span class="para-label">Steps 2 &amp; 3 — Solution with features linked to problem</span>
+          <p>The Australian Bollards <span class="highlight">SmartPark Card Reader and Boom Gate system</span> is the most directly relevant existing solution. The system <span class="highlight-g">automatically raises the boom gate upon card verification</span>, meaning only staff holding valid access cards can enter — physically preventing the unauthorised vehicles that currently occupy staff spaces. Critically, the system uses <span class="highlight-g">robust encryption protocols within the card reader</span>, ensuring the security mechanism cannot be bypassed. The stimulus also highlights its <span class="highlight-g">user-friendly interface with clearly marked buttons</span>, meaning staff of all ages and technical backgrounds can enter the car park efficiently during high-traffic periods without causing new delays.</p>
+
+          <span class="para-label">Step 4 — Comparison / Limitation</span>
+          <p>However, the card system alone does not fully address the edge case of <span class="highlight">occasional authorised visitors</span> such as maintenance contractors or building inspectors. This gap is addressed by the complementary <span class="highlight">WiFi Smart Parking Access system</span>, which allows administrators to <span class="highlight-g">grant or revoke temporary access remotely via smartphone</span>, compatible with both Android and iOS platforms — giving admin staff flexible control without issuing permanent cards to visitors.</p>
+
+          <span class="para-label">Step 5 — Impacts</span>
+          <p>The <strong>personal impact</strong> for staff is significant — removing the daily frustration and time lost from parking across the road improves their working experience and punctuality. From a <strong>social perspective</strong>, reducing the volume of unauthorised and unfamiliar vehicles moving through a school environment enhances <span class="highlight">pedestrian safety</span> for students and families during peak times. <strong>Economically</strong>, while installation costs exist, the stimulus notes that the LPR system offers <span class="highlight-g">lower long-term operational costs and reduced maintenance needs</span>, making it a sustainable option for the school's budget.</p>
+        </div>
+
+        <div class="legend">
+          <div class="legend-item">
+            <div class="legend-swatch" style="background:rgba(201,168,76,0.35); border-bottom: 2px solid var(--gold);"></div>
+            <span>Context linkage — ties solution to St Peters' specific problem</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-swatch" style="background:rgba(46,125,82,0.18); border-bottom: 2px solid var(--green);"></div>
+            <span>Feature description — specific details from the stimulus</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page-body -->
+
+<footer>
+  <p>St Peters Lutheran College Springfield &nbsp;·&nbsp; <span>Digital Solutions Year 11</span> &nbsp;·&nbsp; FIA1 Preparation Resource &nbsp;·&nbsp; 2025</p>
+  <p style="margin-top:6px;">This document is an internal learning resource. Stimulus material © Australian Bollards / NM Group.</p>
+</footer>
+
+</body>
+</html>
