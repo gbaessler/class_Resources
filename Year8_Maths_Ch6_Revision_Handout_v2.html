@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Year 8 Maths — Chapter 6 Revision Handout</title>
+<link href="https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--maroon:#730D28;--gold:#FDBB30;--charcoal:#1D252D;--metallic:#BD9B60;--steel:#41748D;--teal:#006C5B;--white:#fff;--light:#fafafa;--border:#e4dbd0;--text:#1D252D;--muted:#5a6370;--warm:#FFF9EE;--teal-bg:#EFF7F5;--blue-bg:#EFF4F8;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Karma',serif;background:var(--white);color:var(--text);line-height:1.7;font-size:15px;}
+  .site-header{background:var(--maroon);border-bottom:4px solid var(--gold);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.25);}
+  .hi{max-width:1100px;margin:0 auto;padding:12px 22px;display:flex;align-items:center;gap:16px;}
+  .crest{width:46px;height:46px;border-radius:50%;background:var(--gold);color:var(--maroon);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.88rem;flex-shrink:0;border:2px solid rgba(255,255,255,.22);}
+  .ht h1{font-size:1.15rem;font-weight:700;color:white;}
+  .ht p{font-size:.76rem;color:rgba(255,255,255,.7);}
+  .hbadge{margin-left:auto;background:var(--gold);color:var(--maroon);padding:5px 13px;border-radius:20px;font-size:.74rem;font-weight:700;white-space:nowrap;}
+  .topic-nav{background:var(--charcoal);overflow-x:auto;scrollbar-width:none;}
+  .topic-nav::-webkit-scrollbar{display:none;}
+  .topic-nav ul{max-width:1100px;margin:0 auto;padding:0 22px;display:flex;gap:3px;list-style:none;white-space:nowrap;}
+  .topic-nav a{display:block;padding:9px 12px;color:rgba(255,255,255,.68);text-decoration:none;font-size:.76rem;font-weight:500;border-bottom:2px solid transparent;transition:color .2s;}
+  .topic-nav a:hover{color:var(--gold);border-bottom-color:var(--gold);}
+  .pw{max-width:1100px;margin:0 auto;padding:28px 22px 56px;}
+
+  /* BANNERS */
+  .intro-banner{background:linear-gradient(135deg,var(--maroon),#9a1535);color:white;border-radius:11px;padding:26px 30px;margin-bottom:26px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;position:relative;overflow:hidden;}
+  .intro-banner::before{content:'';position:absolute;right:-20px;top:-20px;width:140px;height:140px;background:rgba(253,187,48,.1);border-radius:50%;}
+  .intro-banner h2{font-size:1.35rem;font-weight:700;color:var(--gold);margin-bottom:6px;}
+  .intro-banner p{font-size:.86rem;color:rgba(255,255,255,.85);line-height:1.6;max-width:600px;}
+  .ep{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:9px;padding:13px 16px;text-align:center;z-index:1;}
+  .ep-l{font-size:.66rem;color:rgba(255,255,255,.58);text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:2px;}
+  .ep-v{font-size:1.7rem;font-weight:700;color:var(--gold);display:block;line-height:1;}
+  .prior-banner{background:linear-gradient(135deg,var(--teal),#008f78);color:white;border-radius:10px;padding:16px 22px;margin-bottom:24px;display:flex;align-items:flex-start;gap:14px;}
+  .pi{font-size:1.8rem;flex-shrink:0;}
+  .prior-banner h3{font-size:.92rem;font-weight:700;color:var(--gold);margin-bottom:5px;}
+  .prior-banner p{font-size:.82rem;color:rgba(255,255,255,.88);line-height:1.55;}
+  .pk-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+  .pk-chip{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);color:white;padding:2px 10px;border-radius:20px;font-size:.72rem;font-weight:600;}
+  .flip-notice{background:var(--teal-bg);border-left:5px solid var(--teal);border-radius:0 10px 10px 0;padding:14px 18px;margin-bottom:28px;}
+  .flip-notice h3{color:var(--teal);font-size:.92rem;font-weight:700;margin-bottom:7px;display:flex;align-items:center;gap:7px;}
+  .fsteps{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+  .fs{background:white;border:1px solid #c8e6df;border-radius:7px;padding:8px 12px;font-size:.78rem;display:flex;align-items:center;gap:8px;}
+  .fn{background:var(--teal);color:white;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.7rem;flex-shrink:0;}
+
+  /* TIMING CARD */
+  .timing-card{background:var(--charcoal);color:white;border-radius:9px;padding:14px 20px;margin-bottom:28px;}
+  .timing-card h3{font-size:.88rem;font-weight:700;color:var(--gold);margin-bottom:10px;}
+  .tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;}
+  .tq{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:8px 10px;}
+  .tq .ql{font-size:.7rem;font-weight:700;color:var(--gold);display:block;margin-bottom:2px;}
+  .tq .qt{font-size:.76rem;color:rgba(255,255,255,.8);line-height:1.4;}
+  .tq.hl{border-color:var(--gold);background:rgba(253,187,48,.12);}
+
+  /* SECTION */
+  .section-block{margin-bottom:40px;scroll-margin-top:88px;}
+  .section-header{display:flex;align-items:center;gap:12px;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--border);}
+  .stag{background:var(--maroon);color:white;padding:4px 11px;border-radius:4px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.9px;white-space:nowrap;}
+  .section-header h2{font-size:1.12rem;font-weight:700;color:var(--maroon);}
+  .li-box{background:#f0f4f8;border-radius:8px;padding:12px 16px;margin-bottom:14px;font-size:.83rem;color:var(--muted);display:flex;gap:9px;align-items:flex-start;}
+
+  /* WORKED EXAMPLE */
+  .we{background:var(--warm);border:1px solid #f0d898;border-radius:9px;padding:16px 20px;margin-bottom:14px;}
+  .we-title{font-size:.76rem;font-weight:700;color:#7a5500;text-transform:uppercase;letter-spacing:.7px;margin-bottom:9px;display:flex;align-items:center;gap:7px;}
+  .we-title::before{content:'✦';color:var(--gold);}
+  .we-q{font-size:.92rem;font-weight:600;color:var(--text);margin-bottom:9px;padding:7px 11px;background:rgba(253,187,48,.15);border-radius:5px;border-left:3px solid var(--gold);}
+  .we-step{display:flex;gap:10px;margin-bottom:7px;align-items:flex-start;}
+  .wsn{background:var(--metallic);color:white;min-width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.7rem;flex-shrink:0;margin-top:2px;}
+  .wsc{font-size:.87rem;line-height:1.55;}
+  .mi{font-family:'Courier New',monospace;background:rgba(0,0,0,.06);padding:1px 5px;border-radius:3px;font-size:.84rem;}
+  .ans-box{margin-top:9px;background:#e8f5e9;border:1.5px solid #81c784;border-radius:6px;padding:7px 13px;font-size:.87rem;font-weight:600;color:#2e7d32;display:inline-flex;align-items:center;gap:7px;}
+  .tip{background:var(--blue-bg);border-left:4px solid var(--steel);border-radius:0 7px 7px 0;padding:10px 14px;margin:10px 0;font-size:.82rem;color:#2c4a60;}
+  .tip strong{color:var(--steel);}
+  .warn{background:var(--warm);border-left:4px solid var(--gold);border-radius:0 7px 7px 0;padding:10px 14px;margin:10px 0;font-size:.82rem;color:#5c3d00;}
+  .warn strong{color:#7a5500;}
+
+  /* PRACTICE */
+  .practice-set{background:var(--light);border:1px solid var(--border);border-radius:9px;padding:18px 20px;margin-top:13px;}
+  .ps-title{font-size:.86rem;font-weight:700;color:var(--charcoal);margin-bottom:12px;padding-bottom:7px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
+  .ps-title span{background:var(--steel);color:white;padding:2px 10px;border-radius:20px;font-size:.68rem;font-weight:700;}
+  .qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:9px;}
+  .qi{background:white;border:1px solid var(--border);border-radius:7px;padding:11px 13px;font-size:.84rem;transition:border-color .2s;}
+  .qi:hover{border-color:var(--maroon);}
+  .ql{font-size:.67rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:3px;}
+  .qt{font-size:.87rem;line-height:1.5;}
+  .sf-badge{background:#dcfce7;color:#166534;padding:1px 7px;border-radius:10px;font-size:.66rem;font-weight:700;margin-left:5px;}
+  .cf-badge{background:#e0f2fe;color:#0c4a6e;padding:1px 7px;border-radius:10px;font-size:.66rem;font-weight:700;margin-left:5px;}
+  .cu-badge{background:#fce7f3;color:#9d174d;padding:1px 7px;border-radius:10px;font-size:.66rem;font-weight:700;margin-left:5px;}
+  .atog{margin-top:8px;background:none;border:1px solid var(--border);border-radius:4px;padding:3px 10px;font-size:.72rem;color:var(--muted);cursor:pointer;font-family:'Karma',serif;transition:all .2s;}
+  .atog:hover{background:var(--maroon);color:white;border-color:var(--maroon);}
+  .arev{display:none;margin-top:5px;padding:5px 9px;background:#f0fdf4;border-radius:4px;font-size:.78rem;font-weight:600;color:#2e7d32;border:1px solid #86efac;}
+  .arev.shown{display:block;}
+
+  /* CHECKLIST */
+  .pg-wrap{background:white;border:1px solid var(--border);border-radius:11px;padding:18px 20px;margin-bottom:28px;}
+  .pg-wrap h3{font-size:.96rem;font-weight:700;color:var(--maroon);margin-bottom:13px;}
+  .cg{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:13px;}
+  .ci{display:flex;align-items:flex-start;gap:9px;padding:8px 11px;background:var(--light);border:1px solid var(--border);border-radius:7px;font-size:.8rem;cursor:pointer;}
+  .ci:hover{background:#fef9ee;}
+  .cb{width:16px;height:16px;border:2px solid var(--border);border-radius:3px;flex-shrink:0;margin-top:1px;transition:all .2s;}
+  .ci.checked .cb{background:var(--teal);border-color:var(--teal);position:relative;}
+  .ci.checked .cb::after{content:'✓';position:absolute;top:-1px;left:2px;color:white;font-size:11px;font-weight:700;}
+  .ci.checked{background:#f0fdf4;border-color:#86efac;}
+  .pb-bg{background:var(--light);border-radius:999px;height:9px;overflow:hidden;}
+  .pb{background:linear-gradient(90deg,var(--maroon),var(--gold));height:100%;border-radius:999px;width:0;transition:width .5s;}
+  .pt{font-size:.76rem;color:var(--muted);margin-top:5px;text-align:right;}
+
+  .page-footer{background:var(--charcoal);color:rgba(255,255,255,.48);padding:14px 22px;font-size:.72rem;margin-top:36px;}
+  .pfi{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:7px;}
+  @media(max-width:640px){.intro-banner{grid-template-columns:1fr;}.ep{display:none;}.cg{grid-template-columns:1fr;}.qgrid{grid-template-columns:1fr;}}
+  @media print{.site-header{position:static;}.topic-nav{display:none;}.atog{display:none;}.arev{display:block!important;}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="hi">
+    <div class="crest">SP</div>
+    <div class="ht"><h1>St Peters Lutheran College Springfield</h1><p>Year 8 Mathematics &nbsp;·&nbsp; Chapter 6: Ratios, Rates &amp; Scale &nbsp;·&nbsp; Term 1, 2026</p></div>
+    <div class="hbadge">Flipped Classroom Revision</div>
+  </div>
+</header>
+
+<nav class="topic-nav">
+  <ul>
+    <li><a href="#prior">Prior Knowledge</a></li>
+    <li><a href="#checklist">Self-Check</a></li>
+    <li><a href="#timing">Timing Guide</a></li>
+    <li><a href="#ratios">Ratios (SF)</a></li>
+    <li><a href="#scale">Scale (SF/CF)</a></li>
+    <li><a href="#rates">Rates (SF)</a></li>
+    <li><a href="#dst">DST (SF/CU)</a></li>
+    <li><a href="#complex">CF &amp; CU Questions</a></li>
+  </ul>
+</nav>
+
+<main class="pw">
+
+  <div class="intro-banner">
+    <div>
+      <h2>Chapter 6 — Ratios, Rates &amp; Scale</h2>
+      <p>This flipped classroom handout uses <strong>practice examples only</strong> — all numbers differ from your actual exam. Complete these before class and arrive ready to ask questions. Work through each section, check your answers, and tick skills as you master them.</p>
+    </div>
+    <div class="ep"><span class="ep-l">Exam Marks</span><span class="ep-v">38</span><span class="ep-l">50 min + 5 perusal</span></div>
+  </div>
+
+  <!-- PRIOR KNOWLEDGE -->
+  <div class="prior-banner" id="prior">
+    <div class="pi">🔗</div>
+    <div>
+      <h3>Prior Knowledge from Chapter 3 — You Already Know These!</h3>
+      <p>Chapter 6 builds directly on Chapter 3 skills. Brush up on any you're unsure about before this exam.</p>
+      <div class="pk-chips">
+        <span class="pk-chip">HCF → simplify ratios</span>
+        <span class="pk-chip">Fractions ↔ ratios</span>
+        <span class="pk-chip">Division → sharing</span>
+        <span class="pk-chip">Decimal division → rates</span>
+        <span class="pk-chip">Unit conversion → compare</span>
+        <span class="pk-chip">Multiply → scale up</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLIPPED NOTICE -->
+  <div class="flip-notice">
+    <h3>📱 Pre-Class Flipped Tasks — Complete Before Your Revision Lesson</h3>
+    <div class="fsteps">
+      <div class="fs"><span class="fn">1</span>Watch the ratio and rates video on your class platform</div>
+      <div class="fs"><span class="fn">2</span>Complete the self-check checklist honestly</div>
+      <div class="fs"><span class="fn">3</span>Work through at least one worked example per section</div>
+      <div class="fs"><span class="fn">4</span>Write down questions to bring to class</div>
+      <div class="fs"><span class="fn">5</span>Attempt practice questions and self-mark with answers</div>
+    </div>
+  </div>
+
+  <!-- CHECKLIST -->
+  <section class="section-block" id="checklist">
+    <div class="section-header"><span class="stag">Step 1</span><h2>Self-Assessment Checklist</h2></div>
+    <div class="pg-wrap">
+      <h3>Chapter 6 Skills — Tick as You Become Confident</h3>
+      <div class="cg">
+        <div class="ci" onclick="toggleCheck(this)"><div class="cb"></div><span>I can identify a ratio already in simplest form</span></div>
+        <div class="ci" onclick="toggleCheck(this)"><div class="cb"></div><span>I can simplify ratios including with different units</span></div>
+        <div class="ci" onclick="toggleCheck(this)"><div class="cb"></div><span>I can share an amount in a 3-part ratio</span></div>
+        <div class="ci" onclick="toggleCheck(this)"><div class="cb"></div><span>I can find numbers from a ratio and calculate a new ratio (CF)</span></div>
+        <div class="ci" onclick="toggleCheck(this)"><div class="cb"></div><span>I can simplify a recipe ratio and scale ingredients up</span></div>
+        <div class="ci" onclick="toggleCheck(this)"><div class="cb"></div><span>I can use a map scale to find actual distance in metres</span></div>
+        <div class="ci" onclick="toggleCheck(this)"><div class="cb"></div><span>I can find a scale factor from a drawing</span></div>
+        <div class="ci" onclick="toggleCheck(this)"><div class="cb"></div><span>I can share profits in proportion to investment (CF)</span></div>
+        <div class="ci" onclick="toggleCheck(this)"><div class="cb"></div><span>I can express a quantity as a rate with correct units</span></div>
+        <div class="ci" onclick="toggleCheck(this)"><div class="cb"></div><span>I can convert minutes to hours before using S=D÷T</span></div>
+        <div class="ci" onclick="toggleCheck(this)"><div class="cb"></div><span>I can use a scale diagram with a ruler to find actual measurements</span></div>
+        <div class="ci" onclick="toggleCheck(this)"><div class="cb"></div><span>I can solve multi-step map + DST problems and write a sentence answer (CU)</span></div>
+      </div>
+      <div class="pb-bg"><div class="pb" id="progressBar"></div></div>
+      <div class="pt" id="progressText">0 / 12 skills checked</div>
+    </div>
+  </section>
+
+  <!-- TIMING GUIDE -->
+  <section class="section-block" id="timing">
+    <div class="section-header"><span class="stag">Step 2</span><h2>Timing Guide — 50 Minutes + 5 Perusal</h2></div>
+    <div class="timing-card">
+      <h3>Suggested time per question — use this in your practice exam</h3>
+      <div class="tg">
+        <div class="tq hl"><span class="ql">Perusal (5 min)</span><span class="qt">Read ALL questions. Circle key words. Get ruler ready for Q11 and Q13.</span></div>
+        <div class="tq"><span class="ql">Q1 — SF (1 mark)</span><span class="qt">⏱ 1–2 min. MCQ only — check all options.</span></div>
+        <div class="tq"><span class="ql">Q2 — SF (2 marks)</span><span class="qt">⏱ 3 min. Convert units first.</span></div>
+        <div class="tq"><span class="ql">Q3 — SF (4 marks)</span><span class="qt">⏱ 4 min. Show all 4 steps. Check totals add up.</span></div>
+        <div class="tq"><span class="ql">Q4 — CF (4 marks)</span><span class="qt">⏱ 5 min. Two parts — answer both (a) and (b).</span></div>
+        <div class="tq"><span class="ql">Q5 — SF (2 marks)</span><span class="qt">⏱ 3 min. Simplify first, then scale all three ingredients.</span></div>
+        <div class="tq"><span class="ql">Q6 — CF (2 marks)</span><span class="qt">⏱ 2–3 min. Multiply × scale, then ÷100 → metres.</span></div>
+        <div class="tq"><span class="ql">Q7 — SF (2 marks)</span><span class="qt">⏱ 2–3 min. Convert actual to cm first.</span></div>
+        <div class="tq"><span class="ql">Q8 — CF (3 marks)</span><span class="qt">⏱ 4 min. Simplify ratio, find 1-part, multiply.</span></div>
+        <div class="tq"><span class="ql">Q9 — SF (4 marks)</span><span class="qt">⏱ 4 min. Write value AND units for full marks.</span></div>
+        <div class="tq"><span class="ql">Q10 — SF (3 marks)</span><span class="qt">⏱ 4 min. Convert minutes → hours first!</span></div>
+        <div class="tq"><span class="ql">Q11 — SF (4 marks)</span><span class="qt">⏱ 4 min. Ruler ready. Record cm measurement in working.</span></div>
+        <div class="tq"><span class="ql">Q12 — CU (3 marks)</span><span class="qt">⏱ 4–5 min. Convert to kg. MUST write sentence answer.</span></div>
+        <div class="tq"><span class="ql">Q13 — CU (4 marks)</span><span class="qt">⏱ 5–6 min. 4 steps: measure→km→T=D÷S→min. Sentence required!</span></div>
+        <div class="tq hl"><span class="ql">Review (3 min)</span><span class="qt">Check simplification, units, sentence answers for CU questions.</span></div>
+      </div>
+    </div>
+    <div class="warn"><strong>⚠ Skip &amp; Star Rule:</strong> If stuck on any question for more than 3 minutes, <strong>skip it, put a star next to it</strong>, and come back at review time. Never let one question cost you marks on easier questions.</div>
+  </section>
+
+  <!-- SECTION: RATIOS SF -->
+  <section class="section-block" id="ratios">
+    <div class="section-header"><span class="stag">Simple Familiar</span><h2>Ratios — Simplifying, Equivalent &amp; Sharing</h2></div>
+    <div class="li-box"><span style="font-size:1.1rem;">🎯</span><span><strong>Q1–Q3 and Q5 types.</strong> Uses your Chapter 3 HCF skill! A ratio works exactly like a fraction — simplify by dividing both (or all) parts by the HCF.</span></div>
+
+    <div class="we">
+      <div class="we-title">Worked Example 1 — Simplifying with Different Units</div>
+      <div class="we-q">Simplify 600 g to 3 kg</div>
+      <div class="we-step"><div class="wsn">1</div><div class="wsc"><strong>Convert to same units:</strong> <span class="mi">3 kg = 3000 g</span></div></div>
+      <div class="we-step"><div class="wsn">2</div><div class="wsc">Write ratio: <span class="mi">600 : 3000</span></div></div>
+      <div class="we-step"><div class="wsn">3</div><div class="wsc">HCF = 600 → divide both: <span class="mi">600÷600 : 3000÷600</span></div></div>
+      <div class="ans-box">✓ 1 : 5</div>
+      <div style="margin-top:8px;font-size:.8rem;color:var(--muted);">👀 Same method as simplifying a fraction using HCF — Chapter 3 skill!</div>
+    </div>
+
+    <div class="we">
+      <div class="we-title">Worked Example 2 — Sharing in a 3-Part Ratio</div>
+      <div class="we-q">Three friends share $720 in the ratio 1 : 3 : 5. How much does each person receive?</div>
+      <div class="we-step"><div class="wsn">1</div><div class="wsc">Add parts: <span class="mi">1 + 3 + 5 = 9 parts</span></div></div>
+      <div class="we-step"><div class="wsn">2</div><div class="wsc">Value of 1 part: <span class="mi">$720 ÷ 9 = $80</span></div></div>
+      <div class="we-step"><div class="wsn">3</div><div class="wsc">Person A: <span class="mi">1 × $80 = $80</span> &nbsp;|&nbsp; B: <span class="mi">3 × $80 = $240</span> &nbsp;|&nbsp; C: <span class="mi">5 × $80 = $400</span></div></div>
+      <div class="we-step"><div class="wsn">✓</div><div class="wsc">Check: <span class="mi">$80 + $240 + $400 = $720</span> ✓</div></div>
+      <div class="ans-box">✓ $80 · $240 · $400</div>
+    </div>
+
+    <div class="tip"><strong>💡 Check:</strong> Always add your answers back up — they MUST equal the original total. If they don't, you've made an error in step 2.</div>
+
+    <div class="practice-set">
+      <div class="ps-title">Practice — Ratios <span>Try Without Looking!</span></div>
+      <div class="qgrid">
+        <div class="qi"><span class="ql">P1 <span class="sf-badge">SF</span></span><div class="qt">Which is in simplest form? a) 4:20 b) 9:16 c) 12:32 d) 15:45</div><button class="atog" onclick="toggleAnswer(this)">Show Answer</button><div class="arev">b) 9:16 — HCF=1. Check: 4:20÷4=1:5; 12:32÷4=3:8; 15:45÷15=1:3</div></div>
+        <div class="qi"><span class="ql">P2 <span class="sf-badge">SF</span></span><div class="qt">Simplify 250 mL to 1.5 L</div><button class="atog" onclick="toggleAnswer(this)">Show Answer</button><div class="arev">1.5L=1500mL → 250:1500 ÷250 = 1:6</div></div>
+        <div class="qi"><span class="ql">P3 <span class="sf-badge">SF</span></span><div class="qt">Simplify 90 : 60 : 45</div><button class="atog" onclick="toggleAnswer(this)">Show Answer</button><div class="arev">HCF=15 → 6:4:3</div></div>
+        <div class="qi"><span class="ql">P4 <span class="sf-badge">SF</span></span><div class="qt">Share $600 in ratio 2 : 3 : 5 between Kim, Lee and Max.</div><button class="atog" onclick="toggleAnswer(this)">Show Answer</button><div class="arev">Parts=10; 1part=$60; Kim=$120, Lee=$180, Max=$300. Check: 120+180+300=$600 ✓</div></div>
+        <div class="qi"><span class="ql">P5 <span class="cf-badge">CF</span></span><div class="qt">A class of 35 has boys:girls = 3:4. If 7 new boys join, what is the new ratio?</div><button class="atog" onclick="toggleAnswer(this)">Show Answer</button><div class="arev">Parts=7; 1part=5; Boys=15, Girls=20. New boys=22; 22:20 ÷2 = 11:10</div></div>
+        <div class="qi"><span class="ql">P6 <span class="sf-badge">SF</span></span><div class="qt">Recipe: 300g flour : 150g sugar : 6g salt for 24 biscuits. (a) Simplest form. (b) Amount for 48 biscuits.</div><button class="atog" onclick="toggleAnswer(this)">Show Answer</button><div class="arev">a) ÷6 = 50:25:1; b) ×2: 600g flour, 300g sugar, 12g salt</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: SCALE SF/CF -->
+  <section class="section-block" id="scale">
+    <div class="section-header"><span class="stag">SF / CF</span><h2>Scale Drawings &amp; Maps</h2></div>
+    <div class="li-box"><span style="font-size:1.1rem;">🎯</span><span><strong>Q6, Q7, Q11 and Q13 types.</strong> Scale 1:n means every 1 cm on the drawing = n cm in real life. Q11 requires a ruler — get one ready before perusal!</span></div>
+
+    <div class="we">
+      <div class="we-title">Worked Example 3 — Map Scale to Actual Distance</div>
+      <div class="we-q">Scale 1:20 000. Map distance = 9 cm. Find actual distance in metres.</div>
+      <div class="we-step"><div class="wsn">1</div><div class="wsc">Actual cm: <span class="mi">9 × 20 000 = 180 000 cm</span></div></div>
+      <div class="we-step"><div class="wsn">2</div><div class="wsc">Convert to m: <span class="mi">180 000 ÷ 100 = 1800 m</span></div></div>
+      <div class="ans-box">✓ 1800 m</div>
+    </div>
+
+    <div class="we">
+      <div class="we-title">Worked Example 4 — Finding a Scale Factor</div>
+      <div class="we-q">A 5 cm measurement on a drawing represents 35 m actual. Find the scale factor.</div>
+      <div class="we-step"><div class="wsn">1</div><div class="wsc">Convert actual to cm: <span class="mi">35 m = 3500 cm</span></div></div>
+      <div class="we-step"><div class="wsn">2</div><div class="wsc">Write ratio: <span class="mi">5 : 3500</span> → divide by 5: <span class="mi">1 : 700</span></div></div>
+      <div class="ans-box">✓ Scale 1 : 700</div>
+    </div>
+
+    <div class="warn"><strong>⚠ Q11 and Q13 need a ruler!</strong> During perusal, find these questions and get your ruler ready. Measure carefully in cm, record your measurement in your working, then multiply by the scale.</div>
+
+    <div class="practice-set">
+      <div class="ps-title">Practice — Scale <span>Try Without Looking!</span></div>
+      <div class="qgrid">
+        <div class="qi"><span class="ql">P7 <span class="sf-badge">SF</span></span><div class="qt">Scale 1:5000. Map distance = 7 cm. Find actual distance in metres.</div><button class="atog" onclick="toggleAnswer(this)">Show Answer</button><div class="arev">7×5000=35000cm ÷100 = 350 m</div></div>
+        <div class="qi"><span class="ql">P8 <span class="sf-badge">SF</span></span><div class="qt">3 cm on a drawing = 45 m actual. Find scale factor.</div><button class="atog" onclick="toggleAnswer(this)">Show Answer</button><div class="arev">45m=4500cm; 3:4500 ÷3 = 1:1500</div></div>
+        <div class="qi"><span class="ql">P9 <span class="cf-badge">CF</span></span><div class="qt">Scale 1:250 000. Two cities are 8.4 cm apart on map. How far apart in km?</div><button class="atog" onclick="toggleAnswer(this)">Show Answer</button><div class="arev">8.4×250000=2100000cm=21000m=21 km</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: RATES SF -->
+  <section class="section-block" id="rates">
+    <div class="section-header"><span class="stag">Simple Familiar</span><h2>Rates — Expressing in Simplest Form</h2></div>
+    <div class="li-box"><span style="font-size:1.1rem;">🎯</span><span><strong>Q9 type.</strong> A rate compares two quantities with different units. Always include the units in your answer — 70 without "km/h" only earns half marks!</span></div>
+
+    <div class="we">
+      <div class="we-title">Worked Example 5 — Express as a Rate</div>
+      <div class="we-q">a) A cyclist rides 240 km in 4 hours &nbsp;&nbsp; b) 450 sheep on 150 hectares</div>
+      <div class="we-step"><div class="wsn">a</div><div class="wsc"><span class="mi">240 ÷ 4 = 60</span> → <strong>60 km/h</strong></div></div>
+      <div class="we-step"><div class="wsn">b</div><div class="wsc"><span class="mi">450 ÷ 150 = 3</span> → <strong>3 sheep/ha</strong></div></div>
+      <div class="ans-box">✓ a) 60 km/h &nbsp;|&nbsp; b) 3 sheep/ha</div>
+    </div>
+
+    <div class="tip"><strong>💡 "Per" = ÷.</strong> "km per hour" means km ÷ hours. Always divide the top quantity by the bottom quantity to get a "per 1" rate.</div>
+
+    <div class="practice-set">
+      <div class="ps-title">Practice — Rates <span>Try Without Looking!</span></div>
+      <div class="qgrid">
+        <div class="qi"><span class="ql">P10 <span class="sf-badge">SF</span></span><div class="qt">420 litres flows through a pipe in 6 minutes. Express as a rate.</div><button class="atog" onclick="toggleAnswer(this)">Show Answer</button><div class="arev">420÷6=70 L/min</div></div>
+        <div class="qi"><span class="ql">P11 <span class="sf-badge">SF</span></span><div class="qt">A factory produces 800 items in 5 hours. Express as a rate.</div><button class="atog" onclick="toggleAnswer(this)">Show Answer</button><div class="arev">800÷5=160 items/hour</div></div>
+        <div class="qi"><span class="ql">P12 <span class="sf-badge">SF</span></span><div class="qt">750 cattle on 500 hectares. Express as a rate in simplest form.</div><button class="atog" onclick="toggleAnswer(this)">Show Answer</button><div class="arev">750÷500=1.5 cattle/ha</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: DST SF/CU -->
+  <section class="section-block" id="dst">
+    <div class="section-header"><span class="stag">SF / CU</span><h2>Speed, Distance &amp; Time — DST Triangle</h2></div>
+    <div class="li-box"><span style="font-size:1.1rem;">🎯</span><span><strong>Q10 and Q13 types.</strong> Always convert time to hours before using the km/h formula. Q13 is the most complex question — it combines scale reading with DST in 4 steps.</span></div>
+
+    <div class="we">
+      <div class="we-title">Worked Example 6 — Average Speed (Q10 Type)</div>
+      <div class="we-q">A bus travels 390 km in 260 minutes. Find average speed in km/h.</div>
+      <div class="we-step"><div class="wsn">1</div><div class="wsc"><strong>Convert minutes to hours:</strong> <span class="mi">260 ÷ 60 = 4⅓ hours</span></div></div>
+      <div class="we-step"><div class="wsn">2</div><div class="wsc">S = D ÷ T: <span class="mi">390 ÷ (13/3) = 390 × 3/13 = 90 km/h</span></div></div>
+      <div class="ans-box">✓ 90 km/h</div>
+    </div>
+
+    <div class="we">
+      <div class="we-title">Worked Example 7 — Map + DST Combined (Q13 Type — 4 Steps)</div>
+      <div class="we-q">Map scale 1:100 000. Measured map distance = 7 cm. Speed limit = 80 km/h. How long does the journey take in minutes?</div>
+      <div class="we-step"><div class="wsn">1</div><div class="wsc"><strong>Measure &amp; scale:</strong> <span class="mi">7 × 100 000 = 700 000 cm</span></div></div>
+      <div class="we-step"><div class="wsn">2</div><div class="wsc"><strong>Convert to km:</strong> <span class="mi">700 000 ÷ 100 000 = 7 km</span></div></div>
+      <div class="we-step"><div class="wsn">3</div><div class="wsc"><strong>Apply T = D ÷ S:</strong> <span class="mi">7 ÷ 80 = 0.0875 hours</span></div></div>
+      <div class="we-step"><div class="wsn">4</div><div class="wsc"><strong>Convert to minutes:</strong> <span class="mi">0.0875 × 60 = 5.25 minutes</span></div></div>
+      <div class="we-step"><div class="wsn">✏</div><div class="wsc"><strong>Sentence:</strong> <em>"It will take approximately 5.25 minutes to complete the journey."</em></div></div>
+      <div class="ans-box">✓ 5.25 minutes — with sentence answer</div>
+    </div>
+
+    <div class="warn"><strong>⚠ Q13 sentence answer is worth a mark!</strong> Even if your calculation is correct, you lose a reasoning mark without a complete sentence. Practice writing: "It will take approximately ___ minutes to drive from ___ to ___."</div>
+
+    <div class="practice-set">
+      <div class="ps-title">Practice — DST <span>Try Without Looking!</span></div>
+      <div class="qgrid">
+        <div class="qi"><span class="ql">P13 <span class="sf-badge">SF</span></span><div class="qt">A train travels 540 km in 360 minutes. Find average speed in km/h.</div><button class="atog" onclick="toggleAnswer(this)">Show Answer</button><div class="arev">360min=6hrs; S=540÷6=90 km/h</div></div>
+        <div class="qi"><span class="ql">P14 <span class="sf-badge">SF</span></span><div class="qt">A car drives at 100 km/h for 3.5 hours. How far does it travel?</div><button class="atog" onclick="toggleAnswer(this)">Show Answer</button><div class="arev">D=S×T=100×3.5=350 km</div></div>
+        <div class="qi"><span class="ql">P15 <span class="cu-badge">CU</span></span><div class="qt">Map scale 1:180 000. Distance on map = 6 cm. Speed = 90 km/h. Journey time in minutes?</div><button class="atog" onclick="toggleAnswer(this)">Show Answer</button><div class="arev">6×180000=1080000cm=10.8km; T=10.8÷90=0.12h×60=7.2 min ≈7 min 12 sec</div></div>
+        <div class="qi"><span class="ql">P16 <span class="cf-badge">CF</span></span><div class="qt">Two partners invest $4000 and $6000. They share profits in ratio of investment. If the smaller partner gets $800, how much does the larger get?</div><button class="atog" onclick="toggleAnswer(this)">Show Answer</button><div class="arev">4000:6000=2:3; 1 part=800÷2=$400; larger=3×$400=$1200</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: COMPLEX -->
+  <section class="section-block" id="complex">
+    <div class="section-header"><span class="stag">CF &amp; CU</span><h2>Complex Questions — Full Worked Strategy</h2></div>
+
+    <div class="li-box"><span style="font-size:1.1rem;">🎯</span><span><strong>Q4, Q8, Q12 and Q13 types.</strong> Complex Familiar (CF) questions apply familiar methods in new contexts. Complex Unfamiliar (CU) require multi-step reasoning you may not have seen before. Always write a sentence answer for CU questions.</span></div>
+
+    <div class="tip"><strong>💡 CUBED Strategy for word problems:</strong> <strong>C</strong>ircle numbers · <strong>U</strong>nderline the question · <strong>B</strong>ox key words · <strong>E</strong>quation · <strong>D</strong>ouble-check + write sentence</div>
+
+    <div class="we">
+      <div class="we-title">Worked Example 8 — Growth Rate Word Problem (Q12 Type — CU)</div>
+      <div class="we-q">A rabbit gained 150 g per month for 8 months. If it weighed 250 g at birth, how much did it weigh at 8 months? Give your answer in kg and write a sentence answer.</div>
+      <div class="we-step"><div class="wsn">1</div><div class="wsc">Growth: <span class="mi">150 × 8 = 1200 g</span></div></div>
+      <div class="we-step"><div class="wsn">2</div><div class="wsc">Total: <span class="mi">250 + 1200 = 1450 g</span></div></div>
+      <div class="we-step"><div class="wsn">3</div><div class="wsc">Convert: <span class="mi">1450 ÷ 1000 = 1.45 kg</span></div></div>
+      <div class="we-step"><div class="wsn">✏</div><div class="wsc"><em>"At 8 months, the rabbit weighed 1.45 kg."</em></div></div>
+      <div class="ans-box">✓ 1.45 kg — with sentence answer</div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="page-footer">
+  <div class="pfi">
+    <span>St Peters Lutheran College Springfield · Year 8 Mathematics · Chapter 6 Revision · Term 1, 2026</span>
+    <span>Practice examples only — numbers differ from actual exam · AC V9 · AC9M8M07</span>
+  </div>
+</footer>
+
+<script>
+function toggleAnswer(btn){const r=btn.nextElementSibling;r.classList.toggle('shown');btn.textContent=r.classList.contains('shown')?'Hide Answer':'Show Answer';}
+function toggleCheck(item){item.classList.toggle('checked');updateProgress();}
+function updateProgress(){const t=document.querySelectorAll('.ci').length,c=document.querySelectorAll('.ci.checked').length,p=Math.round(c/t*100);document.getElementById('progressBar').style.width=p+'%';document.getElementById('progressText').textContent=c+' / '+t+' skills checked ('+p+'%)';}
+</script>
+</body>
+</html>
