@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Year 8 Mechatronics — Flipped Classroom | St Peters Lutheran College</title>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@300;400;600;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* ─── SPLC BRAND TOKENS ─── */
+:root {
+  --maroon:       #6B1A31;
+  --maroon-dark:  #4E1224;
+  --maroon-light: #8A2340;
+  --gold:         #C49A28;
+  --gold-light:   #F0C84A;
+  --gold-pale:    #FDF6E3;
+  --white:        #FFFFFF;
+  --off-white:    #F8F6F2;
+  --rule:         #E0D8CF;
+  --text:         #1E1A18;
+  --text-mid:     #4A4440;
+  --text-light:   #7A706A;
+  --teal:         #1B6B72;
+  --teal-pale:    #E8F4F5;
+  --link:         #6B1A31;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--off-white);
+  color: var(--text);
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* ─── PRINT / ONENOTE FRIENDLINESS ─── */
+@media print {
+  .no-print { display: none !important; }
+  body { background: white; max-width: 100%; }
+  .header-band { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* ─── HEADER ─── */
+.header-band {
+  background: var(--maroon);
+  color: white;
+  padding: 0;
+}
+
+.header-top {
+  display: flex;
+  align-items: stretch;
+  min-height: 90px;
+}
+
+.logo-block {
+  background: var(--maroon-dark);
+  padding: 20px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 120px;
+  border-right: 1px solid rgba(255,255,255,.15);
+}
+
+.logo-cross {
+  font-size: 28px;
+  line-height: 1;
+  margin-bottom: 4px;
+  color: var(--gold-light);
+}
+
+.logo-text {
+  font-family: 'Merriweather', serif;
+  font-size: 9px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.85);
+  line-height: 1.4;
+}
+
+.header-content {
+  padding: 18px 28px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.header-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 5px;
+}
+
+.header-title {
+  font-family: 'Merriweather', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  line-height: 1.25;
+}
+
+.header-meta {
+  margin-top: 4px;
+  font-size: 12px;
+  color: rgba(255,255,255,.6);
+}
+
+.gold-rule {
+  height: 4px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 60%, var(--gold) 100%);
+}
+
+/* ─── BRIEF STRIP ─── */
+.brief-strip {
+  background: var(--gold-pale);
+  border-bottom: 1px solid var(--rule);
+  padding: 14px 32px;
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.brief-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--maroon);
+}
+
+.brief-item .icon { font-size: 16px; }
+
+.brief-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--rule);
+  flex-shrink: 0;
+}
+
+/* ─── MAIN CONTENT ─── */
+main {
+  background: var(--white);
+  padding: 36px 40px 56px;
+}
+
+/* ─── SECTION HEADINGS ─── */
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--maroon);
+}
+
+.section-num {
+  background: var(--maroon);
+  color: white;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 2px;
+  letter-spacing: .06em;
+  flex-shrink: 0;
+}
+
+.section-heading h2 {
+  font-family: 'Merriweather', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--maroon);
+  line-height: 1.2;
+}
+
+section + section {
+  margin-top: 44px;
+}
+
+/* ─── INTRO TEXT ─── */
+.intro-text {
+  font-size: 15px;
+  color: var(--text-mid);
+  margin-bottom: 20px;
+  max-width: 680px;
+}
+
+/* ─── CALLOUT BOX ─── */
+.callout {
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--maroon);
+  background: var(--off-white);
+  border-radius: 0 4px 4px 0;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: var(--text-mid);
+}
+.callout strong { color: var(--maroon); }
+.callout p + p { margin-top: 8px; }
+
+.callout.gold {
+  border-left-color: var(--gold);
+  background: var(--gold-pale);
+}
+.callout.gold strong { color: #7A5C10; }
+
+.callout.teal {
+  border-left-color: var(--teal);
+  background: var(--teal-pale);
+}
+.callout.teal strong { color: var(--teal); }
+
+/* ─── DESIGN PROCESS DIAGRAM ─── */
+.process-row {
+  display: flex;
+  gap: 0;
+  margin: 20px 0 8px;
+  overflow-x: auto;
+}
+
+.p-step {
+  flex: 1;
+  min-width: 90px;
+  text-align: center;
+  padding: 12px 8px 10px;
+  background: var(--off-white);
+  border: 1px solid var(--rule);
+  border-right: 0;
+  position: relative;
+}
+.p-step:last-child { border-right: 1px solid var(--rule); }
+.p-step:first-child { border-radius: 4px 0 0 4px; }
+.p-step:last-child  { border-radius: 0 4px 4px 0; }
+
+.p-step.active {
+  background: var(--maroon);
+  border-color: var(--maroon);
+}
+.p-step.active .p-icon,
+.p-step.active .p-label { color: white; }
+
+.p-icon  { font-size: 20px; display: block; margin-bottom: 4px; }
+.p-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--text-light);
+}
+
+.process-caption {
+  font-size: 12px;
+  color: var(--text-light);
+  font-style: italic;
+  margin-bottom: 0;
+}
+.process-caption span { color: var(--maroon); font-style: normal; font-weight: 600; }
+
+/* ─── VIDEO SECTION ─── */
+.video-link-card {
+  border: 2px solid var(--maroon);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.video-link-header {
+  background: var(--maroon);
+  color: white;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.video-link-header .play-btn {
+  width: 36px; height: 36px;
+  background: var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.video-link-header .v-title {
+  font-family: 'Merriweather', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: white;
+  line-height: 1.25;
+}
+
+.video-link-header .v-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,.65);
+  margin-top: 2px;
+}
+
+.video-link-body {
+  padding: 16px 20px;
+  background: var(--off-white);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.watch-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--maroon);
+  color: white !important;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 11px 22px;
+  border-radius: 4px;
+  align-self: flex-start;
+  transition: background .2s;
+}
+.watch-link-btn:hover { background: var(--maroon-dark); }
+.watch-link-btn .arrow { font-size: 16px; }
+
+.url-display {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 12px;
+  color: var(--text-light);
+  word-break: break-all;
+}
+
+/* ─── WATCH GUIDE TABLE ─── */
+.watch-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  margin-top: 4px;
+}
+
+.watch-table th {
+  text-align: left;
+  background: var(--maroon);
+  color: white;
+  font-weight: 700;
+  padding: 9px 14px;
+  font-size: 12px;
+  letter-spacing: .04em;
+}
+
+.watch-table th:first-child { width: 38%; }
+
+.watch-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+  color: var(--text-mid);
+}
+
+.watch-table td:first-child {
+  font-weight: 600;
+  color: var(--maroon);
+}
+
+.watch-table tr:nth-child(even) td { background: var(--off-white); }
+.watch-table tr:last-child td { border-bottom: 0; }
+
+/* ─── QUESTION BOXES ─── */
+.q-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+@media (max-width: 620px) {
+  .q-grid { grid-template-columns: 1fr; }
+  .process-row { flex-direction: column; }
+  .p-step { border-right: 1px solid var(--rule); border-bottom: 0; }
+  .p-step:last-child { border-bottom: 1px solid var(--rule); }
+  main { padding: 24px 20px 48px; }
+  .brief-strip { padding: 12px 20px; }
+}
+
+.q-box {
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.q-box-head {
+  background: var(--maroon);
+  color: white;
+  padding: 7px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.q-num-badge {
+  background: var(--gold);
+  color: var(--maroon-dark);
+  font-weight: 700;
+  font-size: 11px;
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.q-box-body {
+  padding: 13px 14px;
+  background: white;
+}
+
+.q-box-body p {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.q-hint {
+  margin-top: 9px;
+  padding: 8px 12px;
+  background: var(--off-white);
+  border-radius: 3px;
+  font-size: 12px;
+  color: var(--text-light);
+  font-style: italic;
+  border-left: 3px solid var(--gold);
+}
+
+.answer-lines {
+  margin-top: 10px;
+}
+
+.answer-line {
+  width: 100%;
+  height: 1px;
+  background: var(--rule);
+  margin-bottom: 14px;
+}
+
+/* ─── CHALLENGE TABLE ─── */
+.challenge-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  margin-top: 4px;
+}
+
+.challenge-table th {
+  background: var(--maroon);
+  color: white;
+  text-align: left;
+  padding: 9px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+.challenge-table td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+  color: var(--text-mid);
+  font-size: 13.5px;
+}
+
+.challenge-table td:first-child {
+  width: 26%;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.challenge-table tr:nth-child(even) td { background: var(--off-white); }
+.challenge-table tr:last-child td { border-bottom: 0; }
+
+.level-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 2px;
+  margin-top: 5px;
+}
+.level-entry  { background: #E8F4F5; color: var(--teal); border: 1px solid #a8d4d8; }
+.level-mid    { background: var(--gold-pale); color: #7A5C10; border: 1px solid #e0c875; }
+.level-adv    { background: #fde8ed; color: var(--maroon); border: 1px solid #e0a8b5; }
+
+/* ─── CHECKLIST ─── */
+.checklist {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--text-mid);
+  padding: 11px 16px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--off-white);
+}
+
+.checklist li .box {
+  width: 16px; height: 16px;
+  border: 2px solid var(--maroon);
+  border-radius: 2px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ─── LESSON PLAN TABLE ─── */
+.plan-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  margin-top: 4px;
+}
+
+.plan-table th {
+  background: var(--maroon);
+  color: white;
+  text-align: left;
+  padding: 9px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .04em;
+}
+
+.plan-table td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+  color: var(--text-mid);
+}
+
+.plan-table td:first-child {
+  width: 18%;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--maroon);
+  white-space: nowrap;
+}
+
+.plan-table td:nth-child(2) {
+  font-weight: 700;
+  color: var(--text);
+  width: 24%;
+}
+
+.plan-table tr:nth-child(even) td { background: var(--off-white); }
+.plan-table tr:last-child td { border-bottom: 0; }
+
+/* ─── EXTENSION CARDS ─── */
+.ext-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
+  margin-top: 4px;
+}
+
+@media (max-width: 700px) { .ext-grid { grid-template-columns: 1fr; } }
+
+.ext-card {
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.ext-card-head {
+  background: var(--off-white);
+  border-bottom: 1px solid var(--rule);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ext-icon { font-size: 20px; }
+
+.ext-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--maroon);
+}
+
+.ext-card p {
+  padding: 12px 14px;
+  font-size: 13px;
+  color: var(--text-mid);
+  line-height: 1.6;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--maroon-dark);
+  padding: 18px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+footer p {
+  font-size: 12px;
+  color: rgba(255,255,255,.55);
+}
+
+footer .motto {
+  font-family: 'Merriweather', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--gold-light);
+}
+</style>
+</head>
+<body>
+
+<!-- ─── HEADER ─── -->
+<header>
+  <div class="header-band">
+    <div class="header-top">
+      <div class="logo-block">
+        <div class="logo-cross">✝</div>
+        <div class="logo-text">St Peters<br>Lutheran<br>College</div>
+      </div>
+      <div class="header-content">
+        <div class="header-eyebrow">Year 8 Mechatronics · Flipped Classroom Activity</div>
+        <div class="header-title">Improving Your Walking Robot</div>
+        <div class="header-meta">Complete this activity BEFORE your next lesson &nbsp;·&nbsp; Approx. 35 minutes</div>
+      </div>
+    </div>
+    <div class="gold-rule"></div>
+  </div>
+  <div class="brief-strip">
+    <div class="brief-item"><span class="icon">📺</span> Watch the video</div>
+    <div class="brief-divider"></div>
+    <div class="brief-item"><span class="icon">✏️</span> Answer 6 questions in your workbook</div>
+    <div class="brief-divider"></div>
+    <div class="brief-item"><span class="icon">🔨</span> Choose an improvement challenge</div>
+    <div class="brief-divider"></div>
+    <div class="brief-item"><span class="icon">⏱</span> ~35 min</div>
+  </div>
+</header>
+
+<!-- ─── MAIN ─── -->
+<main>
+
+  <!-- SECTION 1: CONTEXT -->
+  <section>
+    <div class="section-heading">
+      <span class="section-num">01</span>
+      <h2>Where You Left Off</h2>
+    </div>
+
+    <p class="intro-text">
+      You have just completed your first prototype of a laser-cut walking robot — a plywood body powered by a hobby gearbox, with front and back legs driven by a crank-and-transmission mechanism. It was assembled from 3 mm plywood panels that slot together like LEGO pieces.
+    </p>
+
+    <div class="callout">
+      <p>First-time prototypes are <strong>never perfect — and that is the point.</strong> Maybe your robot wobbles. Maybe the legs jam. Maybe the battery holder falls out during testing. Every one of these observations is valuable engineering data.</p>
+      <p>In this activity you will use the <strong>engineering design process</strong> to analyse what went wrong and plan a targeted improvement. Come to class ready to redesign, re-cut, and test.</p>
+    </div>
+
+    <p style="font-size:13.5px; font-weight:700; color:var(--maroon); margin-bottom:10px; text-transform:uppercase; letter-spacing:.05em;">Where you are in the design cycle</p>
+    <div class="process-row">
+      <div class="p-step">
+        <span class="p-icon">🔍</span>
+        <span class="p-label">Define</span>
+      </div>
+      <div class="p-step">
+        <span class="p-icon">🧠</span>
+        <span class="p-label">Research</span>
+      </div>
+      <div class="p-step">
+        <span class="p-icon">✏️</span>
+        <span class="p-label">Ideate</span>
+      </div>
+      <div class="p-step active">
+        <span class="p-icon">🔨</span>
+        <span class="p-label">Prototype</span>
+      </div>
+      <div class="p-step active">
+        <span class="p-icon">⚙️</span>
+        <span class="p-label">Test</span>
+      </div>
+      <div class="p-step active">
+        <span class="p-icon">🚀</span>
+        <span class="p-label">Improve</span>
+      </div>
+    </div>
+    <p class="process-caption"><span>■ Shaded stages</span> = where you are right now in the engineering design cycle.</p>
+  </section>
+
+  <!-- SECTION 2: VIDEO -->
+  <section>
+    <div class="section-heading">
+      <span class="section-num">02</span>
+      <h2>Watch — Engineering Design Process</h2>
+    </div>
+
+    <p class="intro-text">
+      Watch the video below carefully. It introduces the engineering design process — pay particular attention to how engineers <em>define</em> a problem, <em>generate</em> multiple solutions, and <em>measure</em> whether their changes actually helped.
+    </p>
+
+    <div class="video-link-card">
+      <div class="video-link-header">
+        <div class="play-btn">▶</div>
+        <div>
+          <div class="v-title">The Engineering Design Process</div>
+          <div class="v-sub">YouTube · Click the button below to open in your browser</div>
+        </div>
+      </div>
+      <div class="video-link-body">
+        <a class="watch-link-btn" href="https://youtu.be/MAhpfFt_mWM?si=7FvwaYEj0xfHsDx6" target="_blank" rel="noopener">
+          <span class="arrow">▶</span> Open Video in YouTube
+        </a>
+        <div class="url-display">https://youtu.be/MAhpfFt_mWM?si=7FvwaYEj0xfHsDx6</div>
+      </div>
+    </div>
+
+    <div class="callout gold">
+      <p><strong>💡 Active watching tip:</strong> Keep your workbook open. Pause the video whenever you spot a concept that connects to your walking robot. Use the guide below to focus your attention.</p>
+    </div>
+
+    <table class="watch-table">
+      <thead>
+        <tr>
+          <th>Watch for…</th>
+          <th>Why it matters for YOUR robot</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Defining the problem clearly</td>
+          <td>What is the specific, measurable problem with your robot? (wobble, leg jamming, battery falling out, slow speed?)</td>
+        </tr>
+        <tr>
+          <td>Criteria and constraints</td>
+          <td>What must your robot do (criteria)? What can you NOT change — same motor, same materials (constraints)?</td>
+        </tr>
+        <tr>
+          <td>Brainstorming multiple ideas</td>
+          <td>Engineers always generate several options before choosing one. How many ideas can you come up with for your problem?</td>
+        </tr>
+        <tr>
+          <td>Testing and measuring results</td>
+          <td>How will you prove your improvement actually made things better? What will you measure?</td>
+        </tr>
+        <tr>
+          <td>Iterating — improve, don't scrap</td>
+          <td>Good engineers tweak and refine. You are not starting from scratch; you are improving what you already built.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- SECTION 3: REFLECT -->
+  <section>
+    <div class="section-heading">
+      <span class="section-num">03</span>
+      <h2>Reflect — Answer in Your Workbook</h2>
+    </div>
+
+    <p class="intro-text">
+      Write your answers to the following questions in your workbook or on paper. You will share and discuss them at the start of next class. Be <strong>honest</strong> and <strong>specific</strong> — vague answers won't help you in the workshop.
+    </p>
+
+    <div class="q-grid">
+
+      <div class="q-box">
+        <div class="q-box-head">
+          <div class="q-num-badge">1</div>
+          Observe Your Prototype
+        </div>
+        <div class="q-box-body">
+          <p>Describe <strong>one problem</strong> you noticed when you tested your walking robot. What exactly happened?</p>
+          <div class="q-hint">
+            Example: "The back legs dragged on the ground instead of lifting, so the robot barely moved forward."
+          </div>
+          <div class="answer-lines">
+            <div class="answer-line"></div>
+            <div class="answer-line"></div>
+            <div class="answer-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-box">
+        <div class="q-box-head">
+          <div class="q-num-badge">2</div>
+          Root Cause Analysis
+        </div>
+        <div class="q-box-body">
+          <p>Using the design process from the video — what is the <strong>root cause</strong> of your problem? Design issue, material issue, or assembly issue?</p>
+          <div class="q-hint">
+            Think about: leg geometry, joint friction, motor torque, weight distribution, crank offset…
+          </div>
+          <div class="answer-lines">
+            <div class="answer-line"></div>
+            <div class="answer-line"></div>
+            <div class="answer-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-box">
+        <div class="q-box-head">
+          <div class="q-num-badge">3</div>
+          Criteria &amp; Constraints
+        </div>
+        <div class="q-box-body">
+          <p>Write <strong>two criteria</strong> (things your improved robot MUST do) and <strong>one constraint</strong> (a limit you cannot change).</p>
+          <div class="q-hint">
+            Criteria: "must walk in a straight line for 30 cm." &nbsp; Constraint: "must use the existing gearbox and 2× AA batteries."
+          </div>
+          <div class="answer-lines">
+            <div class="answer-line"></div>
+            <div class="answer-line"></div>
+            <div class="answer-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-box">
+        <div class="q-box-head">
+          <div class="q-num-badge">4</div>
+          Brainstorm Solutions
+        </div>
+        <div class="q-box-body">
+          <p>Sketch or list <strong>at least three different solutions</strong> to your problem. Quantity over quality at this stage — wild ideas welcome!</p>
+          <div class="q-hint">
+            Longer legs? Different leg angle? Added weights? Rubber feet? Different crank position? All ideas count.
+          </div>
+          <div class="answer-lines">
+            <div class="answer-line"></div>
+            <div class="answer-line"></div>
+            <div class="answer-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-box">
+        <div class="q-box-head">
+          <div class="q-num-badge">5</div>
+          Select Your Best Idea
+        </div>
+        <div class="q-box-body">
+          <p>Which idea will you prototype next class, and <strong>why</strong>? Use at least one reason connected to the design process video.</p>
+          <div class="q-hint">
+            Which directly addresses the root cause? Which can be tested quickly in one lesson?
+          </div>
+          <div class="answer-lines">
+            <div class="answer-line"></div>
+            <div class="answer-line"></div>
+            <div class="answer-line"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-box">
+        <div class="q-box-head">
+          <div class="q-num-badge">6</div>
+          Plan Your Test
+        </div>
+        <div class="q-box-body">
+          <p>How will you <strong>measure success</strong> next class? What test will you run, and what does "better" look like compared to your current prototype?</p>
+          <div class="q-hint">
+            Be specific: "I'll measure distance walked in 10 seconds" beats "I'll see if it walks better."
+          </div>
+          <div class="answer-lines">
+            <div class="answer-line"></div>
+            <div class="answer-line"></div>
+            <div class="answer-line"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION 4: CHALLENGE MENU -->
+  <section>
+    <div class="section-heading">
+      <span class="section-num">04</span>
+      <h2>Improvement Challenge Menu</h2>
+    </div>
+
+    <p class="intro-text">
+      Next class you will redesign parts in Tinkercad and re-cut them on the laser cutter. Choose <strong>at least one challenge</strong> to focus on. More demanding challenges earn additional design marks.
+    </p>
+
+    <table class="challenge-table">
+      <thead>
+        <tr>
+          <th>Challenge</th>
+          <th>What to do</th>
+          <th>Level</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            🦿 Leg Geometry
+          </td>
+          <td>The front leg is 80 mm, back leg 50 mm. The ratio and crank-pivot position directly affects stride length and walking efficiency. Redesign leg proportions to maximise forward movement per crank rotation.</td>
+          <td><span class="level-badge level-entry">Entry</span></td>
+        </tr>
+        <tr>
+          <td>
+            ⚖️ Centre of Mass
+          </td>
+          <td>A robot that tips forward or sideways wastes energy. Analyse where your robot's weight sits and redesign body panels or battery placement so the centre of mass is directly over the foot contact points.</td>
+          <td><span class="level-badge level-entry">Entry</span></td>
+        </tr>
+        <tr>
+          <td>
+            🔩 Reduce Friction
+          </td>
+          <td>Wooden axle-and-lock joints create significant friction. Modify axle hole sizing, add wooden washers at each joint, or redesign the lock piece to reduce binding while keeping parts together.</td>
+          <td><span class="level-badge level-mid">Intermediate</span></td>
+        </tr>
+        <tr>
+          <td>
+            🐾 Foot Design
+          </td>
+          <td>Flat-ended legs slip on smooth surfaces. Redesign the foot ends of both leg types to improve grip — consider angled contact surfaces or curved shapes inspired by animal locomotion. Test on two different surfaces.</td>
+          <td><span class="level-badge level-mid">Intermediate</span></td>
+        </tr>
+        <tr>
+          <td>
+            🏗️ Alternating Gait
+          </td>
+          <td>Currently left and right legs move in parallel. Redesign the crank wheel so legs are 180° out of phase, creating an alternating walking gait. Requires modifying wheel geometry to carry two offset axle positions.</td>
+          <td><span class="level-badge level-adv">Advanced</span></td>
+        </tr>
+        <tr>
+          <td>
+            🔄 Steering
+          </td>
+          <td>Design a simple steering add-on — a passive caster under the body, or an asymmetric leg arrangement that creates a predictable curve. Document your design rationale with annotated sketches before cutting.</td>
+          <td><span class="level-badge level-adv">Advanced</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout teal" style="margin-top:16px;">
+      <p><strong>Which challenge did you choose?</strong> Write your selection and a one-sentence reason in your workbook. You'll pitch it to your group at the start of next class.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 5: PRE-CLASS CHECKLIST -->
+  <section>
+    <div class="section-heading">
+      <span class="section-num">05</span>
+      <h2>Pre-Class Checklist</h2>
+    </div>
+
+    <p class="intro-text">
+      Tick everything off before arriving at next class. Students who arrive prepared will spend their time making and testing — not catching up.
+    </p>
+
+    <ul class="checklist">
+      <li><span class="box"></span> Watched the full video and taken notes on the design process stages</li>
+      <li><span class="box"></span> Written answers to all six reflection questions in my workbook</li>
+      <li><span class="box"></span> Sketched at least three possible improvements (rough hand-drawings are fine)</li>
+      <li><span class="box"></span> Identified which improvement challenge I want to tackle</li>
+      <li><span class="box"></span> Written a specific test plan — what I will measure and how I will know it is better</li>
+      <li><span class="box"></span> Workbook and pencil ready to bring to class for iteration notes</li>
+    </ul>
+  </section>
+
+  <!-- SECTION 6: LESSON PLAN -->
+  <section>
+    <div class="section-heading">
+      <span class="section-num">06</span>
+      <h2>What Happens Next Class</h2>
+    </div>
+
+    <p class="intro-text">Here is the plan for your next lesson so you can prepare your thinking in advance.</p>
+
+    <table class="plan-table">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Activity</th>
+          <th>What you need ready</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>0 – 10 min</td>
+          <td>Share &amp; Critique</td>
+          <td>Present your top idea to your table group and refine it based on feedback before committing to cutting.</td>
+        </tr>
+        <tr>
+          <td>10 – 20 min</td>
+          <td>Tinkercad Redesign</td>
+          <td>Modify your design for the parts you are improving. Re-export SVG and prepare in Inkscape. Double-check dimensions before cutting.</td>
+        </tr>
+        <tr>
+          <td>20 – 35 min</td>
+          <td>Laser Cut &amp; Assemble</td>
+          <td>Cut revised parts and fit the upgrade onto your existing robot body. Work efficiently — there may be time for a second iteration.</td>
+        </tr>
+        <tr>
+          <td>35 – 50 min</td>
+          <td>Test, Measure &amp; Compare</td>
+          <td>Run your planned test against the original robot. Record the data. Did your hypothesis hold? Complete the iteration log in your workbook.</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- SECTION 7: EXTENSIONS -->
+  <section>
+    <div class="section-heading">
+      <span class="section-num">07</span>
+      <h2>Extension Activities <span style="font-family:'Source Sans 3';font-size:13px;font-weight:400;color:var(--text-light)">(Optional)</span></h2>
+    </div>
+
+    <p class="intro-text">For students who want to extend their thinking beyond the core activity.</p>
+
+    <div class="ext-grid">
+      <div class="ext-card">
+        <div class="ext-card-head">
+          <span class="ext-icon">🤖</span>
+          <span class="ext-label">Extension A</span>
+        </div>
+        <p>Research Boston Dynamics <em>Spot</em> or Honda <em>ASIMO</em>. How do their leg geometries compare to your robot? How do they solve balance and friction? Write a five-point comparison in your workbook.</p>
+      </div>
+      <div class="ext-card">
+        <div class="ext-card-head">
+          <span class="ext-icon">📋</span>
+          <span class="ext-label">Extension B</span>
+        </div>
+        <p>Engineers keep detailed lab notebooks. Photograph your current robot, annotate the image with the problems you found, then write a brief <em>Engineering Change Order</em> explaining each planned modification and why.</p>
+      </div>
+      <div class="ext-card">
+        <div class="ext-card-head">
+          <span class="ext-icon">🔢</span>
+          <span class="ext-label">Extension C</span>
+        </div>
+        <p>The hobby gearbox reduces speed and multiplies torque. Research a typical yellow gearbox gear ratio. Calculate the output torque and RPM. Does your robot need more torque or more speed to walk better?</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <p>Year 8 Mechatronics · St Peters Lutheran College · Flipped Classroom Resource</p>
+  <p class="motto">Plus Ultra — Ever Higher</p>
+  <p>Based on <em>Tinkercad Robotics for School</em> by M.C. Langer · Instructables 2022</p>
+</footer>
+
+</body>
+</html>
