@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Year 8 Mathematics — Chapter 6 Practice Examination</title>
+<link href="https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--maroon:#730D28;--gold:#FDBB30;--charcoal:#1D252D;--steel:#41748D;--teal:#006C5B;--white:#fff;--light:#fafafa;--border:#ddd;--text:#1D252D;--muted:#5a6370;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Karma',serif;background:#fff;color:var(--text);font-size:13.5px;line-height:1.65;}
+  .page{max-width:860px;margin:0 auto;padding:28px 36px 48px;}
+
+  /* HEADER */
+  .exam-header{border:2px solid var(--charcoal);padding:0;margin-bottom:22px;}
+  .eh-top{background:var(--maroon);color:white;padding:12px 18px;display:flex;align-items:center;gap:14px;border-bottom:3px solid var(--gold);}
+  .crest{width:44px;height:44px;border-radius:50%;background:var(--gold);color:var(--maroon);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;flex-shrink:0;border:2px solid rgba(255,255,255,.2);}
+  .eh-top h1{font-size:1.1rem;font-weight:700;color:var(--gold);}
+  .eh-top p{font-size:.75rem;color:rgba(255,255,255,.75);}
+  .practice-stamp{margin-left:auto;background:var(--gold);color:var(--maroon);padding:5px 14px;border-radius:4px;font-weight:700;font-size:.75rem;letter-spacing:1px;white-space:nowrap;}
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;border-top:0;}
+  .info-cell{padding:9px 16px;border-bottom:1px solid var(--border);}
+  .info-cell:nth-child(odd){border-right:1px solid var(--border);}
+  .info-cell .lbl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);display:block;margin-bottom:2px;}
+  .info-cell .val{font-size:.88rem;font-weight:600;}
+  .student-row{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:0;}
+  .sfield{padding:10px 16px;border-top:1px solid var(--border);}
+  .sfield:not(:last-child){border-right:1px solid var(--border);}
+  .sfield .lbl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);display:block;margin-bottom:6px;}
+  .sfield .writeline{border-bottom:1.5px solid var(--charcoal);height:22px;display:block;}
+
+  /* NOTICE */
+  .practice-notice{background:#FFF9EE;border:1.5px solid var(--gold);border-radius:8px;padding:12px 16px;margin-bottom:18px;font-size:.82rem;display:flex;gap:10px;align-items:flex-start;}
+  .pn-icon{font-size:1.1rem;flex-shrink:0;}
+  .practice-notice strong{color:#7a5500;}
+
+  /* TIMING BANNER */
+  .timing-banner{background:var(--charcoal);color:white;border-radius:6px;padding:10px 16px;margin-bottom:20px;display:flex;align-items:center;gap:12px;font-size:.82rem;}
+  .timing-banner .tb-label{color:var(--gold);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.5px;}
+  .time-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;}
+  .tc{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.88);padding:3px 10px;border-radius:20px;font-size:.74rem;}
+  .tc.highlight{background:var(--gold);color:var(--charcoal);font-weight:700;border-color:var(--gold);}
+
+  /* SECTION */
+  .exam-section{background:var(--charcoal);color:white;padding:7px 14px;font-weight:700;font-size:.85rem;margin:20px 0 14px;border-left:4px solid var(--gold);}
+
+  /* QUESTION BLOCKS */
+  .q-block{border:1px solid var(--border);border-radius:0;margin-bottom:14px;overflow:hidden;}
+  .q-head{display:grid;grid-template-columns:auto 1fr auto auto;gap:0;align-items:stretch;background:var(--light);border-bottom:1px solid var(--border);}
+  .q-num{background:var(--maroon);color:white;padding:8px 14px;font-weight:700;font-size:.88rem;display:flex;align-items:center;}
+  .q-type{padding:7px 12px;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);display:flex;align-items:center;border-right:1px solid var(--border);}
+  .q-marks{padding:7px 12px;font-size:.8rem;font-weight:600;color:var(--charcoal);display:flex;align-items:center;white-space:nowrap;}
+  .q-time{background:#EFF4F8;color:var(--steel);padding:7px 12px;font-size:.72rem;font-weight:700;display:flex;align-items:center;white-space:nowrap;border-left:1px solid var(--border);}
+  .q-body{padding:14px 16px;}
+  .q-text{font-size:.9rem;line-height:1.65;margin-bottom:12px;}
+  .q-text strong{color:var(--maroon);}
+  .sub-q{padding:8px 0;border-top:1px dashed var(--border);margin-top:8px;}
+  .sub-q:first-child{border-top:none;margin-top:0;}
+  .sub-label{font-weight:700;color:var(--maroon);margin-right:6px;font-size:.9rem;}
+
+  /* MCQ */
+  .mcq-options{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;}
+  .mcq-option{border:1.5px solid var(--border);border-radius:6px;padding:8px 13px;font-size:.88rem;display:flex;align-items:center;gap:9px;cursor:pointer;transition:border-color .2s;}
+  .mcq-option:hover{border-color:var(--maroon);}
+  .opt-label{background:var(--charcoal);color:white;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.72rem;flex-shrink:0;}
+  .opt-label.selected{background:var(--maroon);}
+
+  /* ANSWER SPACES */
+  .ans-space{border:1.5px solid var(--border);border-radius:5px;background:#fcfcfc;margin-top:10px;}
+  .ans-space .ans-header{background:var(--light);border-bottom:1px solid var(--border);padding:5px 11px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);}
+  .ans-lines{padding:10px 12px;}
+  .ans-line{border-bottom:1px solid #e0e0e0;height:28px;margin-bottom:2px;}
+  .ans-box{min-height:80px;border-bottom:1px solid #e0e0e0;}
+
+  /* WORKING BOX */
+  .working-box{border:1px dashed var(--border);border-radius:4px;padding:8px 12px;min-height:90px;margin-top:8px;background:#fafafa;}
+  .wb-label{font-size:.68rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;display:block;margin-bottom:6px;}
+
+  /* WORD SENTENCE REMINDER */
+  .sentence-reminder{background:#EFF7F5;border:1px solid #c8e6df;border-radius:5px;padding:6px 12px;font-size:.76rem;color:var(--teal);font-weight:600;margin-top:8px;display:flex;align-items:center;gap:6px;}
+
+  /* MARK DISTRIBUTION */
+  .mark-dist{margin-top:28px;border:1.5px solid var(--border);border-radius:0;}
+  .md-title{background:var(--charcoal);color:white;padding:8px 14px;font-weight:700;font-size:.85rem;}
+  table.mdt{width:100%;border-collapse:collapse;font-size:.8rem;}
+  table.mdt th{background:var(--maroon);color:white;padding:7px 10px;text-align:center;font-size:.72rem;text-transform:uppercase;letter-spacing:.4px;}
+  table.mdt td{padding:6px 10px;text-align:center;border-bottom:1px solid var(--border);}
+  table.mdt tr:nth-child(even) td{background:var(--light);}
+  table.mdt .qcol{font-weight:700;text-align:left;padding-left:14px;}
+  .sf-cell{color:var(--teal);font-weight:600;}
+  .cf-cell{color:var(--steel);font-weight:600;}
+  .cu-cell{color:var(--maroon);font-weight:600;}
+
+  /* END */
+  .end-banner{text-align:center;background:var(--maroon);color:white;padding:10px;font-weight:700;font-size:.95rem;letter-spacing:1px;margin-top:24px;border:2px solid var(--charcoal);}
+
+  @media print{
+    body{font-size:12px;}
+    .page{padding:18px 24px;}
+    .practice-notice{display:none;}
+    .q-block{page-break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="exam-header">
+    <div class="eh-top">
+      <div class="crest">SP</div>
+      <div>
+        <h1>Year 8 Mathematics — Chapter 6 Practice Examination</h1>
+        <p>St Peters Lutheran College Springfield &nbsp;·&nbsp; Unit 1: Ratios, Rates &amp; Scale &nbsp;·&nbsp; Term 1, 2026</p>
+      </div>
+      <div class="practice-stamp">PRACTICE ONLY</div>
+    </div>
+    <div class="info-grid">
+      <div class="info-cell"><span class="lbl">Learning Area</span><span class="val">Mathematics</span></div>
+      <div class="info-cell"><span class="lbl">Subject</span><span class="val">Year 8 Mathematics</span></div>
+      <div class="info-cell"><span class="lbl">Technique</span><span class="val">Examination (Practice Version)</span></div>
+      <div class="info-cell"><span class="lbl">Conditions</span><span class="val">50 minutes + 5 minutes perusal time</span></div>
+    </div>
+    <div class="info-grid" style="border-top:1px solid var(--border);">
+      <div class="info-cell"><span class="lbl">Task Instructions</span>
+        <span class="val" style="font-weight:400;font-size:.82rem;">
+          · Complete all questions &nbsp;·&nbsp; Show all working where required<br>
+          · Write answers neatly &nbsp;·&nbsp; Calculators permitted (memory cleared)<br>
+          · Write a sentence answer where indicated
+        </span>
+      </div>
+      <div class="info-cell"><span class="lbl">Total Marks</span><span class="val" style="font-size:1.4rem;color:var(--maroon);">38</span></div>
+    </div>
+    <div class="student-row">
+      <div class="sfield"><span class="lbl">Student Name</span><span class="writeline"></span></div>
+      <div class="sfield"><span class="lbl">Teacher</span><span class="writeline"></span></div>
+      <div class="sfield"><span class="lbl">Date</span><span class="writeline"></span></div>
+    </div>
+  </div>
+
+  <!-- PRACTICE NOTICE -->
+  <div class="practice-notice">
+    <span class="pn-icon">⚠</span>
+    <span><strong>Practice Examination Notice:</strong> This is a practice exam for revision purposes only. It has the same structure and question types as your assessment but uses different values. Using this paper will not compromise the integrity of the actual examination. Actual exam questions and numbers will differ.</span>
+  </div>
+
+  <!-- TIMING OVERVIEW -->
+  <div class="timing-banner">
+    <div>
+      <div class="tb-label">Suggested Timing Guide</div>
+      <div class="time-chips">
+        <span class="tc highlight">5 min — Perusal (read all, get ruler ready for Q11)</span>
+        <span class="tc">Q1–Q7 ≈ 18 min</span>
+        <span class="tc">Q8–Q11 ≈ 15 min</span>
+        <span class="tc">Q12–Q13 ≈ 9 min</span>
+        <span class="tc highlight">3 min — Final review</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION: RATIO -->
+  <div class="exam-section">Topic 1: Ratio &amp; Rate</div>
+
+  <!-- Q1 -->
+  <div class="q-block">
+    <div class="q-head">
+      <div class="q-num">Q1</div>
+      <div class="q-type">Simple Familiar (SF)</div>
+      <div class="q-marks">1 mark</div>
+      <div class="q-time">⏱ ~1–2 min</div>
+    </div>
+    <div class="q-body">
+      <div class="q-text">Select the ratio that is written in its <strong>simplest form</strong>.</div>
+      <div class="mcq-options">
+        <div class="mcq-option"><span class="opt-label">a</span> 6 : 42</div>
+        <div class="mcq-option"><span class="opt-label">b</span> 8 : 36</div>
+        <div class="mcq-option"><span class="opt-label">c</span> 11 : 17</div>
+        <div class="mcq-option"><span class="opt-label">d</span> 21 : 35</div>
+      </div>
+      <div class="ans-space" style="margin-top:10px;">
+        <div class="ans-header">Answer</div>
+        <div class="ans-lines"><div class="ans-line"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-block">
+    <div class="q-head">
+      <div class="q-num">Q2</div>
+      <div class="q-type">Simple Familiar (SF)</div>
+      <div class="q-marks">1 + 1 = 2 marks</div>
+      <div class="q-time">⏱ ~3 min</div>
+    </div>
+    <div class="q-body">
+      <div class="q-text">Simplify each of the following ratios into simplest form.</div>
+      <div class="sub-q">
+        <span class="sub-label">a)</span> 450 g to 2.25 kg
+        <div class="working-box"><span class="wb-label">Working</span></div>
+        <div class="ans-space"><div class="ans-header">Answer</div><div class="ans-lines"><div class="ans-line"></div></div></div>
+      </div>
+      <div class="sub-q">
+        <span class="sub-label">b)</span> 72 : 48 : 36
+        <div class="working-box"><span class="wb-label">Working</span></div>
+        <div class="ans-space"><div class="ans-header">Answer</div><div class="ans-lines"><div class="ans-line"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-block">
+    <div class="q-head">
+      <div class="q-num">Q3</div>
+      <div class="q-type">Simple Familiar (SF)</div>
+      <div class="q-marks">4 marks</div>
+      <div class="q-time">⏱ ~4 min</div>
+    </div>
+    <div class="q-body">
+      <div class="q-text">Mia, Oscar and Priya are splitting a prize of <strong>$480</strong> in the ratio <strong>3 : 4 : 5</strong>. Calculate how much each person receives. <strong>Show all working.</strong></div>
+      <div class="working-box" style="min-height:110px;"><span class="wb-label">Working</span></div>
+      <div class="ans-space">
+        <div class="ans-header">Answer</div>
+        <div class="ans-lines">
+          <div class="ans-line"></div>
+          <div class="ans-line"></div>
+          <div class="ans-line"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-block">
+    <div class="q-head">
+      <div class="q-num">Q4</div>
+      <div class="q-type">Complex Familiar (CF)</div>
+      <div class="q-marks">2 + 2 = 4 marks</div>
+      <div class="q-time">⏱ ~5 min</div>
+    </div>
+    <div class="q-body">
+      <div class="q-text">In a Year 8 class of <strong>30 students</strong>, the ratio of boys to girls is <strong>2 : 3</strong>.</div>
+      <div class="sub-q">
+        <span class="sub-label">a)</span> How many boys and how many girls are in the class?
+        <div class="working-box"><span class="wb-label">Working</span></div>
+        <div class="ans-space"><div class="ans-header">Answer</div><div class="ans-lines"><div class="ans-line"></div><div class="ans-line"></div></div></div>
+      </div>
+      <div class="sub-q">
+        <span class="sub-label">b)</span> If <strong>5 new girls</strong> join the class, what will be the new ratio of boys to girls? Write your answer in simplest form.
+        <div class="working-box"><span class="wb-label">Working</span></div>
+        <div class="ans-space"><div class="ans-header">Answer</div><div class="ans-lines"><div class="ans-line"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-block">
+    <div class="q-head">
+      <div class="q-num">Q5</div>
+      <div class="q-type">Simple Familiar (SF)</div>
+      <div class="q-marks">1 + 1 = 2 marks</div>
+      <div class="q-time">⏱ ~3 min</div>
+    </div>
+    <div class="q-body">
+      <div class="q-text">A baker uses the following recipe to make <strong>16 muffins</strong>: <strong>400 g plain flour : 200 g sugar : 8 g baking powder</strong>.</div>
+      <div class="sub-q">
+        <span class="sub-label">a)</span> Write the ratio of ingredients in its simplest form.
+        <div class="working-box"><span class="wb-label">Working</span></div>
+        <div class="ans-space"><div class="ans-header">Answer</div><div class="ans-lines"><div class="ans-line"></div></div></div>
+      </div>
+      <div class="sub-q">
+        <span class="sub-label">b)</span> How much of each ingredient is needed to make <strong>32 muffins</strong>?
+        <div class="working-box"><span class="wb-label">Working</span></div>
+        <div class="ans-space"><div class="ans-header">Answer</div><div class="ans-lines"><div class="ans-line"></div><div class="ans-line"></div><div class="ans-line"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-block">
+    <div class="q-head">
+      <div class="q-num">Q6</div>
+      <div class="q-type">Complex Familiar (CF)</div>
+      <div class="q-marks">2 marks</div>
+      <div class="q-time">⏱ ~2–3 min</div>
+    </div>
+    <div class="q-body">
+      <div class="q-text">A map has a scale of <strong>1 : 8 000</strong>. Find the actual distance that corresponds to a measured map distance of <strong>25 cm</strong>. Give your answer in <strong>metres</strong>.</div>
+      <div class="working-box"><span class="wb-label">Working</span></div>
+      <div class="ans-space"><div class="ans-header">Answer</div><div class="ans-lines"><div class="ans-line"></div></div></div>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-block">
+    <div class="q-head">
+      <div class="q-num">Q7</div>
+      <div class="q-type">Simple Familiar (SF)</div>
+      <div class="q-marks">2 marks</div>
+      <div class="q-time">⏱ ~2–3 min</div>
+    </div>
+    <div class="q-body">
+      <div class="q-text">A length of <strong>4 cm</strong> on a scaled drawing represents an actual length of <strong>28 m</strong>. Determine the scale factor for this drawing. Write your answer in simplest form.</div>
+      <div class="working-box"><span class="wb-label">Working</span></div>
+      <div class="ans-space"><div class="ans-header">Answer</div><div class="ans-lines"><div class="ans-line"></div></div></div>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-block">
+    <div class="q-head">
+      <div class="q-num">Q8</div>
+      <div class="q-type">Complex Familiar (CF)</div>
+      <div class="q-marks">3 marks</div>
+      <div class="q-time">⏱ ~4 min</div>
+    </div>
+    <div class="q-body">
+      <div class="q-text">Two business partners, Rivera and Santos, decide to share their business profits in the same ratio as their investments. Rivera invests <strong>$6 000</strong> and Santos invests <strong>$10 000</strong>. If Rivera receives <strong>$1 800</strong> from the first quarter's profit, how much should Santos receive?</div>
+      <div class="working-box" style="min-height:100px;"><span class="wb-label">Working</span></div>
+      <div class="ans-space"><div class="ans-header">Answer</div><div class="ans-lines"><div class="ans-line"></div></div></div>
+    </div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="q-block">
+    <div class="q-head">
+      <div class="q-num">Q9</div>
+      <div class="q-type">Simple Familiar (SF)</div>
+      <div class="q-marks">2 + 2 = 4 marks</div>
+      <div class="q-time">⏱ ~4 min</div>
+    </div>
+    <div class="q-body">
+      <div class="q-text">Express each of the following as a <strong>rate in its simplest form</strong>. Include units in your answer.</div>
+      <div class="sub-q">
+        <span class="sub-label">a)</span> A delivery truck travels <strong>350 km</strong> in <strong>5 hours</strong>.
+        <div class="working-box"><span class="wb-label">Working</span></div>
+        <div class="ans-space"><div class="ans-header">Answer</div><div class="ans-lines"><div class="ans-line"></div></div></div>
+      </div>
+      <div class="sub-q">
+        <span class="sub-label">b)</span> <strong>600 cattle</strong> are grazed on <strong>400 hectares</strong> of farmland.
+        <div class="working-box"><span class="wb-label">Working</span></div>
+        <div class="ans-space"><div class="ans-header">Answer</div><div class="ans-lines"><div class="ans-line"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="q-block">
+    <div class="q-head">
+      <div class="q-num">Q10</div>
+      <div class="q-type">Simple Familiar (SF)</div>
+      <div class="q-marks">3 marks</div>
+      <div class="q-time">⏱ ~4 min</div>
+    </div>
+    <div class="q-body">
+      <div class="q-text">Find the average speed in <strong>kilometres per hour</strong> of a passenger train that travels <strong>420 km</strong> in <strong>280 minutes</strong>. <strong>Show all working.</strong></div>
+      <div class="working-box" style="min-height:100px;"><span class="wb-label">Working — remember to convert time units first!</span></div>
+      <div class="ans-space"><div class="ans-header">Answer</div><div class="ans-lines"><div class="ans-line"></div></div></div>
+    </div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="q-block">
+    <div class="q-head">
+      <div class="q-num">Q11</div>
+      <div class="q-type">Simple Familiar (SF)</div>
+      <div class="q-marks">2 + 2 = 4 marks</div>
+      <div class="q-time">⏱ ~4 min (ruler needed)</div>
+    </div>
+    <div class="q-body">
+      <div class="q-text">Using a ruler to measure the scaled drawing below, calculate the actual dimensions of the truck. <span style="font-weight:700;color:var(--maroon);">Scale = 1 : 80</span></div>
+
+      <!-- Truck SVG diagram -->
+      <div style="margin:14px 0;text-align:center;">
+        <svg width="420" height="130" viewBox="0 0 420 130" xmlns="http://www.w3.org/2000/svg" style="border:1px solid #ddd;background:#f9f9f9;border-radius:4px;padding:8px;">
+          <!-- Truck body (cargo) -->
+          <rect x="60" y="35" width="270" height="60" rx="3" fill="#d0d8e0" stroke="#555" stroke-width="1.5"/>
+          <!-- Cab -->
+          <rect x="330" y="45" width="50" height="50" rx="3" fill="#b8c4d0" stroke="#555" stroke-width="1.5"/>
+          <!-- Cab windscreen -->
+          <rect x="338" y="50" width="35" height="24" rx="2" fill="#a8d4e8" stroke="#777" stroke-width="1"/>
+          <!-- Wheels -->
+          <circle cx="100" cy="95" r="14" fill="#444" stroke="#222" stroke-width="1.5"/>
+          <circle cx="100" cy="95" r="7" fill="#888"/>
+          <circle cx="200" cy="95" r="14" fill="#444" stroke="#222" stroke-width="1.5"/>
+          <circle cx="200" cy="95" r="7" fill="#888"/>
+          <circle cx="340" cy="95" r="14" fill="#444" stroke="#222" stroke-width="1.5"/>
+          <circle cx="340" cy="95" r="7" fill="#888"/>
+          <circle cx="368" cy="95" r="14" fill="#444" stroke="#222" stroke-width="1.5"/>
+          <circle cx="368" cy="95" r="7" fill="#888"/>
+          <!-- Ground line -->
+          <line x1="50" y1="109" x2="400" y2="109" stroke="#888" stroke-width="1" stroke-dasharray="4 3"/>
+          <!-- Measurement arrows -->
+          <line x1="60" y1="118" x2="330" y2="118" stroke="#730D28" stroke-width="1"/>
+          <line x1="60" y1="114" x2="60" y2="122" stroke="#730D28" stroke-width="1.5"/>
+          <line x1="330" y1="114" x2="330" y2="122" stroke="#730D28" stroke-width="1.5"/>
+          <text x="195" y="128" text-anchor="middle" fill="#730D28" font-family="'Karma',serif" font-size="10" font-weight="700">Cargo Length →</text>
+          <!-- Height arrow -->
+          <line x1="42" y1="35" x2="42" y2="95" stroke="#006C5B" stroke-width="1"/>
+          <line x1="38" y1="35" x2="46" y2="35" stroke="#006C5B" stroke-width="1.5"/>
+          <line x1="38" y1="95" x2="46" y2="95" stroke="#006C5B" stroke-width="1.5"/>
+          <text x="24" y="68" text-anchor="middle" fill="#006C5B" font-family="'Karma',serif" font-size="10" font-weight="700" transform="rotate(-90,24,68)">Height ↕</text>
+          <!-- Scale label -->
+          <text x="210" y="22" text-anchor="middle" fill="#555" font-family="'Karma',serif" font-size="10">Scale 1 : 80</text>
+        </svg>
+      </div>
+
+      <div class="sub-q">
+        <span class="sub-label">a)</span> Use your ruler to measure the cargo section, then calculate the actual length of the cargo area.
+        <div class="working-box"><span class="wb-label">Ruler measurement: ___ cm &nbsp;→&nbsp; Working</span></div>
+        <div class="ans-space"><div class="ans-header">Actual length</div><div class="ans-lines"><div class="ans-line"></div></div></div>
+      </div>
+      <div class="sub-q">
+        <span class="sub-label">b)</span> Use your ruler to measure the height of the cargo section, then calculate the actual height.
+        <div class="working-box"><span class="wb-label">Ruler measurement: ___ cm &nbsp;→&nbsp; Working</span></div>
+        <div class="ans-space"><div class="ans-header">Actual height</div><div class="ans-lines"><div class="ans-line"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q12 -->
+  <div class="q-block">
+    <div class="q-head">
+      <div class="q-num">Q12</div>
+      <div class="q-type">Complex Unfamiliar (CU)</div>
+      <div class="q-marks">3 marks — Show working</div>
+      <div class="q-time">⏱ ~4–5 min</div>
+    </div>
+    <div class="q-body">
+      <div class="q-text">A rabbit kitten gained an average of <strong>200 g per month</strong> during the first <strong>9 months</strong> of its life. If the kitten weighed <strong>350 g</strong> when it was born, how much did it weigh at 9 months of age? Give your answer in <strong>kilograms</strong>.<br><br><strong>N.B. Remember to include a worded answer.</strong></div>
+      <div class="working-box" style="min-height:110px;"><span class="wb-label">Working</span></div>
+      <div class="ans-space">
+        <div class="ans-header">Answer (worded sentence required)</div>
+        <div class="ans-lines"><div class="ans-line"></div><div class="ans-line"></div></div>
+      </div>
+      <div class="sentence-reminder">✏ Write: "When the rabbit kitten was 9 months old, it weighed _____ kg."</div>
+    </div>
+  </div>
+
+  <!-- Q13 -->
+  <div class="q-block">
+    <div class="q-head">
+      <div class="q-num">Q13</div>
+      <div class="q-type">Complex Unfamiliar (CU)</div>
+      <div class="q-marks">4 marks — Show working</div>
+      <div class="q-time">⏱ ~5–6 min</div>
+    </div>
+    <div class="q-body">
+      <div class="q-text">The map below shows the road from <strong>Riverside Rest Stop</strong> to <strong>Granite Gorge National Park (GGNP)</strong>. The speed limit on this road is <strong>90 km/h</strong>. Assuming the road is straight (do not account for road curves), how long will it take to drive from Riverside Rest Stop to GGNP?<br><br>
+      <strong>N.B.</strong> The entrance to the National Park is just above its name on the map. <strong>Show all working and write a sentence answer.</strong></div>
+
+      <!-- Map diagram -->
+      <div style="margin:12px 0;border:1.5px solid var(--border);border-radius:6px;overflow:hidden;">
+        <div style="background:#e8f0d8;padding:14px;min-height:220px;position:relative;">
+          <svg width="100%" viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background terrain -->
+            <rect x="0" y="0" width="360" height="200" fill="#e8f0d8"/>
+            <!-- Water body -->
+            <ellipse cx="60" cy="80" rx="40" ry="25" fill="#b8d4e8" stroke="#88aacc" stroke-width="0.5"/>
+            <text x="60" y="84" text-anchor="middle" fill="#4477aa" font-family="'Karma',serif" font-size="8">Lake</text>
+            <!-- Hills -->
+            <ellipse cx="280" cy="140" rx="50" ry="30" fill="#c8d8b0" stroke="#9ab888" stroke-width="0.5"/>
+            <ellipse cx="300" cy="160" rx="35" ry="20" fill="#b8c8a0"/>
+            <!-- Road line -->
+            <line x1="80" y1="150" x2="250" y2="55" stroke="#888" stroke-width="3" stroke-linecap="round"/>
+            <line x1="80" y1="150" x2="250" y2="55" stroke="#ffee88" stroke-width="1" stroke-dasharray="6 4" stroke-linecap="round"/>
+            <!-- Start marker -->
+            <circle cx="80" cy="150" r="7" fill="#730D28" stroke="white" stroke-width="1.5"/>
+            <text x="80" y="153.5" text-anchor="middle" fill="white" font-family="'Karma',serif" font-size="7" font-weight="700">R</text>
+            <text x="80" y="168" text-anchor="middle" fill="#730D28" font-family="'Karma',serif" font-size="8" font-weight="700">Riverside</text>
+            <text x="80" y="178" text-anchor="middle" fill="#730D28" font-family="'Karma',serif" font-size="8">Rest Stop</text>
+            <!-- End marker -->
+            <circle cx="250" cy="55" r="7" fill="#006C5B" stroke="white" stroke-width="1.5"/>
+            <text x="250" y="58.5" text-anchor="middle" fill="white" font-family="'Karma',serif" font-size="7" font-weight="700">G</text>
+            <text x="250" y="43" text-anchor="middle" fill="#006C5B" font-family="'Karma',serif" font-size="8" font-weight="700">Granite Gorge</text>
+            <text x="250" y="53" text-anchor="middle" fill="#006C5B" font-family="'Karma',serif" font-size="8">National Park</text>
+            <text x="250" y="63" text-anchor="middle" fill="#006C5B" font-family="'Karma',serif" font-size="7">(entrance)</text>
+            <!-- Towns -->
+            <circle cx="160" cy="100" r="3" fill="#555"/>
+            <text x="168" y="103" fill="#555" font-family="'Karma',serif" font-size="7">Millbrook</text>
+            <circle cx="120" cy="130" r="2" fill="#666"/>
+            <text x="128" y="133" fill="#666" font-family="'Karma',serif" font-size="7">Cedar Flat</text>
+            <!-- Scale bar -->
+            <rect x="260" y="185" width="60" height="6" fill="none" stroke="#444" stroke-width="1"/>
+            <rect x="260" y="185" width="30" height="6" fill="#444"/>
+            <text x="290" y="198" text-anchor="middle" fill="#444" font-family="'Karma',serif" font-size="8">1 : 150 000</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="working-box" style="min-height:130px;"><span class="wb-label">Step 1: Measure map distance (cm) → Step 2: Convert to km → Step 3: Apply T = D ÷ S → Step 4: Convert to minutes</span></div>
+      <div class="ans-space">
+        <div class="ans-header">Answer (worded sentence required)</div>
+        <div class="ans-lines"><div class="ans-line"></div><div class="ans-line"></div><div class="ans-line"></div></div>
+      </div>
+      <div class="sentence-reminder">✏ Write: "It will take approximately _____ minutes to drive from Riverside Rest Stop to Granite Gorge National Park."</div>
+    </div>
+  </div>
+
+  <!-- ADDITIONAL RESPONSE PAGE -->
+  <div style="margin-top:24px;border:1.5px solid var(--border);border-radius:4px;overflow:hidden;">
+    <div style="background:var(--charcoal);color:white;padding:8px 14px;font-size:.82rem;font-weight:700;">Additional Response Page</div>
+    <div style="height:200px;padding:12px;background:#fcfcfc;"></div>
+  </div>
+
+  <!-- MARK DISTRIBUTION -->
+  <div class="mark-dist">
+    <div class="md-title">Mark Distribution Table</div>
+    <table class="mdt">
+      <thead>
+        <tr>
+          <th style="text-align:left;padding-left:14px;">Question</th>
+          <th>Simple Familiar (SF)</th>
+          <th>Complex Familiar (CF)</th>
+          <th>Complex Unfamiliar (CU)</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="qcol">Q1</td><td class="sf-cell">1</td><td>—</td><td>—</td><td>1</td></tr>
+        <tr><td class="qcol">Q2</td><td class="sf-cell">2</td><td>—</td><td>—</td><td>2</td></tr>
+        <tr><td class="qcol">Q3</td><td class="sf-cell">4</td><td>—</td><td>—</td><td>4</td></tr>
+        <tr><td class="qcol">Q4</td><td>—</td><td class="cf-cell">4</td><td>—</td><td>4</td></tr>
+        <tr><td class="qcol">Q5</td><td class="sf-cell">2</td><td>—</td><td>—</td><td>2</td></tr>
+        <tr><td class="qcol">Q6</td><td>—</td><td class="cf-cell">2</td><td>—</td><td>2</td></tr>
+        <tr><td class="qcol">Q7</td><td class="sf-cell">2</td><td>—</td><td>—</td><td>2</td></tr>
+        <tr><td class="qcol">Q8</td><td>—</td><td class="cf-cell">3</td><td>—</td><td>3</td></tr>
+        <tr><td class="qcol">Q9</td><td class="sf-cell">4</td><td>—</td><td>—</td><td>4</td></tr>
+        <tr><td class="qcol">Q10</td><td class="sf-cell">3</td><td>—</td><td>—</td><td>3</td></tr>
+        <tr><td class="qcol">Q11</td><td class="sf-cell">4</td><td>—</td><td>—</td><td>4</td></tr>
+        <tr><td class="qcol">Q12</td><td>—</td><td>—</td><td class="cu-cell">3</td><td>3</td></tr>
+        <tr><td class="qcol">Q13</td><td>—</td><td>—</td><td class="cu-cell">4</td><td>4</td></tr>
+        <tr style="font-weight:700;background:#f5f5f5;">
+          <td class="qcol">Total</td>
+          <td class="sf-cell">22</td>
+          <td class="cf-cell">9</td>
+          <td class="cu-cell">7</td>
+          <td style="font-size:1rem;color:var(--maroon);">38</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="end-banner">— END OF PRACTICE EXAMINATION —</div>
+
+</div>
+</body>
+</html>
